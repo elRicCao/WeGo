@@ -1,9 +1,11 @@
-package com.example.wego;
+package vn.edu.hcmut.wego.activity;
 
-import android.support.v7.app.ActionBarActivity;
+import vn.edu.hcmut.wego.R;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
 
 // Test elRic ver 2
 public class MainActivity extends ActionBarActivity {
