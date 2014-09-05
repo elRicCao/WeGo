@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.constant.Constant;
+import vn.edu.hcmut.wego.utility.JSONParser;
 
 import android.os.AsyncTask;
 
@@ -37,7 +38,7 @@ public class Logic {
 	 * */
 	private static class DoServiceASYNC extends AsyncTask<String, Void, JSONArray> {
 		protected JSONArray doInBackground(String... params) {
-			JSONArray result = null;
+			JSONArray result = new JSONArray();
 			String query = params[0];
 
 			// Building Input Parameters
@@ -50,14 +51,18 @@ public class Logic {
 			try {
 				// Checking for SUCCESS TAG
 				int success = json.getInt(Constant.SUCCESS);
-
+				JSONObject tmpResult = new JSONObject();
+				JSONObject tmpSuccess = new JSONObject();
+				JSONObject tmpMessage = new JSONObject();
+				
+				tmpSuccess.put(Constant.SUCCESS, json.get(Constant.SUCCESS));
+				tmpMessage.put(Constant.MESSAGE, json.get(Constant.MESSAGE));
+				result.put(tmpSuccess);
+				result.put(tmpMessage);
+				
 				if (success == 1 && json.has(Constant.RESULT)) {
-					result = json.getJSONArray(Constant.RESULT);
-				} else {
-					result = new JSONArray();
-					JSONObject tmp = new JSONObject();
-					tmp.put(Constant.MESSAGE, json.get(Constant.MESSAGE));
-					result.put(tmp);
+					tmpResult.put(Constant.RESULT, json.get(Constant.RESULT));
+					result.put(tmpResult);
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();

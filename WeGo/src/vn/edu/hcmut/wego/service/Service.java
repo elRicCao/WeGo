@@ -1,8 +1,15 @@
 package vn.edu.hcmut.wego.service;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import vn.edu.hcmut.wego.constant.Constant;
+import vn.edu.hcmut.wego.utility.CommonUtil;
+
 public class Service {
 
-	// TODO: Send request to server and receive authentication information
+	// TODO: Debug again. Always return true.
 	/**
 	 * Send login information to server and receive confirmation
 	 * @param email
@@ -10,7 +17,16 @@ public class Service {
 	 * @return true if email and password are valid, otherwise return false
 	 */
 	public static boolean loginAuthentication(String email, String password) {
-		return true;
+		String query = "Select * from Users where Email='" + email + "' and Password='" + password + "'";
+		JSONArray result = Logic.execute(query);
+		try {
+			JSONObject success = CommonUtil.getJSONObject(result, Constant.SUCCESS);
+			if(success.get(Constant.SUCCESS).toString().contains("1"))
+				return true;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	//TODO: Check network status

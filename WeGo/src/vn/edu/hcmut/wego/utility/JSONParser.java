@@ -1,4 +1,4 @@
-package vn.edu.hcmut.wego.service;
+package vn.edu.hcmut.wego.utility;
 
 import java.io.BufferedReader;
 import java.io.IOException;

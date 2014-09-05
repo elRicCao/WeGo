@@ -28,8 +28,7 @@
         android:paddingTop="100sp"
         android:typeface="normal"
         android:inputType="textEmailAddress"
-        android:hint="@string/login_email_hint" 
-        >
+        android:hint="@string/login_email_hint" >
     </EditText>
     
     <EditText
@@ -37,7 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10sp"
-        android:typeface="normal"
         android:inputType="textPassword"
         android:hint="@string/login_password_hint">
 	</EditText>

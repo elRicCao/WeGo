@@ -2,9 +2,11 @@ package vn.edu.hcmut.wego.activity;
 
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.service.Service;
+import vn.edu.hcmut.wego.utility.Security;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -30,7 +32,10 @@ public class LoginActivity extends ActionBarActivity {
 	// Binding views and objects
 	private void getControl() {
 		emailField = (EditText) findViewById(R.id.login_email_field);
+
 		passwordField = (EditText) findViewById(R.id.login_password_field);
+		passwordField.setTypeface(Typeface.DEFAULT);
+
 		loginButton = (Button) findViewById(R.id.login_button);
 	}
 
@@ -54,17 +59,17 @@ public class LoginActivity extends ActionBarActivity {
 					if (Service.checkInternetConnection()) {
 
 						// Authenticate login information
-						if (Service.loginAuthentication(email, password)) {
+						if (Service.loginAuthentication(email, Security.encode(password))) {
 							Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 							startActivity(intent);
-						}
-						else {
+							finish();
+						} else {
 							AlertDialog.Builder builder = new Builder(LoginActivity.this);
 							builder.setTitle("Login Failed").setMessage("Incorrect email or password. Please check your login information and try again.");
 							builder.create();
 							builder.show();
 						}
-						
+
 					} else {
 						AlertDialog.Builder builder = new Builder(LoginActivity.this);
 						builder.setTitle("Login Failed").setMessage("Sorry, login failed to reach WeGo servers. Please check your network connection or try again later.");
