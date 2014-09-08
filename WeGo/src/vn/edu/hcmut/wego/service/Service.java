@@ -17,6 +17,7 @@ public class Service {
 	 * @return true if email and password are valid, otherwise return false
 	 */
 	public static boolean loginAuthentication(String email, String password) {
+		// Viet test commit
 		String query = "Select * from Users where Email='" + email + "' and Password='" + password + "'";
 		JSONArray result = Logic.execute(query);
 		try {
