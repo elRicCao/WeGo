@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.service.Server;
 
-public class UserLogic {
+public class LoginLogic {
 
 	// TODO: Debug again. Always return true.
 	/**
