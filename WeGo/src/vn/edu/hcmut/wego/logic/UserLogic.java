@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.constant.Constant;
-import vn.edu.hcmut.wego.service.Logic;
+import vn.edu.hcmut.wego.service.Server;
 
 public class UserLogic {
 
@@ -22,7 +22,7 @@ public class UserLogic {
 			param.put("email", email);
 			param.put("password", password);
 			
-			JSONObject result = Logic.execute("UserLogic", "selectUser", param);
+			JSONObject result = Server.execute("UserLogic", "selectUser", param);
 			
 			if(result.getString(Constant.RESULT).compareTo(Constant.EMPTY_RESULT) != 0)
 				return true;

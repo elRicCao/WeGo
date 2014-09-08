@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import vn.edu.hcmut.wego.utility.JSONParser;
 import android.os.AsyncTask;
 
-public class Logic {
+public class Server {
 	private static JSONParser jParser = new JSONParser();
 
 	public static JSONObject execute(String file, String method, JSONObject params) {
