@@ -1,13 +1,12 @@
-package vn.edu.hcmut.wego.service;
+package vn.edu.hcmut.wego.logic;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.constant.Constant;
-import vn.edu.hcmut.wego.utility.CommonUtil;
+import vn.edu.hcmut.wego.service.Logic;
 
-public class Service {
+public class UserLogic {
 
 	// TODO: Debug again. Always return true.
 	/**
@@ -17,12 +16,15 @@ public class Service {
 	 * @return true if email and password are valid, otherwise return false
 	 */
 	public static boolean loginAuthentication(String email, String password) {
-		// Viet test commit
-		String query = "Select * from Users where Email='" + email + "' and Password='" + password + "'";
-		JSONArray result = Logic.execute(query);
+		JSONObject param = new JSONObject();
+		
 		try {
-			JSONObject success = CommonUtil.getJSONObject(result, Constant.SUCCESS);
-			if(success.get(Constant.SUCCESS).toString().contains("1"))
+			param.put("email", email);
+			param.put("password", password);
+			
+			JSONObject result = Logic.execute("UserLogic", "selectUser", param);
+			
+			if(result.getString(Constant.RESULT).compareTo(Constant.EMPTY_RESULT) != 0)
 				return true;
 		} catch (JSONException e) {
 			e.printStackTrace();
