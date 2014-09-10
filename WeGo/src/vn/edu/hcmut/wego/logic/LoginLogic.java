@@ -5,10 +5,10 @@ import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.service.Server;
+import vn.edu.hcmut.wego.utility.Security;
 
 public class LoginLogic {
 
-	// TODO: Debug again. Always return true.
 	/**
 	 * Send login information to server and receive confirmation
 	 * @param email
@@ -20,7 +20,7 @@ public class LoginLogic {
 		
 		try {
 			param.put("email", email);
-			param.put("password", password);
+			param.put("password", Security.encode(password));
 			
 			JSONObject result = Server.execute("UserLogic", "selectUser", param);
 			

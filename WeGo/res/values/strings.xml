@@ -8,6 +8,9 @@
 	<string name="login_email_hint">Email</string>
 	<string name="login_password_hint">Password</string>
 	<string name="login_button">Log In</string>
+	<string name="login_forgot_password"><u>Forgot password?</u></string>
+	<string name="login_sign_up"><u>Sign Up for WeGo</u></string>
 	<string name="title_activity_main">MainActivity</string>
+	
 	
 </resources>

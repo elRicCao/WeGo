@@ -2,7 +2,6 @@ package vn.edu.hcmut.wego.activity;
 
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.logic.LoginLogic;
-import vn.edu.hcmut.wego.utility.Security;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Intent;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends ActionBarActivity {
@@ -20,6 +20,7 @@ public class LoginActivity extends ActionBarActivity {
 	private EditText emailField;
 	private EditText passwordField;
 	private Button loginButton;
+	private TextView forgotPasswordLink;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +38,14 @@ public class LoginActivity extends ActionBarActivity {
 		passwordField.setTypeface(Typeface.DEFAULT);
 
 		loginButton = (Button) findViewById(R.id.login_button);
+		
+		forgotPasswordLink = (TextView) findViewById(R.id.login_forget_password_link);
 	}
 
 	// Add event handler to views
 	private void addAction() {
+		
+		// Login button clicked
 		loginButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -59,7 +64,7 @@ public class LoginActivity extends ActionBarActivity {
 					if (LoginLogic.checkInternetConnection()) {
 
 						// Authenticate login information
-						if (LoginLogic.loginAuthentication(email, Security.encode(password))) {
+						if (LoginLogic.loginAuthentication(email, password)) {
 							Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 							startActivity(intent);
 							finish();
@@ -77,6 +82,16 @@ public class LoginActivity extends ActionBarActivity {
 						builder.show();
 					}
 				}
+			}
+		});
+		
+		// Forgot password link clicked
+		forgotPasswordLink.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Link to forget password activity
+				
 			}
 		});
 	}
