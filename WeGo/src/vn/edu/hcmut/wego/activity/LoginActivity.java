@@ -21,6 +21,7 @@ public class LoginActivity extends ActionBarActivity {
 	private EditText passwordField;
 	private Button loginButton;
 	private TextView forgotPasswordLink;
+	private TextView signUppLink;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,8 @@ public class LoginActivity extends ActionBarActivity {
 		loginButton = (Button) findViewById(R.id.login_button);
 		
 		forgotPasswordLink = (TextView) findViewById(R.id.login_forget_password_link);
+		
+		signUppLink = (TextView) findViewById(R.id.login_sign_up_link);
 	}
 
 	// Add event handler to views
@@ -61,7 +64,7 @@ public class LoginActivity extends ActionBarActivity {
 					passwordField.requestFocus();
 				} else {
 					// Check Internet connection
-					if (LoginLogic.checkInternetConnection()) {
+					if (LoginLogic.checkInternetConnection(LoginActivity.this)) {
 
 						// Authenticate login information
 						if (LoginLogic.loginAuthentication(email, password)) {
@@ -92,6 +95,16 @@ public class LoginActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Link to forget password activity
 				
+			}
+		});
+		
+		// Sign up link clicked
+		signUppLink.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+				startActivity(intent);
 			}
 		});
 	}
