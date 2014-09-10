@@ -1,5 +1,8 @@
 package vn.edu.hcmut.wego.logic;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,6 +41,16 @@ public class LoginLogic {
 	 * @return true if Internet connected, otherwise return false
 	 */
 	public static boolean checkInternetConnection() {
-		return true;
+		try{
+			URL url = new URL("http://www.google.com");
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.connect();
+			if (con.getResponseCode() == 200)return true;
+			else return false;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
 	}
 }
