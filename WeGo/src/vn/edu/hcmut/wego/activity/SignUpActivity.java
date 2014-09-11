@@ -1,8 +1,8 @@
 package vn.edu.hcmut.wego.activity;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.logic.SignUpLogic;
-import vn.edu.hcmut.wego.logic.SignUpLogic.SignUpResult;
+import vn.edu.hcmut.wego.service.Service;
+import vn.edu.hcmut.wego.service.Service.SignUpResult;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
@@ -63,7 +63,7 @@ public class SignUpActivity extends ActionBarActivity {
 				String phone = phoneField.getText().toString();
 
 				// Use service to send info to server and receive result
-				SignUpResult result = SignUpLogic.submitSignupInformation(username, email, password, phone);
+				SignUpResult result = Service.submitSignupInformation(username, email, password, phone);
 
 				// Switch case result: EXIST_EMAIL, EXIST_PHONE and SUCCESS
 				// Show dialog for each case

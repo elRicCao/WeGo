@@ -1,7 +1,7 @@
 package vn.edu.hcmut.wego.activity;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.logic.LoginLogic;
+import vn.edu.hcmut.wego.service.Service;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Intent;
@@ -64,10 +64,10 @@ public class LoginActivity extends ActionBarActivity {
 					passwordField.requestFocus();
 				} else {
 					// Check Internet connection
-					if (LoginLogic.checkInternetConnection(LoginActivity.this)) {
+					if (Service.checkInternetConnection(LoginActivity.this)) {
 
 						// Authenticate login information
-						if (LoginLogic.loginAuthentication(email, password)) {
+						if (Service.loginAuthentication(email, password)) {
 							Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 							startActivity(intent);
 							finish();
