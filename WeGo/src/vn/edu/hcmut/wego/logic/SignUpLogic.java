@@ -1,5 +1,11 @@
 package vn.edu.hcmut.wego.logic;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import vn.edu.hcmut.wego.constant.Constant;
+import vn.edu.hcmut.wego.service.Server;
+
 public class SignUpLogic {
 	
 	// TODO: Add more result if needed
@@ -20,8 +26,56 @@ public class SignUpLogic {
 	 * @return SUCCESS if everything is fine, EXIST_EMAIL or EXIST_PHONE if email or phone has already been used
 	 */
 	public static SignUpResult submitSignupInformation(String username, String email, String password, String phone) {
-		SignUpResult result = SignUpResult.SUCCESS;
+		if(checkEmailExist(email))
+			return SignUpResult.EXIST_EMAIL;
 		
-		return result;
+		if(checkPhoneExist(phone))
+			return SignUpResult.EXIST_PHONE;
+		
+		JSONObject param = new JSONObject();
+
+		try {
+			param.put("user", username);
+			param.put("email", email);
+			param.put("password", password);
+			param.put("phone", phone);
+
+			Server.execute("UserLogic", "insertNewUser", param);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return SignUpResult.SUCCESS;
+	}
+	
+	public static boolean checkEmailExist(String email) {
+		JSONObject param = new JSONObject();
+
+		try {
+			param.put("email", email);
+
+			JSONObject result = Server.execute("UserLogic", "checkEmailExist", param);
+
+			if (result.getString(Constant.RESULT).compareTo(Constant.EMPTY_RESULT) != 0)
+				return true;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static boolean checkPhoneExist(String phone) {
+		JSONObject param = new JSONObject();
+
+		try {
+			param.put("phone", phone);
+
+			JSONObject result = Server.execute("UserLogic", "checkPhoneExist", param);
+
+			if (result.getString(Constant.RESULT).compareTo(Constant.EMPTY_RESULT) != 0)
+				return true;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
