@@ -18,5 +18,8 @@
     <string name="signup_phone_hint">Phone number</string>
     <string name="signup_button">Sign up</string>
     <string name="signup_cancel_button">Cancel</string>
+    <string name="title_fragment_news">NEWS</string>
+    <string name="title_fragment_friends">FRIENDS</string>
+    <string name="title_fragment_groups">GROUPS</string>
 
 </resources>

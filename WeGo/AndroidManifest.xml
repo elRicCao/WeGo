@@ -29,11 +29,11 @@
         </activity>
         <activity
             android:name=".activity.SignUpActivity"
-            android:label="@string/title_activity_sign_up" 
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:label="@string/title_activity_sign_up"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name="vn.edu.hcmut.wego.activity.MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
     </application>

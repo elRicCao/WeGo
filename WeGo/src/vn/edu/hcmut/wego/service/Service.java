@@ -83,7 +83,7 @@ public class Service {
 			param.put("password", password);
 			param.put("phone", phone);
 
-			Server.execute("SignUpInsertUser", "insertNewUser", param);
+			Server.execute("UserLogic", "insertNewUser", param);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -102,7 +102,7 @@ public class Service {
 		try {
 			param.put("email", email);
 
-			JSONObject result = Server.execute("SignUpCheckEmail", "checkEmailExist", param);
+			JSONObject result = Server.execute("UserLogic", "checkEmailExist", param);
 
 			if (result.getString(Constant.RESULT).compareTo(Constant.EMPTY_RESULT) != 0)
 				return true;
@@ -124,7 +124,7 @@ public class Service {
 		try {
 			param.put("phone", phone);
 
-			JSONObject result = Server.execute("SignUpCheckPhone", "checkPhoneExist", param);
+			JSONObject result = Server.execute("UserLogic", "checkPhoneExist", param);
 
 			if (result.getString(Constant.RESULT).compareTo(Constant.EMPTY_RESULT) != 0)
 				return true;
