@@ -1,10 +1,13 @@
 package vn.edu.hcmut.wego.service;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.constant.Constant;
-import vn.edu.hcmut.wego.utility.Security;
+import vn.edu.hcmut.wego.entity.Group;
+import vn.edu.hcmut.wego.entity.User;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -24,18 +27,18 @@ public class Service {
 	 * Send login information to server and receive confirmation
 	 * 
 	 * @param email
-	 * @param password
-	 * @return true if email and password are valid, otherwise return false
+	 * @param encryptedPassword
+	 * @return true if email and password are valid and then store to local machine, otherwise return false
 	 */
-	public static boolean loginAuthentication(String email, String password) {
+	public static boolean loginAuthentication(String email, String encryptedPassword, Context context) {
 		JSONObject param = new JSONObject();
 
 		try {
 			param.put("email", email);
-			param.put("password", Security.encode(password));
+			param.put("password", encryptedPassword);
 
 			JSONObject result = Server.execute("UserLogic", "selectUser", param);
-
+			
 			if (result.getString(Constant.RESULT).compareTo(Constant.EMPTY_RESULT) != 0)
 				return true;
 		} catch (JSONException e) {
@@ -76,7 +79,6 @@ public class Service {
 
 		JSONObject param = new JSONObject();
 
-		// TODO: Check again. Cannot insert to database.
 		try {
 			param.put("user", username);
 			param.put("email", email);
@@ -132,5 +134,26 @@ public class Service {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	
+	/**
+	 * TODO: Load friends information from server base on user id
+	 * @param userId
+	 * @return list of friends
+	 */
+	public static ArrayList<User> loadFriendsInfo(String userId) {
+		ArrayList<User> friends = new ArrayList<User>();
+		return friends;
+	}
+	
+	/**
+	 * TODO: Load groups information from server base on user id
+	 * @param userId
+	 * @return list of groups
+	 */
+	public static ArrayList<Group> loadGroupsInfo (String userId) {
+		ArrayList<Group> groups = new ArrayList<Group>();
+		return groups;
 	}
 }

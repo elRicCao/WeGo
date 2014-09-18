@@ -21,5 +21,6 @@
     <string name="title_fragment_news">NEWS</string>
     <string name="title_fragment_friends">FRIENDS</string>
     <string name="title_fragment_groups">GROUPS</string>
+    <string name="action_logout">Log out</string>
 
 </resources>

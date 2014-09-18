@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Security {
-	public static String encode(String input) {
+	public static String encrypt(String input) {
 		String strEncodePassword = null;
 
 		if (null == input)
