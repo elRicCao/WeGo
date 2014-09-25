@@ -2,7 +2,7 @@ package vn.edu.hcmut.wego.fragment;
 
 import android.support.v4.app.Fragment;
 
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 	private String title;
 
 	public String getTitle() {
@@ -12,4 +12,5 @@ public class BaseFragment extends Fragment {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
 }

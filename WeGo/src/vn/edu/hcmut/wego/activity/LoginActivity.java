@@ -35,7 +35,9 @@ public class LoginActivity extends ActionBarActivity {
 		getControl();
 		addAction();
 		if (loadLoginInfo()) {
-			loginSequence();
+			Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+			startActivity(intent);
+			finish();
 		}
 	}
 

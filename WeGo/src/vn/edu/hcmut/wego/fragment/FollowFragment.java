@@ -7,15 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class NewsFragment extends BaseFragment {
-
-	public NewsFragment(Context context) {
-		setTitle(context.getString(R.string.title_fragment_news));
+public class FollowFragment extends BaseFragment {
+	
+	public FollowFragment(Context context) {
+		setTitle(context.getString(R.string.title_fragment_follow));
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_news, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_follow, container, false);
 		return rootView;
 	}
 }
