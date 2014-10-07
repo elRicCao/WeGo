@@ -142,13 +142,16 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
 	}
 
 	/**
-	 * Delete user preference when logging out
+	 * Logging out sequence: delete user preferences and turn back to login screen
 	 */
 	private void logOutSequence() {
 		// Clear user preference
-		SharedPreferences preferences = getSharedPreferences(Constant.PREFS_NAME, 0);
+		SharedPreferences preferences = getSharedPreferences(Constant.PREFS_NAME, MODE_PRIVATE);
 		preferences.edit().clear().commit();
-
+		
+		// Delete database
+		deleteDatabase(Constant.DATABASE_NAME);
+		
 		// Turn back to login screen
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);

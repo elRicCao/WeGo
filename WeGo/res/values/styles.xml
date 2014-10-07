@@ -15,8 +15,13 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+       <item name="android:actionBarStyle">@style/AppActionBar</item>
     </style>
 
+    <style name="AppActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/green01</item>
+    </style>
+    
     <style name="Theme.AppCompat.Light.NoActionBar" parent="@style/Theme.AppCompat.Light">
         <item name="android:windowNoTitle">true</item>
     </style>

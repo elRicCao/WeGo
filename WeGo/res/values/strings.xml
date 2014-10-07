@@ -34,5 +34,17 @@
     <string name="title_fragment_map">MAP</string>
     <string name="title_fragment_members">MEMBERS</string>
     <string name="title_fragment_schedule">SCHEDULE</string>
+    <string name="item_friend_image">Profile Photo</string>
+    <string name="fragment_news_button_status">Status</string>
+    <string name="fragment_news_button_photo">Photo</string>
+    <string name="fragment_news_button_checkin">Check-in</string>
+    <string name="fragment_friends_button_message">Message</string>
+    <string name="fragment_friends_button_filter">Filter</string>
+    <string name="fragment_follow_button_sort">Sort</string>
+   	<string name="fragment_follow_button_filter">Filter</string>
+   	<string name="fragment_trip_button_create_trip">Create Trip</string>
+   	<string name="fragment_trip_button_filter">Filter</string>
+   	<string name="fragment_more_update_info">Update Info</string>
+   	<string name="fragment_more_find_group">Find Group</string>
 
 </resources>
