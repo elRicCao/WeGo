@@ -18,7 +18,7 @@ public class SocialService {
 	 * @param targetId
 	 * @return user info
 	 */
-	public static User getUserInfo(long targetId) {
+	public static User getUserInfo(int targetId) {
 		return null;
 	}
 
@@ -28,7 +28,7 @@ public class SocialService {
 	 * @param targetId
 	 * @return true if A and B are friend, false if A and B are not friend
 	 */
-	public static boolean checkFriend (long userId, long targetId) {
+	public static boolean checkFriend (int userId, int targetId) {
 		JSONObject param = new JSONObject();
 	
 		try {
@@ -50,7 +50,7 @@ public class SocialService {
 	 * @param userId
 	 * @param targetId
 	 */
-	public static void sendFriendRequest(long userId, long targetId) {
+	public static void sendFriendRequest(int userId, int targetId) {
 		
 	}
 
@@ -60,7 +60,7 @@ public class SocialService {
 	 * @param targetId
 	 * @param type
 	 */
-	public static void respondFriendRequest(long userId, long targetId, boolean isApproved) {
+	public static void respondFriendRequest(int userId, int targetId, boolean isApproved) {
 		
 	}
 
@@ -69,7 +69,7 @@ public class SocialService {
 	 * @param userId
 	 * @param targetId
 	 */
-	public static void deleteFriend(long userId, long targetId) {
+	public static void deleteFriend(int userId, int targetId) {
 		
 	}
 
@@ -78,7 +78,7 @@ public class SocialService {
 	 * @param userId
 	 * @param targetId
 	 */
-	public static void followUser(long userId, long targetId) {
+	public static void followUser(int userId, int targetId) {
 		
 	}
 
@@ -87,7 +87,7 @@ public class SocialService {
 	 * @param userId
 	 * @param targetId
 	 */
-	public static void unfollowUser(long userId, long targetId) {
+	public static void unfollowUser(int userId, int targetId) {
 		
 	}
 	
@@ -95,7 +95,7 @@ public class SocialService {
 	 * Get info of specific group based on group id (after search)
 	 * @param groupId
 	 */
-	public static void getGroupInfo(long groupId) {
+	public static void getGroupInfo(int groupId) {
 		
 	}
 
@@ -105,7 +105,7 @@ public class SocialService {
 	 * @param name
 	 * @param description
 	 */
-	public static void createGroup(long managerId, String name, String description) {
+	public static void createGroup(int managerId, String name, String description) {
 		
 	}
 	
@@ -114,7 +114,7 @@ public class SocialService {
 	 * @param name
 	 * @param description
 	 */
-	public static void updateGroupInfo(long groupId, String name, String description) {
+	public static void updateGroupInfo(int groupId, String name, String description) {
 		
 	}
 	
@@ -123,7 +123,7 @@ public class SocialService {
 	 * @param userId
 	 * @param groupId
 	 */
-	public static void checkUserRoleInGroup(long userId, long groupId) {
+	public static void checkUserRoleInGroup(int userId, int groupId) {
 		
 	}
 	
@@ -132,7 +132,7 @@ public class SocialService {
 	 * @param userId
 	 * @param groupId
 	 */
-	public static void sendGroupRequest(long userId, long groupId) {
+	public static void sendGroupRequest(int userId, int groupId) {
 		
 	}
 	
@@ -142,7 +142,7 @@ public class SocialService {
 	 * @param requestUserId
 	 * @param type
 	 */
-	public static void respondGroupRequest(long groupId, long requestUserId, boolean isApproved) {
+	public static void respondGroupRequest(int groupId, int requestUserId, boolean isApproved) {
 		
 	}
 	
@@ -151,7 +151,7 @@ public class SocialService {
 	 * @param groupId
 	 * @param targetUserId
 	 */
-	public static void inviteUserToGroup(long groupId, long targetUserId) {
+	public static void inviteUserToGroup(int groupId, int targetUserId) {
 		
 	}
 	
@@ -161,7 +161,7 @@ public class SocialService {
 	 * @param groupId
 	 * @param isApproved
 	 */
-	public static void respondGroupInvite(long userId, long groupId, boolean isApproved) {
+	public static void respondGroupInvite(int userId, int groupId, boolean isApproved) {
 		
 	}
 	
@@ -170,7 +170,7 @@ public class SocialService {
 	 * @param groupId
 	 * @param banUserId
 	 */
-	public static void banUserFromGroup(long groupId, long banUserId) {
+	public static void banUserFromGroup(int groupId, int banUserId) {
 		
 	}
 	
@@ -179,7 +179,7 @@ public class SocialService {
 	 * @param userId
 	 * @param groupId
 	 */
-	public static void leaveGroup(long userId, long groupId) {
+	public static void leaveGroup(int userId, int groupId) {
 		
 	}
 	
@@ -187,7 +187,7 @@ public class SocialService {
 	 * Manager close group
 	 * @param groupId
 	 */
-	public static void closeGroup(long groupId) {
+	public static void closeGroup(int groupId) {
 		
 	}
 	
@@ -197,7 +197,7 @@ public class SocialService {
 	 * @param groupId
 	 * @param content
 	 */
-	public static void sendGroupMessage(long userId, long groupId, String content) {
+	public static void sendGroupMessage(int userId, int groupId, String content) {
 		
 	}
 
@@ -207,7 +207,7 @@ public class SocialService {
 	 * @param targetId
 	 * @param content
 	 */
-	public static void sendUserMessage(long userId, long targetId, long content) {
+	public static void sendUserMessage(int userId, int targetId, String content) {
 		
 	}
 
@@ -216,7 +216,7 @@ public class SocialService {
 	 * @param userId
 	 * @return list of friends with information: name, phone, email, status, last update
 	 */
-	public static ArrayList<User> getAllFriendsInfo(long userId) {
+	public static ArrayList<User> getAllFriendsInfo(int userId) {
 		ArrayList<User> friends = new ArrayList<User>();
 		JSONObject param = new JSONObject();
 	
@@ -250,7 +250,7 @@ public class SocialService {
 	 * @param userId
 	 * @return list of groups with information: name, description, status
 	 */
-	public static ArrayList<Group> getAllGroupsInfo(long userId) {
+	public static ArrayList<Group> getAllGroupsInfo(int userId) {
 		ArrayList<Group> groups = new ArrayList<Group>();
 		JSONObject param = new JSONObject();
 	

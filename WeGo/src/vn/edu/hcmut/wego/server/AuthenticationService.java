@@ -43,7 +43,7 @@ public class AuthenticationService {
 
 			if (result.getInt(Constant.SUCCESS) == 1) {
 				User user = new User();
-				user.setId(Long.parseLong(userInfo.getString("id")));
+				user.setId(Integer.parseInt(userInfo.getString("id")));
 				user.setEmail(userInfo.getString("email"));
 				user.setPhone(userInfo.getString("phone"));
 				user.setName(userInfo.getString("name"));

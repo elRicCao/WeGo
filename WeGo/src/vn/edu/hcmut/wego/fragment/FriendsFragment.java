@@ -6,6 +6,7 @@ import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.adapter.FriendAdapter;
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.entity.User;
+import vn.edu.hcmut.wego.server.SocialService;
 import vn.edu.hcmut.wego.storage.DatabaseOpenHelper;
 import vn.edu.hcmut.wego.utility.CommonUtility;
 import android.content.Context;
@@ -19,7 +20,7 @@ import android.widget.ListView;
 
 public class FriendsFragment extends BaseFragment {
 	
-	private Long userId;
+	private int userId;
 	private ArrayList<User> friends;
 	private Context context;
 	public FriendsFragment(Context context) {
@@ -36,13 +37,12 @@ public class FriendsFragment extends BaseFragment {
 		DatabaseOpenHelper database = new DatabaseOpenHelper(context);
 		
 		// Get userId
-		userId = (Long) CommonUtility.getValueFromSharedPreferences(context, Constant.PREFS_USER_ID, Long.class);
+		userId = (Integer) CommonUtility.getValueFromSharedPreferences(context, Constant.PREFS_USER_ID, Integer.class);
 		
 		// Load friends info
 		if (CommonUtility.checkInternetConnection(context)) {
 			//TODO: Load friends info from server and store to database
-			
-			friends = database.getAllFriends();
+			friends = SocialService.getAllFriendsInfo(userId);
 		}
 		else {
 			//TODO: Load friends info from database

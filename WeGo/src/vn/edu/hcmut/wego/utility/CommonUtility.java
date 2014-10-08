@@ -54,8 +54,8 @@ public class CommonUtility {
 	 */
 	public static Object getValueFromSharedPreferences(Context context, String key, Class<?> cls) {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.PREFS_NAME, Context.MODE_PRIVATE);
-		if (cls == Long.class)
-			return sharedPreferences.getLong(key, 0);
+		if (cls == Integer.class)
+			return sharedPreferences.getInt(key, 0);
 		return sharedPreferences.getString(key, null);
 	}
 
@@ -69,8 +69,8 @@ public class CommonUtility {
 	public static void setValueToSharedPreferences(Context context, String key, Object value) {
 		SharedPreferences preferences = context.getSharedPreferences(Constant.PREFS_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = preferences.edit();
-		if (value.getClass() == Long.class)
-			editor.putLong(key, (Long) value);
+		if (value.getClass() == Integer.class)
+			editor.putInt(key, (Integer) value);
 		else
 			editor.putString(key, (String) value);
 		editor.commit();

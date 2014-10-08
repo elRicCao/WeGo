@@ -172,7 +172,7 @@ public class LoginActivity extends ActionBarActivity {
 	 * @return true if login information exists, otherwise return false
 	 */
 	private boolean isLoginInfoExist() {
-		long userId = (Long) CommonUtility.getValueFromSharedPreferences(this, Constant.PREFS_USER_ID, Long.class);
+		int userId = (Integer) CommonUtility.getValueFromSharedPreferences(this, Constant.PREFS_USER_ID, Integer.class);
 		return userId > 0;
 	}
 }

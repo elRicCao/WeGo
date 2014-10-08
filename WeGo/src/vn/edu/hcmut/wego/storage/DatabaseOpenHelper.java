@@ -119,7 +119,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
 		if (cursor.moveToFirst()) {
 			User user = new User();
-			user.setId(cursor.getLong(INDEX_KEY_USER_ID));
+			user.setId(cursor.getInt(INDEX_KEY_USER_ID));
 			user.setName(cursor.getString(INDEX_KEY_USER_NAME));
 			user.setEmail(cursor.getString(INDEX_KEY_USER_EMAIL));
 			user.setPhone(cursor.getString(INDEX_KEY_USER_PHONE));
