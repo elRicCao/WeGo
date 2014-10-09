@@ -42,7 +42,7 @@ public class FriendsFragment extends BaseFragment {
 		// Load friends info
 		if (CommonUtility.checkInternetConnection(context)) {
 			//TODO: Load friends info from server and store to database
-			friends = SocialService.getAllFriendsInfo(userId);
+			friends = SocialService.getAllFriends(userId);
 		}
 		else {
 			//TODO: Load friends info from database
