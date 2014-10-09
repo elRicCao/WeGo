@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.entity.Group;
+import vn.edu.hcmut.wego.entity.Offer;
 import vn.edu.hcmut.wego.entity.User;
 
 public class SocialService {
@@ -52,8 +53,8 @@ public class SocialService {
 	 * 
 	 * @param userId
 	 */
-	public static void getFriendRequest(int userId) {
-
+	public static Offer getFriendRequest(int userId) {
+		return null;
 	}
 
 	/**
@@ -152,8 +153,8 @@ public class SocialService {
 	 * 
 	 * @param groupId
 	 */
-	public static void getGroupRequest(int groupId) {
-
+	public static Offer getGroupRequest(int groupId) {
+		return null;
 	}
 
 	/**
@@ -182,8 +183,8 @@ public class SocialService {
 	 * 
 	 * @param userId
 	 */
-	public static void getGroupInvite(int userId) {
-
+	public static Offer getGroupInvite(int userId) {
+		return null;
 	}
 
 	/**
