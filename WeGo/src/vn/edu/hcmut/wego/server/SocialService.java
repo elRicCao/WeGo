@@ -265,7 +265,7 @@ public class SocialService {
 	 * @param userId
 	 * @return list of friends with information: name, phone, email, status, last update
 	 */
-	public static ArrayList<User> getAllFriendsInfo(int userId) {
+	public static ArrayList<User> getAllFriends(int userId) {
 		ArrayList<User> friends = new ArrayList<User>();
 		JSONObject param = new JSONObject();
 
@@ -300,7 +300,7 @@ public class SocialService {
 	 * @param userId
 	 * @return list of groups with information: name, description, status
 	 */
-	public static ArrayList<Group> getAllGroupsInfo(int userId) {
+	public static ArrayList<Group> getAllGroups(int userId) {
 		ArrayList<Group> groups = new ArrayList<Group>();
 		JSONObject param = new JSONObject();
 
