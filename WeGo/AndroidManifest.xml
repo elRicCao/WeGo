@@ -34,7 +34,16 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main" 
+            android:windowSoftInputMode="adjustNothing">
+        </activity>
+        <activity
+            android:name=".activity.UserPageActivity"
+            android:label="@string/title_activity_user_page" >
+        </activity>
+        <activity
+            android:name="vn.edu.hcmut.wego.activity.UserMessageActivity"
+            android:label="@string/title_activity_user_message" >
         </activity>
     </application>
 

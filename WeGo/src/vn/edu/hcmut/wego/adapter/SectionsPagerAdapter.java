@@ -15,11 +15,15 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 	private ArrayList<BaseFragment> fragments;
 	private FragmentManager fragmentManager;
+	
+	public SectionsPagerAdapter(FragmentManager fragmentManager) {
+		super(fragmentManager);
+		this.fragmentManager = fragmentManager;
+	}
 
 	public SectionsPagerAdapter(FragmentManager fragmentManager, ArrayList<BaseFragment> fragments) {
-		super(fragmentManager);
+		this(fragmentManager);
 		this.fragments = fragments;
-		this.fragmentManager = fragmentManager;
 	}
 
 	@Override
@@ -42,8 +46,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 		return PagerAdapter.POSITION_NONE;
 	}
 	
-	public void setNewFragments(ArrayList<BaseFragment> fragments) {
-		if (fragments != null) {
+	public void setFragments(ArrayList<BaseFragment> fragments) {
+		if (this.fragments != null) {
 			for (int i = 0; i < this.fragments.size(); i++) {
 				fragmentManager.beginTransaction().remove(this.fragments.get(i)).commit();
 			}

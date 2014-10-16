@@ -20,6 +20,7 @@
         
         <Button
             style="?android:attr/buttonBarButtonStyle"
+            android:id="@+id/fragment_follow_button_sort"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -27,23 +28,6 @@
             android:textStyle="bold" 
             android:textColor="@android:color/white"
             android:text="@string/fragment_follow_button_sort"/>
-        
-        <View 
-            android:layout_height="match_parent"
-            android:layout_width="1sp"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="14dp"
-            android:background="@android:color/white"/>
-
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:text="@string/fragment_follow_button_filter" />
         
     </LinearLayout>
 

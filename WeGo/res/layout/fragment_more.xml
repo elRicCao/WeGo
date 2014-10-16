@@ -6,45 +6,46 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:text="@string/title_fragment_more"/>
-    
-    <LinearLayout 
+        android:layout_height="wrap_content"
+        android:text="@string/title_fragment_more" />
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
+        android:alpha="0.80"
         android:background="@color/green01"
-        android:alpha="0.80">
-        
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="16sp"
-            android:textStyle="bold" 
-            android:textColor="@android:color/white"
-            android:text="@string/fragment_more_update_info"/>
-        
-        <View 
-            android:layout_height="match_parent"
-            android:layout_width="1sp"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="14dp"
-            android:background="@android:color/white"/>
+        android:gravity="center"
+        android:orientation="horizontal" >
 
         <Button
+            android:id="@+id/fragment_more_button_update_info"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:text="@string/fragment_more_button_update_info"
             android:textColor="@android:color/white"
-            android:text="@string/fragment_more_find_group" />
-        
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1sp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="14dp"
+            android:background="@android:color/white" />
+
+        <Button
+            android:id="@+id/fragment_more_create_group"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/fragment_more_button_create_group"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </RelativeLayout>

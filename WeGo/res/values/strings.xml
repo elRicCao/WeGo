@@ -21,9 +21,9 @@
     <string name="title_fragment_news">NEWS FEED</string>
     <string name="title_fragment_friends">FRIENDS</string>
     <string name="title_fragment_follow">FOLLOW</string>
-    <string name="title_fragment_trips">TRIPS</string><string name="action_logout">Log out</string>
+    <string name="title_fragment_trips">TRIPS</string>
+    <string name="action_logout">Log out</string>
     <string name="action_search">Search</string>
-    
 
     <string-array name="mode_array">
         <item>Surfing</item>
@@ -41,10 +41,13 @@
     <string name="fragment_friends_button_message">Message</string>
     <string name="fragment_friends_button_filter">Filter</string>
     <string name="fragment_follow_button_sort">Sort</string>
-   	<string name="fragment_follow_button_filter">Filter</string>
-   	<string name="fragment_trip_button_create_trip">Create Trip</string>
-   	<string name="fragment_trip_button_filter">Filter</string>
-   	<string name="fragment_more_update_info">Update Info</string>
-   	<string name="fragment_more_find_group">Find Group</string>
+    <string name="fragment_follow_button_filter">Filter</string>
+    <string name="fragment_trip_button_create_trip">Create Trip</string>
+    <string name="fragment_trip_button_filter">Filter</string>
+    <string name="fragment_more_button_update_info">Update Info</string>
+    <string name="fragment_more_button_create_group">Create Group</string>
+    <string name="item_friend_info">Friend Info</string>
+    <string name="title_activity_user_page">UserPageActivity</string>
+    <string name="title_activity_user_message">UserMessageActivity</string>
 
 </resources>

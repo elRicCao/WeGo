@@ -32,10 +32,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
 	private ViewPager viewPager;
 	private SlidingTabLayout slidingTabLayout;
 
-	private final int MODE_SURFING_POSITION = 0;
-	private final int MODE_MOVING_POSITION = 1;
+	private enum Mode {
+		SURFING, MOVING
+	};
 
-	private int currentMode = MODE_SURFING_POSITION;
+	private Mode currentMode = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,66 +52,31 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
 		SpinnerAdapter spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.mode_array, R.layout.spinner_dropdown_item);
 		actionBar.setListNavigationCallbacks(spinnerAdapter, this);
 
-		// Create fragments array comprise of 4 fragments: NEWS, FRIENDS, FOLLOW, TRIPS and MORE
-		ArrayList<BaseFragment> fragments = new ArrayList<BaseFragment>();
-		fragments.add(new NewsFragment(this));
-		fragments.add(new FriendsFragment(this));
-		fragments.add(new FollowFragment(this));
-		fragments.add(new TripsFragment(this));
-		fragments.add(new MoreFragment(this));
-
-		// Create the adapter that will return a fragment for each of the three primary sections of the activity.
-		sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), fragments);
-
 		// Set up the ViewPager with the sections adapter.
 		viewPager = (ViewPager) findViewById(R.id.activity_main_pager);
-		viewPager.setAdapter(sectionsPagerAdapter);
 
 		// Set up the sliding tab
 		slidingTabLayout = (SlidingTabLayout) findViewById(R.id.activity_main_sliding_tabs);
-		slidingTabLayout.setViewPager(viewPager);
+
+		// Create the adapter that will return a fragment for each of the three primary sections of the activity.
+		// MUST set fragments before use
+		sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+		// Set mode
+		setMode(Mode.SURFING);
 	}
 
 	@Override
 	public boolean onNavigationItemSelected(int position, long itemId) {
-		switch (position) {
-		case MODE_SURFING_POSITION: {
-			// If current mode is not surfing, delete all fragments 
-			// and set new fragments comprising of NEWS, FRIENDS, FOLLOW, TRIPS and MORE
-			if (currentMode != MODE_SURFING_POSITION) {
-				ArrayList<BaseFragment> fragments = new ArrayList<BaseFragment>();
-				fragments.add(new NewsFragment(this));
-				fragments.add(new FriendsFragment(this));
-				fragments.add(new FollowFragment(this));
-				fragments.add(new TripsFragment(this));
-				fragments.add(new MoreFragment(this));
-				sectionsPagerAdapter.setNewFragments(fragments);
-				sectionsPagerAdapter.notifyDataSetChanged();
-				slidingTabLayout.setViewPager(viewPager);
-				currentMode = MODE_SURFING_POSITION;
-			}
+		if (position == Mode.SURFING.ordinal()) {
+			setMode(Mode.SURFING);
 			return true;
 		}
-
-		case MODE_MOVING_POSITION: {
-			// If current mode is not moving, delete all fragments 
-			// and set new fragments comprising of MAP, MEMBERS and SCHEDULE
-			if (currentMode != MODE_MOVING_POSITION) {
-				ArrayList<BaseFragment> fragments = new ArrayList<BaseFragment>();
-				fragments.add(new MapFragment(this));
-				fragments.add(new MembersFragment(this));
-				fragments.add(new ScheduleFragment(this));
-				sectionsPagerAdapter.setNewFragments(fragments);
-				sectionsPagerAdapter.notifyDataSetChanged();
-				slidingTabLayout.setViewPager(viewPager);
-				currentMode = MODE_MOVING_POSITION;
-			}
+		if (position == Mode.MOVING.ordinal()) {
+			setMode(Mode.MOVING);
 			return true;
 		}
-
-		default:
-			return false;
-		}
+		return false;
 	}
 
 	@Override
@@ -142,19 +108,52 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
 	}
 
 	/**
-	 * Logging out sequence: delete user preferences and turn back to login screen
+	 * Logging out sequence: delete user preferences, database and turn back to login screen
 	 */
 	private void logOutSequence() {
 		// Clear user preference
 		SharedPreferences preferences = getSharedPreferences(Constant.PREFS_NAME, MODE_PRIVATE);
 		preferences.edit().clear().commit();
-		
+
 		// Delete database
 		deleteDatabase(Constant.DATABASE_NAME);
-		
+
 		// Turn back to login screen
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 		finish();
+	}
+
+	/**
+	 * Set up tabs for corresponding mode
+	 * 
+	 * @param mode
+	 */
+	private void setMode(Mode mode) {
+		if (currentMode != mode) {
+			ArrayList<BaseFragment> fragments = new ArrayList<BaseFragment>();
+			if (mode == Mode.SURFING) {
+				fragments.add(new NewsFragment(this));
+				fragments.add(new FriendsFragment(this));
+				fragments.add(new FollowFragment(this));
+				fragments.add(new TripsFragment(this));
+				fragments.add(new MoreFragment(this));
+			} else {
+				fragments.add(new MapFragment(this));
+				fragments.add(new MembersFragment(this));
+				fragments.add(new ScheduleFragment(this));
+			}
+			sectionsPagerAdapter.setFragments(fragments);
+			
+			// If this is the initial launch, set adapter for view pager, 
+			// Otherwise notify data of adapter has changed
+			if (currentMode == null) {
+				viewPager.setAdapter(sectionsPagerAdapter);
+			} else {
+				sectionsPagerAdapter.notifyDataSetChanged();
+			}
+			slidingTabLayout.setViewPager(viewPager);
+			currentMode = mode;
+		}
 	}
 }

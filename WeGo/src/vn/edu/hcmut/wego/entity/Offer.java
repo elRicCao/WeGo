@@ -6,14 +6,38 @@ public class Offer {
 		FRIEND_REQUEST, GROUP_REQUEST, GROUP_INVITE
 	};
 
-	private int requesterId;
-
-	public int getRequesterId() {
-		return requesterId;
+	private int id;
+	private int offererId;
+	private Type type;
+	
+	public Offer(int id, int offererId, Type type) {
+		this.id = id;
+		this.offererId = offererId;
+		this.type = type;
 	}
 
-	public void setRequesterId(int requesterId) {
-		this.requesterId = requesterId;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getOffererId() {
+		return offererId;
+	}
+
+	public void setOffererId(int offererId) {
+		this.offererId = offererId;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
 	}
 
 }

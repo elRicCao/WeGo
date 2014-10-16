@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.entity.Group;
 import vn.edu.hcmut.wego.entity.Offer;
@@ -13,6 +14,24 @@ import vn.edu.hcmut.wego.entity.User;
 
 public class SocialService {
 	private static final String PHP_SOCIAL = "SocialLogic";
+	
+	public enum ActionType {};
+
+	/**
+	 * Get all new data related to this user and save to database
+	 * 
+	 * @param userId
+	 */
+	public static void update(Context context) {
+
+	}
+
+	/**
+	 * Send user action to server
+	 */
+	public static void action(Context context, ActionType type) {
+
+	}
 
 	/**
 	 * Get info of specific user based on id (after searching)

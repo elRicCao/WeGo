@@ -1,14 +1,24 @@
 package vn.edu.hcmut.wego.entity;
 
-
 public class Group {
-	
+
 	private int id;
 	private String name;
 	private String description;
-	
-	//TODO: will change to enum type later
+
+	// TODO: will change to enum type later
 	private String status;
+
+	public Group() {
+
+	}
+
+	public Group(int id, String name, String description, String status) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.status = status;
+	}
 
 	public int getId() {
 		return id;
@@ -41,6 +51,5 @@ public class Group {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
+
 }

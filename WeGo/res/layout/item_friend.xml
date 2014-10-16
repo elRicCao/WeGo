@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content" >
 
     <ImageView
         android:id="@+id/item_friend_image"
@@ -12,21 +12,40 @@
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher" />
 
-    <TextView
-        android:id="@+id/item_friend_name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/item_friend_image"
-        android:textSize="22sp" />
+    <ImageButton
+        android:id="@+id/item_friend_info"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/item_friend_info"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_user_profile" />
 
-    <TextView
-        android:id="@+id/item_friend_status"
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_friend_name"
+        android:layout_toEndOf="@id/item_friend_image"
+        android:layout_toLeftOf="@id/item_friend_info"
         android:layout_toRightOf="@id/item_friend_image"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="14sp" />
+        android:layout_toStartOf="@id/item_friend_info" >
+
+        <TextView
+            android:id="@+id/item_friend_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/item_friend_status"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_friend_name"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
 </RelativeLayout>
