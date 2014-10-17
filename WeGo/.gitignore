@@ -1,2 +1,5 @@
 /bin/
 /project.properties
+/proguard-project.txt
+/local.properties
+/.classpath
