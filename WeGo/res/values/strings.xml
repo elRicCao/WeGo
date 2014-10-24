@@ -39,7 +39,7 @@
     <string name="fragment_news_button_photo">Photo</string>
     <string name="fragment_news_button_checkin">Check-in</string>
     <string name="fragment_friends_button_message">Message</string>
-    <string name="fragment_friends_button_filter">Filter</string>
+    <string name="fragment_friends_button_request">Friend Request</string>
     <string name="fragment_follow_button_sort">Sort</string>
     <string name="fragment_follow_button_filter">Filter</string>
     <string name="fragment_trip_button_create_trip">Create Trip</string>
@@ -49,5 +49,13 @@
     <string name="item_friend_info">Friend Info</string>
     <string name="title_activity_user_page">UserPageActivity</string>
     <string name="title_activity_user_message">UserMessageActivity</string>
+    <string name="item_friend_request_image">Profile Image</string>
+    <string name="item_friend_request_button_decline">Decline</string>
+    <string name="item_friend_request_button_accept">Accept</string>
+    <string name="item_friend_request_button_delete">Delete</string>
+    <string name="item_news_button_like">Like</string>
+    <string name="item_news_button_comment">Comment</string>
+    <string name="activity_signup_terms_and_conditions">I agree to the Terms and Conditions of WeGo</string>
+    <string name="activity_signup_instruction">Fill in all information below and press Sign Up. Note that each email is used only once</string>
 
 </resources>

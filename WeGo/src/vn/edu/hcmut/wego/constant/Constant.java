@@ -5,12 +5,14 @@ public class Constant {
 	// Database parameters
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "WeGoDB.db";
+	public static final String DATABASE_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 
 	// Shared preferences
 	public static final String PREFS_NAME = "WeGoFile";
 	public static final String PREFS_USER_ID = "user_id";
 	public static final String PREFS_USER_NAME = "user_name";
 	public static final String PREFS_USER_EMAIL = "user_email";
+	public static final String PREFS_IS_DATABASE_CREATED = "database_created";
 
 	public static final String SUCCESS = "success";
 	public static final String MESSAGE = "message";

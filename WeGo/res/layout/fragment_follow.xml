@@ -4,12 +4,26 @@
     android:layout_height="match_parent"
     tools:context="vn.edu.hcmut.wego.activity.MainActivity">
 
-    <TextView
+    <ProgressBar 
+        android:id="@+id/fragment_follow_progress_bar"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:text="@string/title_fragment_follow"/>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+    
+    <ListView
+        android:id="@+id/fragment_follow_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="12dp"
+        android:background="@android:color/transparent"
+        android:dividerHeight="12dp" 
+        android:divider="@android:color/transparent"
+        android:scrollbars="none"/>
     
     <LinearLayout 
+        android:id="@+id/fragment_follow_button_bar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

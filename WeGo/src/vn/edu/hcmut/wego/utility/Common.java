@@ -10,10 +10,11 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class CommonUtility {
-	
+public class Common {
+
 	/**
 	 * TODO: Description
+	 * 
 	 * @param jArray
 	 * @param name
 	 * @return
@@ -66,7 +67,7 @@ public class CommonUtility {
 	 * @param key
 	 * @param value
 	 */
-	public static void setValueToSharedPreferences(Context context, String key, Object value) {
+	public static void putValueToSharedPreferences(Context context, String key, Object value) {
 		SharedPreferences preferences = context.getSharedPreferences(Constant.PREFS_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = preferences.edit();
 		if (value.getClass() == Integer.class)
@@ -74,5 +75,15 @@ public class CommonUtility {
 		else
 			editor.putString(key, (String) value);
 		editor.commit();
+	}
+
+	/**
+	 * Get user id saved in shared preferences
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static int getUserId(Context context) {
+		return (Integer) getValueFromSharedPreferences(context, Constant.PREFS_USER_ID, Integer.class);
 	}
 }

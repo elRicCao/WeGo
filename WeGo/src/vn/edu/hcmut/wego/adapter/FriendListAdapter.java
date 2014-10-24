@@ -15,12 +15,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class FriendAdapter extends ArrayAdapter<User> {
+public class FriendListAdapter extends ArrayAdapter<User> {
 
 	private Context context;
 	private ArrayList<User> friends;
 
-	public FriendAdapter(Context context, ArrayList<User> friends) {
+	public FriendListAdapter(Context context, ArrayList<User> friends) {
 		super(context, 0, friends);
 		this.context = context;
 		this.friends = friends;

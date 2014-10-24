@@ -7,12 +7,17 @@ public class Offer {
 	};
 
 	private int id;
-	private int offererId;
+	private int senderId;
+	private int receiverId;
 	private Type type;
-	
-	public Offer(int id, int offererId, Type type) {
+
+	public Offer() {
+	}
+
+	public Offer(int id, int senderId, int receiverId, Type type) {
 		this.id = id;
-		this.offererId = offererId;
+		this.senderId = senderId;
+		this.receiverId = receiverId;
 		this.type = type;
 	}
 
@@ -24,12 +29,20 @@ public class Offer {
 		this.id = id;
 	}
 
-	public int getOffererId() {
-		return offererId;
+	public int getSenderId() {
+		return senderId;
 	}
 
-	public void setOffererId(int offererId) {
-		this.offererId = offererId;
+	public void setSenderId(int sender) {
+		this.senderId = sender;
+	}
+
+	public int getReceiverId() {
+		return receiverId;
+	}
+
+	public void setReceiverId(int receiver) {
+		this.receiverId = receiver;
 	}
 
 	public Type getType() {

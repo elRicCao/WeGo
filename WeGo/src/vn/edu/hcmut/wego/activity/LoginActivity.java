@@ -4,7 +4,7 @@ import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.server.AuthenticationService;
-import vn.edu.hcmut.wego.utility.CommonUtility;
+import vn.edu.hcmut.wego.utility.Common;
 import vn.edu.hcmut.wego.utility.Security;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -64,7 +65,7 @@ public class LoginActivity extends ActionBarActivity {
 		// Fields
 		emailField = (EditText) findViewById(R.id.login_email_field);
 		passwordField = (EditText) findViewById(R.id.login_password_field);
-		passwordField.setTypeface(Typeface.DEFAULT);
+		passwordField.setTypeface(Typeface.SANS_SERIF);
 
 		// Button
 		loginButton = (Button) findViewById(R.id.login_button);
@@ -124,11 +125,11 @@ public class LoginActivity extends ActionBarActivity {
 	 */
 	private void loginSequence() {
 		// Check Internet connection
-		if (CommonUtility.checkInternetConnection(LoginActivity.this)) {
+		if (Common.checkInternetConnection(LoginActivity.this)) {
 
 			// Authenticate login information
 			loginUser = AuthenticationService.loginAuthentication(emailField.getText().toString().trim(), Security.encrypt(passwordField.getText().toString().trim()));
-
+			
 			if (loginUser != null) {
 				// Store user information to preferences
 				saveLoginInfo();
@@ -161,9 +162,9 @@ public class LoginActivity extends ActionBarActivity {
 	 * @param encryptedPassword
 	 */
 	private void saveLoginInfo() {
-		CommonUtility.setValueToSharedPreferences(this, Constant.PREFS_USER_ID, loginUser.getId());
-		CommonUtility.setValueToSharedPreferences(this, Constant.PREFS_USER_EMAIL, loginUser.getEmail());
-		CommonUtility.setValueToSharedPreferences(this, Constant.PREFS_USER_NAME, loginUser.getName());
+		Common.putValueToSharedPreferences(this, Constant.PREFS_USER_ID, loginUser.getId());
+		Common.putValueToSharedPreferences(this, Constant.PREFS_USER_EMAIL, loginUser.getEmail());
+		Common.putValueToSharedPreferences(this, Constant.PREFS_USER_NAME, loginUser.getName());
 	}
 
 	/**
@@ -172,7 +173,7 @@ public class LoginActivity extends ActionBarActivity {
 	 * @return true if login information exists, otherwise return false
 	 */
 	private boolean isLoginInfoExist() {
-		int userId = (Integer) CommonUtility.getValueFromSharedPreferences(this, Constant.PREFS_USER_ID, Integer.class);
+		int userId = (Integer) Common.getValueFromSharedPreferences(this, Constant.PREFS_USER_ID, Integer.class);
 		return userId > 0;
 	}
 }

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Trip {
 	private int id;
-	private Location start;
-	private Location end;
+	private Place start;
+	private Place end;
 	private String description;
 	private ArrayList<User> members;
 
@@ -17,19 +17,19 @@ public class Trip {
 		this.id = id;
 	}
 
-	public Location getStart() {
+	public Place getStart() {
 		return start;
 	}
 
-	public void setStart(Location start) {
+	public void setStart(Place start) {
 		this.start = start;
 	}
 
-	public Location getEnd() {
+	public Place getEnd() {
 		return end;
 	}
 
-	public void setEnd(Location end) {
+	public void setEnd(Place end) {
 		this.end = end;
 	}
 

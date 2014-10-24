@@ -32,8 +32,7 @@ public class JSONParser {
 
 	// function get json from url
 	// by making HTTP POST or GET mehtod
-	public JSONObject makeHttpRequest(String file, String method,
-			JSONObject params) {
+	public JSONObject makeHttpRequest(String file, String method, JSONObject params) {
 		// request method is POST
 		// defaultHttpClient
 		DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -67,8 +66,7 @@ public class JSONParser {
 		}
 
 		try {
-			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(is));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 			StringBuilder sb = new StringBuilder();
 			String line = null;
 			while ((line = reader.readLine()) != null) {

@@ -21,7 +21,6 @@ public class SignUpActivity extends ActionBarActivity {
 	private EditText passwordField;
 	private EditText phoneField;
 	private Button signupButton;
-	private Button cancelButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +32,17 @@ public class SignUpActivity extends ActionBarActivity {
 
 	// Binding views and objects
 	private void getControl() {
-		usernameField = (EditText) findViewById(R.id.signup_username);
+		usernameField = (EditText) findViewById(R.id.activity_signup_username);
 
-		emailField = (EditText) findViewById(R.id.signup_email);
+		emailField = (EditText) findViewById(R.id.activity_signup_email);
 
-		passwordField = (EditText) findViewById(R.id.signup_password);
-		passwordField.setTypeface(Typeface.DEFAULT);
+		passwordField = (EditText) findViewById(R.id.activity_signup_password);
+		passwordField.setTypeface(Typeface.SANS_SERIF);
 
-		phoneField = (EditText) findViewById(R.id.signup_phone);
+		phoneField = (EditText) findViewById(R.id.activity_signup_phone);
 
-		signupButton = (Button) findViewById(R.id.signup_button);
+		signupButton = (Button) findViewById(R.id.activity_signup_button);
 
-		cancelButton = (Button) findViewById(R.id.signup_cancel_button);
 	}
 
 	// Add event handler to views
@@ -101,16 +99,6 @@ public class SignUpActivity extends ActionBarActivity {
 					break;
 				}
 				}
-			}
-		});
-
-		// Cancel button: click event
-		cancelButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				// Return to login activity
-				finish();
 			}
 		});
 	}

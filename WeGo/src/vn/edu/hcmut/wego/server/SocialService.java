@@ -6,11 +6,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.entity.Group;
 import vn.edu.hcmut.wego.entity.Offer;
 import vn.edu.hcmut.wego.entity.User;
+import android.content.Context;
+import android.util.Log;
 
 public class SocialService {
 	private static final String PHP_SOCIAL = "SocialLogic";
@@ -286,6 +287,7 @@ public class SocialService {
 	 */
 	public static ArrayList<User> getAllFriends(int userId) {
 		ArrayList<User> friends = new ArrayList<User>();
+		
 		JSONObject param = new JSONObject();
 
 		try {
@@ -293,18 +295,22 @@ public class SocialService {
 
 			JSONObject result = Server.execute(PHP_SOCIAL, "selectUserFriend", param);
 
+			Log.i("Test", result.toString());
+			
 			if (result.getInt(Constant.SUCCESS) == 1) {
-				JSONArray friend = result.getJSONArray(Constant.RESULT);
-				for (int i = 0; i < friend.length(); i++) {
-					JSONObject tmp = friend.getJSONObject(i);
+				JSONArray array = result.getJSONArray(Constant.RESULT);
+				for (int i = 0; i < array.length(); i++) {
+					JSONObject tmp = array.getJSONObject(i);
 
-					User user = new User();
-					user.setName(tmp.getString("friendName"));
-					user.setPhone(tmp.getString("friendPhone"));
-					user.setEmail(tmp.getString("friendEmail"));
+					User friend = new User();
+					friend.setId(Integer.parseInt(tmp.getString("friendId")));
+					friend.setName(tmp.getString("friendName"));
+					friend.setPhone(tmp.getString("friendPhone"));
+					friend.setEmail(tmp.getString("friendEmail"));
 					// TODO: them vo load status voi last update
-
-					friends.add(user);
+					friend.setStatus("Online");
+					
+					friends.add(friend);
 				}
 			}
 		} catch (JSONException e) {

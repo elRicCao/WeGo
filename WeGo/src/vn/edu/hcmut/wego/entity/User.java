@@ -1,6 +1,11 @@
 package vn.edu.hcmut.wego.entity;
 
 public class User {
+
+	public enum UserType {
+		NORMAL, FRIEND, FOLLOW
+	};
+
 	private int id;
 	private String name;
 	private String email;
@@ -8,7 +13,6 @@ public class User {
 	private String status;
 
 	public User() {
-
 	}
 
 	public User(int id, String name, String email, String phone, String status) {

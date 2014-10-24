@@ -33,7 +33,7 @@ public class Server {
 	}
 
 	/**
-	 * Background Async Task to execute sql query by making HTTP Request
+	 * Background Async Task to execute SQL query by making HTTP Request
 	 * */
 	private static class DoServiceASYNC extends AsyncTask<JSONObject, Void, JSONObject> {
 		protected JSONObject doInBackground(JSONObject... params) {

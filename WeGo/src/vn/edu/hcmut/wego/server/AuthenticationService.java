@@ -3,6 +3,7 @@ package vn.edu.hcmut.wego.server;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.entity.User;
 
