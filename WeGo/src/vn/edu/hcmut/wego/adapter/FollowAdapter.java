@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.entity.User;
-import vn.edu.hcmut.wego.storage.DatabaseOpenHelper;
-import vn.edu.hcmut.wego.storage.DatabaseOpenHelper.SelectType;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +16,13 @@ public class FollowAdapter extends ArrayAdapter<News> {
 
 	private Context context;
 	private ArrayList<News> news;
-	private DatabaseOpenHelper database;
+//	private DatabaseOpenHelper database;
 	
 	public FollowAdapter(Context context, ArrayList<News> news) {
 		super(context, 0, news);
 		this.context = context;
 		this.news = news;
-		database = new DatabaseOpenHelper(context);
+//		database = new DatabaseOpenHelper(context);
 	}
 
 	@Override
@@ -36,7 +34,7 @@ public class FollowAdapter extends ArrayAdapter<News> {
 		}
 		
 		News newsItem = news.get(position);
-		User user = database.selectUser(newsItem.getOwnerId(), SelectType.BRIEF);
+		User user = newsItem.getOwner();
 		
 		TextView ownerNameView = (TextView) convertView.findViewById(R.id.item_news_user_name);
 		TextView timeView = (TextView) convertView.findViewById(R.id.item_news_time);

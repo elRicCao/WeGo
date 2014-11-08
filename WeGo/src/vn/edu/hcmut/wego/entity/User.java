@@ -2,26 +2,13 @@ package vn.edu.hcmut.wego.entity;
 
 public class User {
 
-	public enum UserType {
-		NORMAL, FRIEND, FOLLOW
-	};
-
 	private int id;
 	private String name;
+	private String image;
 	private String email;
 	private String phone;
 	private String status;
-
-	public User() {
-	}
-
-	public User(int id, String name, String email, String phone, String status) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.phone = phone;
-		this.status = status;
-	}
+	private Place location;
 
 	public int getId() {
 		return id;
@@ -37,6 +24,14 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getEmail() {
@@ -61,5 +56,13 @@ public class User {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Place getLocation() {
+		return location;
+	}
+
+	public void setLocation(Place location) {
+		this.location = location;
 	}
 }

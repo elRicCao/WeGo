@@ -3,20 +3,17 @@ package vn.edu.hcmut.wego.fragment;
 import java.util.ArrayList;
 
 import vn.edu.hcmut.wego.R;
+import vn.edu.hcmut.wego.activity.MainActivity.ShowHideButtonBarOnTouchListener;
 import vn.edu.hcmut.wego.adapter.FollowAdapter;
 import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.storage.DatabaseOpenHelper;
+import vn.edu.hcmut.wego.storage.LocalRequest;
+import vn.edu.hcmut.wego.storage.LocalRequest.NewsFeedCallBack;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.view.MotionEventCompat;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -26,7 +23,6 @@ public class FollowFragment extends BaseFragment {
 	private Context context;
 	private ArrayList<News> news;
 	private FollowAdapter followAdapter;
-	private DatabaseOpenHelper database;
 	private ListView newsList;
 	private LinearLayout buttonBar;
 	private ProgressBar progressBar;
@@ -41,7 +37,6 @@ public class FollowFragment extends BaseFragment {
 		super.onCreate(savedInstanceState);
 		news = new ArrayList<News>();
 		followAdapter = new FollowAdapter(context, news);
-		database = new DatabaseOpenHelper(context);
 	}
 
 	@Override
@@ -59,92 +54,22 @@ public class FollowFragment extends BaseFragment {
 		// Set up list view
 		newsList = (ListView) rootView.findViewById(R.id.fragment_follow_list);
 		newsList.setAdapter(followAdapter);
-		newsList.setOnTouchListener(new ShowHideButtonBarOnTouchListener());
+		newsList.setOnTouchListener(new ShowHideButtonBarOnTouchListener(context, buttonBar));
 
 		// If news list is empty, show progress bar
 		if (followAdapter.isEmpty()) {
-			(new LoadDatabaseTask()).execute();
+			progressBar.setVisibility(View.VISIBLE);
+			//TODO: Working
+//			LocalRequest.newsFeedRequest(context, new NewsFeedCallBack() {
+//				
+//				@Override
+//				public void onCompleted(ArrayList<News> result) {
+//					progressBar.setVisibility(View.GONE);
+//					followAdapter.addAll(result);
+//				}
+//			}).executeAsync();
 		}
 
 		return rootView;
-	}
-
-	private class LoadDatabaseTask extends AsyncTask<Void, Void, Void> {
-
-		@Override
-		protected void onPreExecute() {
-			progressBar.setVisibility(View.VISIBLE);
-		}
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			news = database.selectAllNews();
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			if (news.isEmpty()) {
-				(new LoadServerTask()).execute();
-			} else {
-				progressBar.setVisibility(View.GONE);
-				followAdapter.addAll(news);
-			}
-		}
-
-	}
-
-	private class LoadServerTask extends AsyncTask<Void, Void, Void> {
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			//TODO: load server
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			if (news.isEmpty()) {
-
-			} else {
-				progressBar.setVisibility(View.GONE);
-				followAdapter.addAll(news);
-			}
-		}
-
-	}
-
-	private class ShowHideButtonBarOnTouchListener implements OnTouchListener {
-
-		private float baseY = 0.0f;
-
-		@Override
-		public boolean onTouch(View view, MotionEvent event) {
-			int action = MotionEventCompat.getActionMasked(event);
-			int minimumDistance = context.getResources().getDisplayMetrics().heightPixels * 10 / 100;
-			view.performClick();
-			switch (action) {
-			case MotionEvent.ACTION_DOWN:
-				baseY = event.getY();
-				break;
-			case MotionEvent.ACTION_UP:
-				// Swipe Up
-				if (event.getY() - baseY > minimumDistance && buttonBar.getVisibility() == View.GONE) {
-					Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_up_from_bottom);
-					buttonBar.startAnimation(animation);
-					buttonBar.setVisibility(View.VISIBLE);
-
-				}
-				// Swipe Down
-				else if (baseY - event.getY() > minimumDistance && buttonBar.getVisibility() == View.VISIBLE) {
-					Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_down_to_bottom);
-					buttonBar.startAnimation(animation);
-					buttonBar.setVisibility(View.GONE);
-				}
-				break;
-			}
-			return false;
-		}
-
 	}
 }

@@ -43,11 +43,11 @@ public class AuthenticationService {
 			JSONObject userInfo = result.getJSONArray(Constant.RESULT).getJSONObject(0);
 
 			if (result.getInt(Constant.SUCCESS) == 1) {
-				User user = new User(Integer.parseInt(userInfo.getString("id")),
-						userInfo.getString("name"),
-						userInfo.getString("email"),
-						userInfo.getString("phone"),
-						null);
+				User user = new User();
+				user.setId(Integer.parseInt(userInfo.getString("id")));
+				user.setName(userInfo.getString("name"));
+				user.setEmail(userInfo.getString("email"));
+				user.setPhone(userInfo.getString("phone"));
 				return user;
 			}
 		} catch (JSONException e) {

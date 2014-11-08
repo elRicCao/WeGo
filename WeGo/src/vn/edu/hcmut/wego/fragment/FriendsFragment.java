@@ -12,7 +12,7 @@ import vn.edu.hcmut.wego.entity.Offer;
 import vn.edu.hcmut.wego.entity.Offer.Type;
 import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.storage.DatabaseOpenHelper;
-import vn.edu.hcmut.wego.utility.Common;
+import vn.edu.hcmut.wego.utility.Commons;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,15 +57,18 @@ public class FriendsFragment extends BaseFragment {
 		super.onCreate(savedInstanceState);
 
 		// Get user id saved in shared preferences
-		userId = Common.getUserId(context);
+		userId = Commons.getUserId(context);
 
 		// Open database to load friends info from database and create friend adapter
 		friends = database.selectAllFriends();
 		friendAdapter = new FriendListAdapter(context, friends);
 
 		// Open database to load friends info from database and create request adapter
-		sent = database.selectAllOffers(userId, Type.FRIEND_REQUEST, true);
-		received = database.selectAllOffers(userId, Type.FRIEND_REQUEST, false);
+//		sent = database.selectAllOffers(userId, Type.FRIEND_REQUEST, true);
+//		received = database.selectAllOffers(userId, Type.FRIEND_REQUEST, false);
+		//TODO: Working
+		sent = new ArrayList<Offer>();
+		received = new ArrayList<Offer>();
 
 		// Set up requests array comprising of 2 sections: Friend Request Sent and Friend Request Received
 		items = new ArrayList<Item>();

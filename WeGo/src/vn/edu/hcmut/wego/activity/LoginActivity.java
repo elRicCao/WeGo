@@ -1,179 +1,282 @@
 package vn.edu.hcmut.wego.activity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.constant.Constant;
-import vn.edu.hcmut.wego.entity.User;
-import vn.edu.hcmut.wego.server.AuthenticationService;
-import vn.edu.hcmut.wego.utility.Common;
+import vn.edu.hcmut.wego.server.ServerRequest;
+import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
+import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
+import vn.edu.hcmut.wego.utility.Commons;
 import vn.edu.hcmut.wego.utility.Security;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.app.Service;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.AppEventsLogger;
+import com.facebook.FacebookOperationCanceledException;
+import com.facebook.Session;
+import com.facebook.Session.StatusCallback;
+import com.facebook.SessionState;
+import com.facebook.widget.LoginButton;
 
 public class LoginActivity extends ActionBarActivity {
 
 	// Dialog title and content
-	public static final String DIALOG_TITLE_LOGIN_FAILED = "Login Failed";
-	public static final String DIALOG_CONTENT_INVALID_INFO = "Incorrect email or password. Please check your login information and try again.";
-	public static final String DIALOG_CONTENT_NO_CONNECTION = "Sorry, login failed to reach WeGo servers. Please check your network connection or try again later.";
-	
+	private static final String DIALOG_TITLE_LOGIN_FAILED = "Login Failed";
+	private static final String INVALID_LOGIN_INFO = "Incorrect email or password. Please check your login information and try again.";
+	private static final String NO_CONNECTION = "Sorry, login failed to reach WeGo servers. Please check your network connection or try again later.";
+
 	// Views
 	private EditText emailField;
 	private EditText passwordField;
 	private Button loginButton;
 	private TextView forgotPasswordLink;
-	private TextView signUppLink;
-
-	// Login user
-	private User loginUser;
+	private TextView signUpLink;
+	private ProgressBar progressBar;
+	private LoginButton fbLoginButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		// Set layout
 		setContentView(R.layout.activity_login);
 
-		// Get views in layout
-		getView();
-
-		// Set action for views
-		setViewAction();
-
-		// Check whether user info exists in database, if yes jump directly to main screen
-		if (isLoginInfoExist()) {
+		if (isLoggedIn()) {
 			Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 			startActivity(intent);
 			finish();
 		}
-	}
 
-	/**
-	 * Get views from layout
-	 */
-	private void getView() {
-		// Fields
-		emailField = (EditText) findViewById(R.id.login_email_field);
-		passwordField = (EditText) findViewById(R.id.login_password_field);
+		// Set up input fields
+		emailField = (EditText) findViewById(R.id.activity_login_email);
+		passwordField = (EditText) findViewById(R.id.activity_login_password);
 		passwordField.setTypeface(Typeface.SANS_SERIF);
 
-		// Button
-		loginButton = (Button) findViewById(R.id.login_button);
+		// Set up login button
+		loginButton = (Button) findViewById(R.id.activity_login_button);
+		loginButton.setOnClickListener(new LoginListener());
 
-		// Links
-		forgotPasswordLink = (TextView) findViewById(R.id.login_forget_password_link);
-		signUppLink = (TextView) findViewById(R.id.login_sign_up_link);
+		// Set up forgot password link
+		forgotPasswordLink = (TextView) findViewById(R.id.activity_login_forgot_password);
+		forgotPasswordLink.setOnClickListener(new ForgotPasswordListener());
+
+		// Set up sign up link
+		signUpLink = (TextView) findViewById(R.id.activity_login_sign_up);
+		signUpLink.setOnClickListener(new SignUpListener());
+
+		// Set up progress Bar
+		progressBar = (ProgressBar) findViewById(R.id.activity_login_progress_bar);
+
+		// Set up Facebook login button
+		fbLoginButton = (LoginButton) findViewById(R.id.activity_login_facebook_button);
+		// fbLoginButton.setReadPermissions(Arrays.asList("user_likes", "user_status"));
+		fbLoginButton.setSessionStatusCallback(new FacebookStatusCallBack());
+		fbLoginButton.setOnClickListener(new FacebookLoginListener());
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		AppEventsLogger.deactivateApp(this);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		AppEventsLogger.activateApp(this);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
 	}
 
 	/**
-	 * Set action of views
+	 * On Click Listener for Login button
 	 */
-	private void setViewAction() {
+	private class LoginListener implements OnClickListener {
+		@Override
+		public void onClick(View view) {
+			// Hide soft keyboard
+			InputMethodManager manager = (InputMethodManager) LoginActivity.this.getSystemService(Service.INPUT_METHOD_SERVICE);
+			manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+			
+			if (emailField.getText().toString().trim().isEmpty()) {
+				Toast.makeText(LoginActivity.this, "Please enter your email for your WeGo account", Toast.LENGTH_SHORT).show();
+				emailField.requestFocus();
+				return;
+			}
+			if (passwordField.getText().toString().trim().isEmpty()) {
+				Toast.makeText(LoginActivity.this, "Please enter your WeGo password", Toast.LENGTH_SHORT).show();
+				passwordField.requestFocus();
+				return;
+			}
+			onLogin();
+		}
+	}
 
-		// Login button clicked
-		loginButton.setOnClickListener(new OnClickListener() {
+	/**
+	 * On Click Listener for Sign up link
+	 */
+	private class SignUpListener implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+			startActivity(intent);
+		}
+	}
 
-			@Override
-			public void onClick(View view) {
-				if (emailField.getText().toString().trim().isEmpty()) {
-					Toast.makeText(LoginActivity.this, "Please enter your email for your WeGo account", Toast.LENGTH_SHORT).show();
-					emailField.requestFocus();
-				} else if (passwordField.getText().toString().trim().isEmpty()) {
-					Toast.makeText(LoginActivity.this, "Please enter your WeGo password", Toast.LENGTH_SHORT).show();
-					passwordField.requestFocus();
-				} else {
-					loginSequence();
+	/**
+	 * On Click Listener for Forgot password like
+	 */
+	private class ForgotPasswordListener implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+		}
+	}
+
+	/**
+	 * Status Callback for Facebook session
+	 */
+	private class FacebookStatusCallBack implements StatusCallback {
+		@Override
+		public void call(Session session, SessionState state, Exception exception) {
+			if (exception != null) {
+				if (exception instanceof FacebookOperationCanceledException) {
+					showActionViews();
+					return;
 				}
 			}
-		});
-
-		// Forgot password link clicked
-		forgotPasswordLink.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Link to forget password activity
-			}
-		});
-
-		// Sign up link clicked
-		signUppLink.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+			if (session.isOpened()) {
+				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 				startActivity(intent);
+				finish();
 			}
-		});
+		}
 	}
 
 	/**
-	 * Login sequence
-	 * 
-	 * @param email
-	 * @param encryptedPassword
+	 * On Click Listener for Facebook login button
 	 */
-	private void loginSequence() {
-		// Check Internet connection
-		if (Common.checkInternetConnection(LoginActivity.this)) {
+	private class FacebookLoginListener implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			hideActionViews();
+		}
+	}
 
-			// Authenticate login information
-			loginUser = AuthenticationService.loginAuthentication(emailField.getText().toString().trim(), Security.encrypt(passwordField.getText().toString().trim()));
+	/**
+	 * Handle login sequence: check internet connection, create {@link ServerRequest} to send and receive data from server
+	 */
+	private void onLogin() {
+		// Check Internet connection
+		if (!Commons.checkInternetConnection(this)) {
+			// Show alert dialog: no connection
+			AlertDialog.Builder builder = new Builder(this);
+			builder.setTitle(DIALOG_TITLE_LOGIN_FAILED).setMessage(NO_CONNECTION).create().show();
+			return;
+		}
+
+		// Get email and password from fields
+		String email = emailField.getText().toString().trim();
+		String encryptedPassword = Security.encrypt(passwordField.getText().toString().trim());
+
+		// Set progress bar visible
+		progressBar.setVisibility(View.VISIBLE);
+		
+		// Hide other action views
+		hideActionViews();
+
+		// Make params for request
+		JSONObject params = new JSONObject();
+		try {
+			params.put("email", email);
+			params.put("password", encryptedPassword);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		// Create a new Login ServerRequest and execute
+		ServerRequest.newServerRequest(RequestType.LOGIN, params, new ServerRequestCallback() {
+
+			@Override
+			public void onCompleted(Object... results) {
+				// Hide progress bar
+				progressBar.setVisibility(View.GONE);
 			
-			if (loginUser != null) {
-				// Store user information to preferences
-				saveLoginInfo();
+				if (results.length == 0 || results[0] == null) {
+					// Show alert dialog: invalid login info
+					AlertDialog.Builder builder = new Builder(LoginActivity.this);
+					builder.setTitle(DIALOG_TITLE_LOGIN_FAILED).setMessage(INVALID_LOGIN_INFO).create().show();
+					
+					// Clear fields and request focus
+					passwordField.getText().clear();
+					emailField.requestFocus();
+					
+					// Show action views
+					showActionViews();
+					return;
+				}
+				
+				// Save login info
 
 				// Proceed to main activity and finish this activity
 				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 				startActivity(intent);
 				finish();
-			} else {
-				// Show alert dialog: invalid login info
-				AlertDialog.Builder builder = new Builder(LoginActivity.this);
-				builder.setTitle(DIALOG_TITLE_LOGIN_FAILED).setMessage(DIALOG_CONTENT_INVALID_INFO).create().show();
 			}
 
-		} else {
-			// Show alert dialog: no connection
-			AlertDialog.Builder builder = new Builder(LoginActivity.this);
-			builder.setTitle(DIALOG_TITLE_LOGIN_FAILED).setMessage(DIALOG_CONTENT_NO_CONNECTION).create().show();
+		}).executeAsync();
+	}
+
+	/**
+	 * Check whether user has logged in
+	 * @return true if there is preference logged in data, otherwise return false
+	 */
+	private boolean isLoggedIn() {
+		Session session = Session.getActiveSession();
+		if (session != null) {
+			if (!session.isClosed())
+				if (!session.getAccessToken().isEmpty())
+					return true;
 		}
-
-		// In case failed login, clear password field and return focus to email field
-		passwordField.getText().clear();
-		emailField.requestFocus();
+		return false;
 	}
 
 	/**
-	 * Store user login information for next time
-	 * 
-	 * @param email
-	 * @param encryptedPassword
+	 * Hide all action views when user click login button
 	 */
-	private void saveLoginInfo() {
-		Common.putValueToSharedPreferences(this, Constant.PREFS_USER_ID, loginUser.getId());
-		Common.putValueToSharedPreferences(this, Constant.PREFS_USER_EMAIL, loginUser.getEmail());
-		Common.putValueToSharedPreferences(this, Constant.PREFS_USER_NAME, loginUser.getName());
+	private void hideActionViews() {
+		emailField.setVisibility(View.GONE);
+		passwordField.setVisibility(View.GONE);
+		loginButton.setVisibility(View.GONE);
+		fbLoginButton.setVisibility(View.GONE);
+		signUpLink.setVisibility(View.GONE);
+		forgotPasswordLink.setVisibility(View.GONE);
 	}
 
 	/**
-	 * Load login information from preference
-	 * 
-	 * @return true if login information exists, otherwise return false
+	 * Show all action views when login failed
 	 */
-	private boolean isLoginInfoExist() {
-		int userId = (Integer) Common.getValueFromSharedPreferences(this, Constant.PREFS_USER_ID, Integer.class);
-		return userId > 0;
+	private void showActionViews() {
+		emailField.setVisibility(View.VISIBLE);
+		passwordField.setVisibility(View.VISIBLE);
+		loginButton.setVisibility(View.VISIBLE);
+		fbLoginButton.setVisibility(View.VISIBLE);
+		signUpLink.setVisibility(View.VISIBLE);
+		forgotPasswordLink.setVisibility(View.VISIBLE);
 	}
 }

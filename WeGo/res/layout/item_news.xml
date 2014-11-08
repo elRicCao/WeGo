@@ -71,7 +71,11 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/item_news_owner_info"
-        android:background="#d3d3d3" />
+        android:background="#d3d3d3" 
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"/>
 
     <TextView
         android:id="@+id/item_news_content"
@@ -115,9 +119,10 @@
         android:layout_below="@id/item_news_like_and_comment"
         android:layout_marginTop="12dp"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        style="?android:attr/buttonBarStyle">
 
-        <TextView
+        <Button
             android:id="@+id/item_news_button_like"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -129,9 +134,11 @@
             android:text="@string/item_news_button_like"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold" 
+            android:minHeight="0dp"
+            style="?android:attr/buttonBarButtonStyle"/>
 
-        <TextView
+        <Button
             android:id="@+id/item_news_button_comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -143,7 +150,9 @@
             android:text="@string/item_news_button_comment"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold" 
+            android:minHeight="0dp"
+            style="?android:attr/buttonBarButtonStyle"/>
     </LinearLayout>
 
 </RelativeLayout>

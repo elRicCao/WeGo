@@ -10,7 +10,7 @@ import vn.edu.hcmut.wego.fragment.FriendsFragment.Item;
 import vn.edu.hcmut.wego.fragment.FriendsFragment.SectionItem;
 import vn.edu.hcmut.wego.storage.DatabaseOpenHelper;
 import vn.edu.hcmut.wego.storage.DatabaseOpenHelper.SelectType;
-import vn.edu.hcmut.wego.utility.Common;
+import vn.edu.hcmut.wego.utility.Commons;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +40,7 @@ public class FriendRequestAdapter extends ArrayAdapter<Item> {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		Item item = items.get(position);
-		int userId = Common.getUserId(context);
+		int userId = Commons.getUserId(context);
 
 		if (item != null) {
 

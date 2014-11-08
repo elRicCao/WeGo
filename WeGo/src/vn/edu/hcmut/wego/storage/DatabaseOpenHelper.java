@@ -1,24 +1,17 @@
 package vn.edu.hcmut.wego.storage;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import vn.edu.hcmut.wego.constant.Constant;
-import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.entity.Offer;
 import vn.edu.hcmut.wego.entity.Offer.Type;
 import vn.edu.hcmut.wego.entity.User;
-import vn.edu.hcmut.wego.entity.User.UserType;
-import vn.edu.hcmut.wego.utility.Common;
+import vn.edu.hcmut.wego.utility.Commons;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
@@ -67,9 +60,9 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		super(context, Constant.DATABASE_NAME, null, Constant.DATABASE_VERSION);
 		this.context = context;
 
-		String check = (String) Common.getValueFromSharedPreferences(context, Constant.PREFS_IS_DATABASE_CREATED, String.class);
-		if (check == null)
-			addFakeData();
+//		String check = (String) Commons.getValueFromSharedPreferences(context, Constant.PREFS_IS_DATABASE_CREATED, String.class);
+//		if (check == null)
+//			addFakeData();
 	}
 
 	/* @formatter:off */
@@ -130,7 +123,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		database.execSQL(CREATE_TABLE_NEWS);
 		database.execSQL(CREATE_TABLE_LOCATION);
 		
-		Common.putValueToSharedPreferences(context, Constant.PREFS_IS_DATABASE_CREATED, "true");
+		Commons.putValueToSharedPreferences(context, Constant.PREFS_IS_DATABASE_CREATED, "true");
 	}
 	/* @formatter:on */
 
@@ -180,32 +173,32 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	 * 
 	 * @param user
 	 */
-	public void insertUser(User user, UserType type) {
-		SQLiteDatabase database = this.getWritableDatabase();
-
-		ContentValues info = new ContentValues();
-
-		info.put(KEY_USER_ID, user.getId());
-		info.put(KEY_USER_NAME, user.getName());
-		info.put(KEY_USER_EMAIL, user.getEmail());
-		info.put(KEY_USER_PHONE, user.getPhone());
-		info.put(KEY_USER_STATUS, user.getStatus());
-		
-		if (type == UserType.FRIEND) {
-			info.put(KEY_USER_IS_FRIEND, TRUE);
-			info.put(KEY_USER_IS_FOLLOW, FALSE);
-		} else if (type == UserType.FOLLOW) {
-			info.put(KEY_USER_IS_FRIEND, FALSE);
-			info.put(KEY_USER_IS_FOLLOW, TRUE);
-		}
-		else {
-			info.put(KEY_USER_IS_FRIEND, FALSE);
-			info.put(KEY_USER_IS_FOLLOW, FALSE);
-		}
-
-		database.insert(TABLE_USER, null, info);
-		database.close();
-	}
+//	public void insertUser(User user, UserType type) {
+//		SQLiteDatabase database = this.getWritableDatabase();
+//
+//		ContentValues info = new ContentValues();
+//
+//		info.put(KEY_USER_ID, user.getId());
+//		info.put(KEY_USER_NAME, user.getName());
+//		info.put(KEY_USER_EMAIL, user.getEmail());
+//		info.put(KEY_USER_PHONE, user.getPhone());
+//		info.put(KEY_USER_STATUS, user.getStatus());
+//		
+//		if (type == UserType.FRIEND) {
+//			info.put(KEY_USER_IS_FRIEND, TRUE);
+//			info.put(KEY_USER_IS_FOLLOW, FALSE);
+//		} else if (type == UserType.FOLLOW) {
+//			info.put(KEY_USER_IS_FRIEND, FALSE);
+//			info.put(KEY_USER_IS_FOLLOW, TRUE);
+//		}
+//		else {
+//			info.put(KEY_USER_IS_FRIEND, FALSE);
+//			info.put(KEY_USER_IS_FOLLOW, FALSE);
+//		}
+//
+//		database.insert(TABLE_USER, null, info);
+//		database.close();
+//	}
 
 	/**
 	 * Insert offer to database
@@ -245,23 +238,23 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		database.close();
 	}
 
-	public void insertNews(News news) {
-		SQLiteDatabase database = this.getWritableDatabase();
-
-		ContentValues info = new ContentValues();
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat(Constant.DATABASE_DATE_FORMAT, Locale.getDefault());
-
-		info.put(KEY_NEWS_ID, news.getId());
-		info.put(KEY_NEWS_OWNER_ID, news.getOwnerId());
-		info.put(KEY_NEWS_TIME, dateFormat.format(news.getTime()));
-		info.put(KEY_NEWS_CONTENT, news.getContent());
-		info.put(KEY_NEWS_NUM_OF_LIKES, news.getNumOfLikes());
-		info.put(KEY_NEWS_NUM_OF_COMMENTS, news.getNumOfComments());
-
-		database.insert(TABLE_NEWS, null, info);
-		database.close();
-	}
+//	public void insertNews(News news) {
+//		SQLiteDatabase database = this.getWritableDatabase();
+//
+//		ContentValues info = new ContentValues();
+//
+//		SimpleDateFormat dateFormat = new SimpleDateFormat(Constant.DATABASE_DATE_FORMAT, Locale.getDefault());
+//
+//		info.put(KEY_NEWS_ID, news.getId());
+//		info.put(KEY_NEWS_OWNER_ID, news.getOwnerId());
+//		info.put(KEY_NEWS_TIME, dateFormat.format(news.getTime()));
+//		info.put(KEY_NEWS_CONTENT, news.getContent());
+//		info.put(KEY_NEWS_NUM_OF_LIKES, news.getNumOfLikes());
+//		info.put(KEY_NEWS_NUM_OF_COMMENTS, news.getNumOfComments());
+//
+//		database.insert(TABLE_NEWS, null, info);
+//		database.close();
+//	}
 
 	public void deleteOffer(Offer offer) {
 		SQLiteDatabase database = this.getWritableDatabase();
@@ -364,148 +357,141 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	 * 
 	 * @return
 	 */
-	public ArrayList<News> selectAllNews() {
-		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		ArrayList<News> news = new ArrayList<News>();
-
-		SQLiteDatabase database = getReadableDatabase();
-
-		Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NEWS, null);
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat(Constant.DATABASE_DATE_FORMAT, Locale.getDefault());
-
-		try {
-			if (cursor.moveToFirst()) {
-				do {
-					News item = new News();
-					item.setId(cursor.getInt(0));
-					item.setOwnerId(cursor.getInt(1));
-					item.setTime(dateFormat.parse(cursor.getString(2)));
-					item.setContent(cursor.getString(3));
-					item.setNumOfLikes(cursor.getInt(4));
-					item.setNumOfComments(cursor.getInt(5));
-					news.add(item);
-				} while (cursor.moveToNext());
-			}
-		} catch (ParseException e) {
-			Log.i("Debug", e.toString());
-		}
-		return news;
-	}
+//	public ArrayList<News> selectAllNews() {
+//		
+//		ArrayList<News> news = new ArrayList<News>();
+//
+//		SQLiteDatabase database = getReadableDatabase();
+//
+//		Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NEWS, null);
+//
+//		SimpleDateFormat dateFormat = new SimpleDateFormat(Constant.DATABASE_DATE_FORMAT, Locale.getDefault());
+//
+//		try {
+//			if (cursor.moveToFirst()) {
+//				do {
+//					News item = new News();
+//					item.setId(cursor.getInt(0));
+//					item.setOwnerId(cursor.getInt(1));
+//					item.setTime(dateFormat.parse(cursor.getString(2)));
+//					item.setContent(cursor.getString(3));
+//					item.setNumOfLikes(cursor.getInt(4));
+//					item.setNumOfComments(cursor.getInt(5));
+//					news.add(item);
+//				} while (cursor.moveToNext());
+//			}
+//		} catch (ParseException e) {
+//			Log.i("Debug", e.toString());
+//		}
+//		return news;
+//	}
 
 	// TODO: use to debug
-	private void addFakeData() {
-
-		User user = new User();
-
-		user.setId(2);
-		user.setName("Mai Hữu Nhân");
-		user.setEmail("nhan@gmail.com");
-		user.setPhone("01682404175");
-		user.setStatus("Online");
-		insertUser(user, UserType.FRIEND);
-
-		user.setId(3);
-		user.setName("Phan Trần Việt");
-		user.setEmail("viet@gmail.com");
-		user.setPhone("0167123456");
-		user.setStatus("Offline");
-		insertUser(user, UserType.FRIEND);
-
-		user.setId(1);
-		user.setName("elRic");
-		user.setEmail("duy@gmail.com");
-		user.setPhone("01677774447");
-		user.setStatus("Something");
-		insertUser(user, UserType.NORMAL);
-
-		user.setId(4);
-		user.setName("Nguyễn Hoài Lâm");
-		user.setEmail("lam@gmail.com");
-		user.setPhone("0164655667");
-		user.setStatus("Moving to Nha Trang");
-		insertUser(user, UserType.NORMAL);
-
-		user.setId(5);
-		user.setName("Trần Đường Tú");
-		user.setEmail("tu@gmail.com");
-		user.setPhone("0123456789");
-		user.setStatus("Feeling sick");
-		insertUser(user, UserType.NORMAL);
-
-		user.setId(6);
-		user.setName("Nguyễn Huỳnh Như Ý");
-		user.setEmail("superBo@gmail.com");
-		user.setPhone("0123456789");
-		user.setStatus("Feeling sick");
-		insertUser(user, UserType.NORMAL);
-
-		Offer offer = new Offer();
-		offer.setId(1);
-		offer.setSenderId(1);
-		offer.setReceiverId(4);
-		offer.setType(Type.FRIEND_REQUEST);
-		insertOffer(offer);
-
-		offer.setId(2);
-		offer.setSenderId(5);
-		offer.setReceiverId(1);
-		offer.setType(Type.FRIEND_REQUEST);
-		insertOffer(offer);
-
-		offer.setId(3);
-		offer.setSenderId(6);
-		offer.setReceiverId(1);
-		offer.setType(Type.FRIEND_REQUEST);
-		insertOffer(offer);
-
-		News news = new News();
-		news.setId(1);
-		news.setOwnerId(1);
-		news.setTime(new Date());
-		news.setContent("Hello World!");
-		news.setNumOfLikes(2);
-		news.setNumOfComments(3);
-		insertNews(news);
-
-		news.setId(2);
-		news.setOwnerId(2);
-		news.setTime(new Date());
-		news.setContent("Hello World! 2");
-		news.setNumOfLikes(2);
-		news.setNumOfComments(3);
-		insertNews(news);
-
-		news.setId(3);
-		news.setOwnerId(3);
-		news.setTime(new Date());
-		news.setContent("Hello World! 3");
-		news.setNumOfLikes(2);
-		news.setNumOfComments(3);
-		insertNews(news);
-
-		news.setId(4);
-		news.setOwnerId(4);
-		news.setTime(new Date());
-		news.setContent("Hello World! 4");
-		news.setNumOfLikes(2);
-		news.setNumOfComments(3);
-		insertNews(news);
-
-		news.setId(5);
-		news.setOwnerId(5);
-		news.setTime(new Date());
-		news.setContent("Hello World! 5");
-		news.setNumOfLikes(2);
-		news.setNumOfComments(3);
-		insertNews(news);
-	}
+//	private void addFakeData() {
+//
+//		User user = new User();
+//
+//		user.setId(2);
+//		user.setName("Mai Hữu Nhân");
+//		user.setEmail("nhan@gmail.com");
+//		user.setPhone("01682404175");
+//		user.setStatus("Online");
+//		insertUser(user, UserType.FRIEND);
+//
+//		user.setId(3);
+//		user.setName("Phan Trần Việt");
+//		user.setEmail("viet@gmail.com");
+//		user.setPhone("0167123456");
+//		user.setStatus("Offline");
+//		insertUser(user, UserType.FRIEND);
+//
+//		user.setId(1);
+//		user.setName("elRic");
+//		user.setEmail("duy@gmail.com");
+//		user.setPhone("01677774447");
+//		user.setStatus("Something");
+//		insertUser(user, UserType.NORMAL);
+//
+//		user.setId(4);
+//		user.setName("Nguyễn Hoài Lâm");
+//		user.setEmail("lam@gmail.com");
+//		user.setPhone("0164655667");
+//		user.setStatus("Moving to Nha Trang");
+//		insertUser(user, UserType.NORMAL);
+//
+//		user.setId(5);
+//		user.setName("Trần Đường Tú");
+//		user.setEmail("tu@gmail.com");
+//		user.setPhone("0123456789");
+//		user.setStatus("Feeling sick");
+//		insertUser(user, UserType.NORMAL);
+//
+//		user.setId(6);
+//		user.setName("Nguyễn Huỳnh Như Ý");
+//		user.setEmail("superBo@gmail.com");
+//		user.setPhone("0123456789");
+//		user.setStatus("Feeling sick");
+//		insertUser(user, UserType.NORMAL);
+//
+//		Offer offer = new Offer();
+//		offer.setId(1);
+//		offer.setSenderId(1);
+//		offer.setReceiverId(4);
+//		offer.setType(Type.FRIEND_REQUEST);
+//		insertOffer(offer);
+//
+//		offer.setId(2);
+//		offer.setSenderId(5);
+//		offer.setReceiverId(1);
+//		offer.setType(Type.FRIEND_REQUEST);
+//		insertOffer(offer);
+//
+//		offer.setId(3);
+//		offer.setSenderId(6);
+//		offer.setReceiverId(1);
+//		offer.setType(Type.FRIEND_REQUEST);
+//		insertOffer(offer);
+//
+//		News news = new News();
+//		news.setId(1);
+//		news.setOwnerId(1);
+//		news.setTime(new Date());
+//		news.setContent("Hello World!");
+//		news.setNumOfLikes(2);
+//		news.setNumOfComments(3);
+//		insertNews(news);
+//
+//		news.setId(2);
+//		news.setOwnerId(2);
+//		news.setTime(new Date());
+//		news.setContent("Hello World! 2");
+//		news.setNumOfLikes(2);
+//		news.setNumOfComments(3);
+//		insertNews(news);
+//
+//		news.setId(3);
+//		news.setOwnerId(3);
+//		news.setTime(new Date());
+//		news.setContent("Hello World! 3");
+//		news.setNumOfLikes(2);
+//		news.setNumOfComments(3);
+//		insertNews(news);
+//
+//		news.setId(4);
+//		news.setOwnerId(4);
+//		news.setTime(new Date());
+//		news.setContent("Hello World! 4");
+//		news.setNumOfLikes(2);
+//		news.setNumOfComments(3);
+//		insertNews(news);
+//
+//		news.setId(5);
+//		news.setOwnerId(5);
+//		news.setTime(new Date());
+//		news.setContent("Hello World! 5");
+//		news.setNumOfLikes(2);
+//		news.setNumOfComments(3);
+//		insertNews(news);
+//	}
 
 }

@@ -10,7 +10,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class Common {
+public class Commons {
 
 	/**
 	 * TODO: Description
