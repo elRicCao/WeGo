@@ -12,6 +12,7 @@ public class News {
 	private int id;
 	private ArrayList<User> actors;
 	private User owner;
+	private NewsType type;
 	private String content;
 	private String photo;
 	private Date time;
@@ -40,6 +41,20 @@ public class News {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public NewsType getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(NewsType type) {
+		this.type = type;
 	}
 
 	public Date getTime() {
