@@ -6,7 +6,7 @@ import java.util.Date;
 public class News {
 
 	public enum NewsType {
-		POST, REVIEW, PHOTO, COMMENT_POST, LIKE_POST, COMMENT_REVIEW, LIKE_REVIEW, COMMENT_PHOTO, LIKE_PHOTO
+		POST, REVIEW, PHOTO, COMMENT_POST, LIKE_POST, LIKE_REVIEW, COMMENT_PHOTO, LIKE_PHOTO
 	}
 
 	private int id;
@@ -15,6 +15,7 @@ public class News {
 	private NewsType type;
 	private String content;
 	private String photo;
+	private Place place;
 	private Date time;
 	private int numOfLikes;
 	private int numOfComments;
@@ -43,26 +44,12 @@ public class News {
 		this.owner = owner;
 	}
 
-	/**
-	 * @return the type
-	 */
 	public NewsType getType() {
 		return type;
 	}
 
-	/**
-	 * @param type the type to set
-	 */
 	public void setType(NewsType type) {
 		this.type = type;
-	}
-
-	public Date getTime() {
-		return time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
 	}
 
 	public String getContent() {
@@ -79,6 +66,22 @@ public class News {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+
+	public Place getPlace() {
+		return place;
+	}
+
+	public void setPlace(Place place) {
+		this.place = place;
+	}
+
+	public Date getTime() {
+		return time;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
 	public int getNumOfLikes() {

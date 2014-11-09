@@ -12,7 +12,7 @@ import vn.edu.hcmut.wego.entity.Offer;
 import vn.edu.hcmut.wego.entity.Offer.Type;
 import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.storage.DatabaseOpenHelper;
-import vn.edu.hcmut.wego.utility.Commons;
+import vn.edu.hcmut.wego.utility.Utility;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,7 +57,7 @@ public class FriendsFragment extends BaseFragment {
 		super.onCreate(savedInstanceState);
 
 		// Get user id saved in shared preferences
-		userId = Commons.getUserId(context);
+		userId = Utility.getUserId(context);
 
 		// Open database to load friends info from database and create friend adapter
 		friends = database.selectAllFriends();

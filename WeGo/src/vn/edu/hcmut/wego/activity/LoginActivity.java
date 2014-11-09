@@ -7,7 +7,7 @@ import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.server.ServerRequest;
 import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
 import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
-import vn.edu.hcmut.wego.utility.Commons;
+import vn.edu.hcmut.wego.utility.Utility;
 import vn.edu.hcmut.wego.utility.Security;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -183,7 +183,7 @@ public class LoginActivity extends ActionBarActivity {
 	 */
 	private void onLogin() {
 		// Check Internet connection
-		if (!Commons.checkInternetConnection(this)) {
+		if (!Utility.checkInternetConnection(this)) {
 			// Show alert dialog: no connection
 			AlertDialog.Builder builder = new Builder(this);
 			builder.setTitle(DIALOG_TITLE_LOGIN_FAILED).setMessage(NO_CONNECTION).create().show();

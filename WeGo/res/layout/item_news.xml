@@ -4,31 +4,63 @@
     android:layout_height="wrap_content"
     android:background="@drawable/item_news" >
 
-    <!--  
     <RelativeLayout
         android:id="@+id/item_news_action_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/item_news_action"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:padding="12dp"
-            android:text="elRic wrote"/>
+            android:id="@+id/item_news_actor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/item_news_actor_connector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@id/item_news_actor"
+            android:layout_toRightOf="@id/item_news_actor"
+            android:text="@string/item_news_actor_connector"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/item_news_actor_others"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@id/item_news_actor_connector"
+            android:layout_toRightOf="@id/item_news_actor_connector"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/item_news_actor_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@id/item_news_actor_others"
+            android:layout_toRightOf="@id/item_news_actor_others" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/item_news_action"
+            android:layout_below="@id/item_news_actor"
             android:background="#d3d3d3" />
     </RelativeLayout>
-    -->
 
     <RelativeLayout
         android:id="@+id/item_news_owner_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/item_news_action_group"
         android:padding="12dp" >
 
         <ImageView
@@ -52,10 +84,19 @@
 
             <TextView
                 android:id="@+id/item_news_user_name"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_news_user_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/item_news_user_name"
+                android:layout_toEndOf="@id/item_news_user_name"
+                android:layout_toRightOf="@id/item_news_user_name"
+                android:textColor="@android:color/darker_gray" />
 
             <TextView
                 android:id="@+id/item_news_time"
@@ -71,11 +112,11 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/item_news_owner_info"
-        android:background="#d3d3d3" 
+        android:layout_marginEnd="12dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
         android:layout_marginRight="12dp"
-        android:layout_marginEnd="12dp"/>
+        android:layout_marginStart="12dp"
+        android:background="#d3d3d3" />
 
     <TextView
         android:id="@+id/item_news_content"
@@ -98,6 +139,8 @@
             android:id="@+id/item_news_num_of_likes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -106,53 +149,51 @@
             android:id="@+id/item_news_num_of_comments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginStart="12dp"
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/item_news_like_and_comment"
         android:layout_marginTop="12dp"
         android:gravity="center"
-        android:orientation="horizontal" 
-        style="?android:attr/buttonBarStyle">
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/item_news_button_like"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/item_news_button_like"
             android:gravity="center"
+            android:minHeight="0dp"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:text="@string/item_news_button_like"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:textStyle="bold" 
-            android:minHeight="0dp"
-            style="?android:attr/buttonBarButtonStyle"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/item_news_button_comment"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/item_news_button_comment"
             android:gravity="center"
+            android:minHeight="0dp"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:text="@string/item_news_button_comment"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:textStyle="bold" 
-            android:minHeight="0dp"
-            style="?android:attr/buttonBarButtonStyle"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
 </RelativeLayout>

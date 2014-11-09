@@ -30,8 +30,8 @@
         <item>Moving</item>
     </string-array>
 
-    <string name="title_fragment_map">Map</string><string name="title_fragment_more">More</string>
-    
+    <string name="title_fragment_map">Map</string>
+    <string name="title_fragment_more">More</string>
     <string name="title_fragment_members">Members</string>
     <string name="title_fragment_schedule">Schedule</string>
     <string name="item_friend_image">Profile Photo</string>
@@ -58,5 +58,17 @@
     <string name="activity_signup_terms_and_conditions">I agree to the Terms and Conditions of WeGo</string>
     <string name="activity_signup_instruction">Fill in all information below and press Sign Up. Note that each email is used only once</string>
     <string name="facebook_app_id">365186526974087</string>
+    <string name="item_news_actor_connector">" and "</string>
+    <string name="item_news_actor_action_comment_post">" commented on a post"</string>
+    <string name="item_news_actor_action_like_post">" liked a post"</string>
+    <string name="item_news_actor_others">" others"</string>
+    <string name="item_news_actor_action_comment_photo">" commented on a photo"</string>
+    <string name="item_news_actor_action_like_photo">" liked a photo"</string>
+    <string name="item_news_actor_action_like_review">" liked a review"</string>
+    <string name="item_news_like">" likes"</string>
+    <string name="item_news_comment">" comments"</string>
+    <string name="item_news_user_action_write_status">" - wrote a status"</string>
+    <string name="item_news_user_action_post_photo">" - posted a photo"</string>
+    <string name="item_news_user_action_write_review">" - write a review about "</string>
 
 </resources>

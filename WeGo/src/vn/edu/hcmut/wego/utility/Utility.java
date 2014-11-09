@@ -10,7 +10,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class Commons {
+public class Utility {
 
 	/**
 	 * TODO: Description
@@ -85,5 +85,9 @@ public class Commons {
 	 */
 	public static int getUserId(Context context) {
 		return (Integer) getValueFromSharedPreferences(context, Constant.PREFS_USER_ID, Integer.class);
+	}
+	
+	public static String makeHtmlTextBold(String text) {
+		return "<b>" + text + "</b>";
 	}
 }
