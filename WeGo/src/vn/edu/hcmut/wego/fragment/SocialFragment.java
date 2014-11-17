@@ -7,16 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MembersFragment extends BaseFragment {
+public class SocialFragment extends WeGoFragment {
 
-	public MembersFragment(Context context) {
-		setTitle(context.getString(R.string.title_fragment_members));
+	private static final String title = "Social";
+	private static final int iconRes = R.drawable.ic_social;
+	
+	public SocialFragment(Context context) {
+		super(title, iconRes);
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_members, container, false);
+		ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_social, container, false);
+		
 		return rootView;
 	}
-	
 }

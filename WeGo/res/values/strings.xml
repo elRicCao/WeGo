@@ -37,13 +37,12 @@
     <string name="item_friend_image">Profile Photo</string>
     <string name="fragment_news_button_status">Status</string>
     <string name="fragment_news_button_photo">Photo</string>
-    <string name="fragment_news_button_checkin">Check-in</string>
+    <string name="fragment_news_button_review">Review</string>
     <string name="fragment_friends_button_message">Message</string>
     <string name="fragment_friends_button_request">Friend Request</string>
     <string name="fragment_follow_button_sort">Sort</string>
     <string name="fragment_follow_button_filter">Filter</string>
-    <string name="fragment_trip_button_create_trip">Create Trip</string>
-    <string name="fragment_trip_button_filter">Filter</string>
+    
     <string name="fragment_more_button_update_info">Update Info</string>
     <string name="fragment_more_button_create_group">Create Group</string>
     <string name="item_friend_info">Friend Info</string>
@@ -65,10 +64,27 @@
     <string name="item_news_actor_action_comment_photo">" commented on a photo"</string>
     <string name="item_news_actor_action_like_photo">" liked a photo"</string>
     <string name="item_news_actor_action_like_review">" liked a review"</string>
-    <string name="item_news_like">" likes"</string>
-    <string name="item_news_comment">" comments"</string>
-    <string name="item_news_user_action_write_status">" - wrote a status"</string>
+    <string name="item_news_like">Like</string>
+    <string name="item_news_comment">Comment</string>
+    <string name="item_news_user_action_write_status"></string>
     <string name="item_news_user_action_post_photo">" - posted a photo"</string>
     <string name="item_news_user_action_write_review">" - write a review about "</string>
+    <string name="title_activity_news_feed">NewsFeedActivity</string>
+    <string name="fragment_home_current_trip_start">Current Trip Start</string>
+    <string name="fragment_home_current_trip_end">Current Trip End</string>
+    <string name="fragment_home_current_trip">Current Trip</string>
+    <string name="fragment_trip_current">Current</string>
+    <string name="fragment_trip_current_trip_start">Current Trip Start</string>
+    <string name="fragment_trip_current_trip_end">Current Trip End</string>
+    <string name="fragment_trip_current_trip_day_reamain">days remain</string>
+    <string name="fragment_trip_suggest_trip">Suggest</string>
+    <string name="fragment_trip_next_trip">Next</string><string name="fragment_trip_button_create">Create Trip</string>
+    <string name="fragment_social_friend_request">Friend request</string>
+    <string name="fragment_social_friend">Friend</string>
+    <string name="fragment_social_group_invite">Group Invite</string>
+    <string name="fragment_social_group">Group</string>
+    <string name="fragment_more_top_place">Top Place</string>
+    <string name="fragment_more_top_photo">Top Photo</string>
+    <string name="fragment_more_top_review">Top Review</string>
 
 </resources>

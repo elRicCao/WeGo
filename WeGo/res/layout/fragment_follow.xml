@@ -29,7 +29,7 @@
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:background="@color/green01"
+        android:background="@color/green"
         android:alpha="0.80">
         
         <Button

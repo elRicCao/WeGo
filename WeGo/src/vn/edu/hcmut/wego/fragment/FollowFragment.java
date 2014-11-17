@@ -3,7 +3,6 @@ package vn.edu.hcmut.wego.fragment;
 import java.util.ArrayList;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.activity.MainActivity.ShowHideButtonBarOnTouchListener;
 import vn.edu.hcmut.wego.adapter.FollowAdapter;
 import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.storage.DatabaseOpenHelper;
@@ -18,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-public class FollowFragment extends BaseFragment {
+public class FollowFragment extends WeGoFragment {
 
 	private Context context;
 	private ArrayList<News> news;
@@ -54,7 +53,7 @@ public class FollowFragment extends BaseFragment {
 		// Set up list view
 		newsList = (ListView) rootView.findViewById(R.id.fragment_follow_list);
 		newsList.setAdapter(followAdapter);
-		newsList.setOnTouchListener(new ShowHideButtonBarOnTouchListener(context, buttonBar));
+//		newsList.setOnTouchListener(new ShowHideButtonBarOnTouchListener(context, buttonBar));
 
 		// If news list is empty, show progress bar
 		if (followAdapter.isEmpty()) {

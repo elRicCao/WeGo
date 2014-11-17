@@ -11,7 +11,6 @@ import vn.edu.hcmut.wego.entity.User;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
@@ -21,8 +20,8 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
 	private Context context;
 	private ArrayList<News> news;
-	private CommentButtonListener callback;
 
+	// private CommentButtonListener callback;
 	// private DatabaseOpenHelper database;
 
 	public NewsAdapter(Context context, ArrayList<News> news) {
@@ -46,20 +45,20 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
 		// Set up action indicator bar
 		RelativeLayout actionGroup = (RelativeLayout) convertView.findViewById(R.id.item_news_action_group);
-		if (newsItem.getType() == NewsType.POST || newsItem.getType() == NewsType.PHOTO || newsItem.getType() == NewsType.REVIEW)
+		if (newsItem.getType() == NewsType.POST || newsItem.getType() == NewsType.PHOTO || newsItem.getType() == NewsType.REVIEW) {
 			actionGroup.setVisibility(View.GONE);
-		else {
+		} else {
 			TextView actorView = (TextView) convertView.findViewById(R.id.item_news_actor);
 			actorView.setText(newsItem.getActors().get(0).getName());
 
 			if (newsItem.getActors().size() > 1) {
 				convertView.findViewById(R.id.item_news_actor_connector).setVisibility(View.VISIBLE);
-
 				TextView otherActorView = (TextView) convertView.findViewById(R.id.item_news_actor_others);
-				if (newsItem.getActors().size() == 2)
+				if (newsItem.getActors().size() == 2) {
 					otherActorView.setText(newsItem.getActors().get(1).getName());
-				else
+				} else {
 					otherActorView.setText(String.valueOf(newsItem.getActors().size() - 1) + context.getResources().getString(R.string.item_news_actor_others));
+				}
 			}
 
 			TextView actionView = (TextView) convertView.findViewById(R.id.item_news_actor_action);
@@ -76,7 +75,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
 		// Set up time view
 		TextView timeView = (TextView) convertView.findViewById(R.id.item_news_time);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d 'at' hh:mma", Locale.getDefault());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d 'at' h:ma", Locale.US);
 		timeView.setText(dateFormat.format(newsItem.getTime()).replace("AM", "am").replace("PM", "pm"));
 
 		// Set up content view
@@ -85,44 +84,22 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
 		// Set up like indicator view
 		TextView likesView = (TextView) convertView.findViewById(R.id.item_news_num_of_likes);
-		likesView.setText(String.valueOf(newsItem.getNumOfLikes()) + context.getResources().getString(R.string.item_news_like));
-		if (newsItem.getNumOfLikes() == 0)
-			likesView.setVisibility(View.GONE);
+		likesView.setText(String.valueOf(newsItem.getNumOfLikes()));
 
 		// Set up comment indicator view
 		TextView commentsView = (TextView) convertView.findViewById(R.id.item_news_num_of_comments);
-		commentsView.setText(String.valueOf(newsItem.getNumOfComments()) + context.getResources().getString(R.string.item_news_comment));
-		if (newsItem.getNumOfComments() == 0)
-			commentsView.setVisibility(View.GONE);
+		commentsView.setText(String.valueOf(newsItem.getNumOfComments()));
 
-		// Set up like button
-		TextView likeButton = (TextView) convertView.findViewById(R.id.item_news_button_like);
-		likeButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO: create server request to push like event to server, receive number of like update, set text to Unlike
-			}
-		});
-
-		// Set up comment button
-		TextView commentButton = (TextView) convertView.findViewById(R.id.item_news_button_comment);
-		commentButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (callback != null)
-					callback.onClick(newsItem);
-			}
-		});
 		return convertView;
 	}
 
-	public void setCommentButtonListener(CommentButtonListener callback) {
-		this.callback = callback;
-	}
+	// public void setCommentButtonListener(CommentButtonListener callback) {
+	// this.callback = callback;
+	// }
 
-	public interface CommentButtonListener {
-		public void onClick(News newsItem);
-	}
+	// public interface CommentButtonListener {
+	// public void onClick(News newsItem);
+	// }
 
 	/**
 	 * Get action text of actor from resources

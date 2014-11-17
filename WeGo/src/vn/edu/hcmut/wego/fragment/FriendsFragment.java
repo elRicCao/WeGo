@@ -27,7 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class FriendsFragment extends BaseFragment {
+public class FriendsFragment extends WeGoFragment {
 
 	private ArrayList<User> friends;
 	private ArrayList<Item> items;

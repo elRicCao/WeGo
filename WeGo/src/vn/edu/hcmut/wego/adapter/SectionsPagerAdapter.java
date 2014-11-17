@@ -2,7 +2,7 @@ package vn.edu.hcmut.wego.adapter;
 
 import java.util.ArrayList;
 
-import vn.edu.hcmut.wego.fragment.BaseFragment;
+import vn.edu.hcmut.wego.fragment.WeGoFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,7 +13,7 @@ import android.support.v4.view.PagerAdapter;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-	private ArrayList<BaseFragment> fragments;
+	private ArrayList<WeGoFragment> fragments;
 	private FragmentManager fragmentManager;
 	
 	public SectionsPagerAdapter(FragmentManager fragmentManager) {
@@ -21,7 +21,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 		this.fragmentManager = fragmentManager;
 	}
 
-	public SectionsPagerAdapter(FragmentManager fragmentManager, ArrayList<BaseFragment> fragments) {
+	public SectionsPagerAdapter(FragmentManager fragmentManager, ArrayList<WeGoFragment> fragments) {
 		this(fragmentManager);
 		this.fragments = fragments;
 	}
@@ -46,7 +46,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 		return PagerAdapter.POSITION_NONE;
 	}
 	
-	public void setFragments(ArrayList<BaseFragment> fragments) {
+	public void setFragments(ArrayList<WeGoFragment> fragments) {
 		if (this.fragments != null) {
 			for (int i = 0; i < this.fragments.size(); i++) {
 				fragmentManager.beginTransaction().remove(this.fragments.get(i)).commit();

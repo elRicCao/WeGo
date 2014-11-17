@@ -4,29 +4,29 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.activity.MainActivity.ShowHideButtonBarOnTouchListener;
+import vn.edu.hcmut.wego.activity.MainActivity;
+//import vn.edu.hcmut.wego.activity.MainActivity.ShowHideButtonBarOnTouchListener;
 import vn.edu.hcmut.wego.adapter.NewsAdapter;
-import vn.edu.hcmut.wego.adapter.NewsAdapter.CommentButtonListener;
 import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.entity.News.NewsType;
 import vn.edu.hcmut.wego.entity.User;
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-public class NewsFragment extends BaseFragment {
+public class NewsFragment extends WeGoFragment {
+
+	private static final String title = "News";
+	private static final int iconRes = R.drawable.ic_news;
 
 	private Context context;
 	private ArrayList<News> news;
@@ -36,8 +36,8 @@ public class NewsFragment extends BaseFragment {
 	private ListView newsList;
 
 	public NewsFragment(Context context) {
+		super(title, iconRes);
 		this.context = context;
-		setTitle(this.context.getString(R.string.title_fragment_news));
 	}
 
 	@Override
@@ -57,24 +57,27 @@ public class NewsFragment extends BaseFragment {
 		final View rootView = inflater.inflate(R.layout.fragment_news, container, false);
 
 		// Set up progress bar. This progress bar is shown only on startup when list is empty
-		progressBar = (ProgressBar) rootView.findViewById(R.id.fragment_news_progress_bar);
+		// progressBar = (ProgressBar) rootView.findViewById(R.id.fragment_news_progress_bar);
 
 		// Set up button bar
 		buttonBar = (LinearLayout) rootView.findViewById(R.id.fragment_news_button_bar);
 
 		// Set up list view, touch event for list view, and adapter
 		newsList = (ListView) rootView.findViewById(R.id.fragment_news_list);
-		newsList.setOnTouchListener(new ShowHideButtonBarOnTouchListener(context, buttonBar));
+		newsList.setOnTouchListener(new MainActivity.BottomBarListener(context, buttonBar));
 		newsList.setAdapter(newsAdapter);
 
-		newsAdapter.setCommentButtonListener(new CommentButtonListener() {
-			@Override
-			public void onClick(News newsItem) {
-				FragmentManager fragmentManager = NewsFragment.this.getFragmentManager();
-				CommentDialog commentDialog = new CommentDialog();
-				commentDialog.show(fragmentManager, "comment_dialog");
-			}
-		});
+		// newsAdapter.setCommentButtonListener(new CommentButtonListener() {
+		// @Override
+		// public void onClick(News newsItem) {
+		// Log.i("Debug", String.valueOf(test));
+		// test = !test;
+		//
+		// FragmentManager fragmentManager = NewsFragment.this.getFragmentManager();
+		// CommentDialog commentDialog = new CommentDialog();
+		// commentDialog.show(fragmentManager, "comment_dialog");
+		// }
+		// });
 
 		// If news list is empty, show progress bar and create a server request to fetch data from server
 		// if (newsAdapter.isEmpty()) {
@@ -99,7 +102,7 @@ public class NewsFragment extends BaseFragment {
 			super.onCreate(savedInstanceState);
 			setStyle(STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
 		}
-		
+
 		@Override
 		public void onStart() {
 			super.onStart();
@@ -111,7 +114,7 @@ public class NewsFragment extends BaseFragment {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.dialog_comment, container, false);
-			
+
 			return rootView;
 		}
 	}
@@ -119,17 +122,17 @@ public class NewsFragment extends BaseFragment {
 	private void debug() {
 		User user1 = new User();
 		user1.setName("elRic");
-		
+
 		User user2 = new User();
 		user2.setName("Mai Huu Nhan");
-		
+
 		User user3 = new User();
 		user3.setName("Phan Tran Viet");
 
 		User user4 = new User();
 		user4.setName("SuperBo");
-		
-		//TODO: Sample post
+
+		// TODO: Sample post
 		News news = new News();
 		news.setOwner(user1);
 		news.setType(NewsType.POST);
@@ -138,39 +141,42 @@ public class NewsFragment extends BaseFragment {
 		news.setNumOfLikes(0);
 		news.setNumOfComments(0);
 		newsAdapter.add(news);
-		
-		//TODO: Sample post with comment
+
+		// TODO: Sample post with comment
 		news = new News();
 		news.setOwner(user1);
-		
+
 		ArrayList<User> actors = new ArrayList<User>();
 		actors.add(user2);
 		actors.add(user3);
 		actors.add(user4);
 		news.setActors(actors);
-		
+
 		news.setType(NewsType.COMMENT_POST);
 		news.setTime(new Date());
 		news.setContent("Sample Post with Comment!");
 		news.setNumOfLikes(0);
 		news.setNumOfComments(actors.size());
-		
+
 		newsAdapter.add(news);
-		
-		//TODO: Sample Post with like
+
+		// TODO: Sample Post with like
 		news = new News();
 		news.setOwner(user2);
-		
+
 		actors = new ArrayList<User>();
 		actors.add(user1);
 		news.setActors(actors);
-		
+
 		news.setType(NewsType.LIKE_POST);
 		news.setTime(new Date());
 		news.setContent("Sampe Post with like!");
 		news.setNumOfLikes(actors.size());
 		news.setNumOfComments(0);
-		
+
+		newsAdapter.add(news);
+		newsAdapter.add(news);
+		newsAdapter.add(news);
 		newsAdapter.add(news);
 	}
 }
