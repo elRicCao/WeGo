@@ -1,5 +1,7 @@
 package vn.edu.hcmut.wego.entity;
 
+import java.util.ArrayList;
+
 public class User {
 
 	private int id;
@@ -9,6 +11,33 @@ public class User {
 	private String phone;
 	private String status;
 	private Place location;
+	private int numOfVote;
+	private double averageVote;
+	private ArrayList<Review> votes;
+
+	public int getNumOfVote() {
+		return numOfVote;
+	}
+
+	public void setNumOfVote(int numOfVote) {
+		this.numOfVote = numOfVote;
+	}
+
+	public double getAverageVote() {
+		return averageVote;
+	}
+
+	public void setAverageVote(double averageVote) {
+		this.averageVote = averageVote;
+	}
+
+	public ArrayList<Review> getVotes() {
+		return votes;
+	}
+
+	public void setVotes(ArrayList<Review> votes) {
+		this.votes = votes;
+	}
 
 	public int getId() {
 		return id;
