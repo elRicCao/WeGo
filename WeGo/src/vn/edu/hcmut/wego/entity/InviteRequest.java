@@ -1,9 +1,9 @@
 package vn.edu.hcmut.wego.entity;
 
-public class Offer {
+public class InviteRequest {
 
 	public enum Type {
-		FRIEND_REQUEST, GROUP_REQUEST, GROUP_INVITE
+		FRIEND_REQUEST, GROUP_REQUEST, GROUP_INVITE, TRIP_REQUEST, TRIP_INVITE
 	};
 
 	private int id;
@@ -11,10 +11,10 @@ public class Offer {
 	private int receiverId;
 	private Type type;
 
-	public Offer() {
+	public InviteRequest() {
 	}
 
-	public Offer(int id, int senderId, int receiverId, Type type) {
+	public InviteRequest(int id, int senderId, int receiverId, Type type) {
 		this.id = id;
 		this.senderId = senderId;
 		this.receiverId = receiverId;

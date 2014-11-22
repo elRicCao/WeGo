@@ -1,5 +1,7 @@
 package vn.edu.hcmut.wego.entity;
 
+import java.util.ArrayList;
+
 /**
  * Class for holding information of place. Place can be a administrative unit such as Province and City or detail unit such as Hotel and Restaurant
  * 
@@ -38,6 +40,9 @@ public class Place {
 
 	// Province and district of place. If place is a province or city, district can be null
 	private AdminUnit adminUnit;
+
+	// Place review
+	private ArrayList<Review> reviews;
 
 	// GPS location of place
 	private double longtitude;
@@ -116,6 +121,14 @@ public class Place {
 
 	public void setAdminUnit(AdminUnit adminUnit) {
 		this.adminUnit = adminUnit;
+	}
+
+	public ArrayList<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(ArrayList<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 	public double getLongtitude() {

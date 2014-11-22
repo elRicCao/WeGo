@@ -1,13 +1,35 @@
 package vn.edu.hcmut.wego.entity;
 
+import java.util.ArrayList;
+
+/**
+ * Class for holding group information
+ * 
+ * @author elRic
+ *
+ */
 public class Group {
 
+	// Id of group in database
 	private int id;
+
+	// Name of group
 	private String name;
+
+	// Description of group
 	private String description;
 
-	// TODO: will change to enum type later
-	private String status;
+	// Group message
+	private ArrayList<Message> messages;
+
+	// Group request
+	private ArrayList<InviteRequest> requests;
+
+	// Group invite
+	private ArrayList<InviteRequest> invites;
+
+	// Group privacy. If true, everone can see this group
+	private boolean isPublic;
 
 	public Group() {
 
@@ -17,7 +39,6 @@ public class Group {
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.status = status;
 	}
 
 	public int getId() {
@@ -44,12 +65,41 @@ public class Group {
 		this.description = description;
 	}
 
-	public String getStatus() {
-		return status;
+	public ArrayList<Message> getMessages() {
+		return messages;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setMessages(ArrayList<Message> messages) {
+		this.messages = messages;
+	}
+
+	public boolean isPublic() {
+		return isPublic;
+	}
+
+	public void setPublic(boolean isPublic) {
+		this.isPublic = isPublic;
+	}
+
+	public ArrayList<InviteRequest> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(ArrayList<InviteRequest> requests) {
+		this.requests = requests;
+	}
+
+	public ArrayList<InviteRequest> getInvites() {
+		return invites;
+	}
+
+	public void setInvites(ArrayList<InviteRequest> invites) {
+		this.invites = invites;
+	}
+
+	@Override
+	public String toString() {
+		return "Group [id=" + id + ", name=" + name + ", description=" + description + ", isPublic=" + isPublic + "]";
 	}
 
 }

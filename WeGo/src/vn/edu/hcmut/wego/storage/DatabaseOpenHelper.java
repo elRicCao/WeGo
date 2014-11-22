@@ -3,8 +3,8 @@ package vn.edu.hcmut.wego.storage;
 import java.util.ArrayList;
 
 import vn.edu.hcmut.wego.constant.Constant;
-import vn.edu.hcmut.wego.entity.Offer;
-import vn.edu.hcmut.wego.entity.Offer.Type;
+import vn.edu.hcmut.wego.entity.InviteRequest;
+import vn.edu.hcmut.wego.entity.InviteRequest.Type;
 import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.utility.Utility;
 import android.content.ContentValues;
@@ -205,7 +205,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	 * 
 	 * @param offer
 	 */
-	public void insertOffer(Offer offer) {
+	public void insertOffer(InviteRequest offer) {
 		SQLiteDatabase database = this.getWritableDatabase();
 
 		ContentValues info = new ContentValues();
@@ -256,7 +256,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 //		database.close();
 //	}
 
-	public void deleteOffer(Offer offer) {
+	public void deleteOffer(InviteRequest offer) {
 		SQLiteDatabase database = this.getWritableDatabase();
 
 		database.delete(TABLE_OFFER, KEY_OFFER_ID + " = ?", new String[] { String.valueOf(offer.getId()) });
@@ -316,9 +316,9 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	 * @param type
 	 * @return
 	 */
-	public ArrayList<Offer> selectAllOffers(int userId, Offer.Type type, boolean isSent) {
+	public ArrayList<InviteRequest> selectAllOffers(int userId, InviteRequest.Type type, boolean isSent) {
 
-		ArrayList<Offer> offers = new ArrayList<Offer>();
+		ArrayList<InviteRequest> offers = new ArrayList<InviteRequest>();
 
 		SQLiteDatabase database = getReadableDatabase();
 
@@ -340,7 +340,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		// Create objects to return
 		if (cursor.moveToFirst()) {
 			do {
-				Offer offer = new Offer();
+				InviteRequest offer = new InviteRequest();
 				offer.setId(cursor.getInt(0));
 				offer.setSenderId(cursor.getInt(1));
 				offer.setReceiverId(cursor.getInt(2));

@@ -49,6 +49,15 @@ public class Trip {
 
 	// Collection of places that this trip will visit. Chosen when creating trip
 	private ArrayList<Place> places;
+	
+	// Trip message
+	private ArrayList<Message> messages;
+	
+	// Trip request
+	private ArrayList<InviteRequest> requests;
+	
+	// Trip invite
+	private ArrayList<InviteRequest> invites;
 
 	public int getId() {
 		return id;
@@ -152,6 +161,36 @@ public class Trip {
 
 	public void setPlaces(ArrayList<Place> places) {
 		this.places = places;
+	}
+
+	/**
+	 * @return the messages
+	 */
+	public ArrayList<Message> getMessages() {
+		return messages;
+	}
+
+	/**
+	 * @param messages the messages to set
+	 */
+	public void setMessages(ArrayList<Message> messages) {
+		this.messages = messages;
+	}
+
+	public ArrayList<InviteRequest> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(ArrayList<InviteRequest> requests) {
+		this.requests = requests;
+	}
+
+	public ArrayList<InviteRequest> getInvites() {
+		return invites;
+	}
+
+	public void setInvites(ArrayList<InviteRequest> invites) {
+		this.invites = invites;
 	}
 
 	@Override
