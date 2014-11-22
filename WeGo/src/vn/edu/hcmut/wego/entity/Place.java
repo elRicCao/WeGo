@@ -167,7 +167,7 @@ public class Place {
 	 * @author elRic
 	 *
 	 */
-	public class AdminUnit {
+	public static class AdminUnit {
 		public District district;
 		public Province province;
 

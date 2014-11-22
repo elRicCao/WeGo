@@ -49,13 +49,13 @@ public class Trip {
 
 	// Collection of places that this trip will visit. Chosen when creating trip
 	private ArrayList<Place> places;
-	
+
 	// Trip message
 	private ArrayList<Message> messages;
-	
+
 	// Trip request
 	private ArrayList<InviteRequest> requests;
-	
+
 	// Trip invite
 	private ArrayList<InviteRequest> invites;
 
@@ -171,7 +171,8 @@ public class Trip {
 	}
 
 	/**
-	 * @param messages the messages to set
+	 * @param messages
+	 *            the messages to set
 	 */
 	public void setMessages(ArrayList<Message> messages) {
 		this.messages = messages;
@@ -197,6 +198,35 @@ public class Trip {
 	public String toString() {
 		return "Trip [id=" + id + ", leader=" + leader + ", description=" + description + ", startDate=" + startDate + ", endDate=" + endDate + ", status=" + status + ", startPlace=" + startPlace
 				+ ", route=" + Arrays.toString(route) + ", plan=" + Arrays.toString(plan) + ", isPublic=" + isPublic + ", members=" + members + ", places=" + places + ", cost=" + cost + "]";
+	}
+
+	/**
+	 * Class for storing trip cost
+	 * 
+	 * @author elRic
+	 *
+	 */
+	public static class Cost {
+		public int accommodation;
+		public int transport;
+		public int food;
+		public int activity;
+		public int others;
+		public int total;
+
+		public Cost(int accomodation, int transport, int food, int activity, int others) {
+			this.accommodation = accomodation;
+			this.transport = transport;
+			this.food = food;
+			this.activity = activity;
+			this.others = others;
+			this.total = accomodation + transport + food + activity + others;
+		}
+
+		@Override
+		public String toString() {
+			return "Cost [accommodation=" + accommodation + ", transport=" + transport + ", food=" + food + ", activity=" + activity + ", others=" + others + "]";
+		}
 	}
 
 }
