@@ -3,12 +3,12 @@ package vn.edu.hcmut.wego.activity;
 import java.util.ArrayList;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.adapter.WeGoPagerAdapter;
+import vn.edu.hcmut.wego.adapter.TabPagerAdapter;
 import vn.edu.hcmut.wego.fragment.MoreFragment;
 import vn.edu.hcmut.wego.fragment.NewsFragment;
 import vn.edu.hcmut.wego.fragment.SocialFragment;
 import vn.edu.hcmut.wego.fragment.TripFragment;
-import vn.edu.hcmut.wego.fragment.WeGoFragment;
+import vn.edu.hcmut.wego.fragment.TabFragment;
 import vn.edu.hcmut.wego.view.SlidingTabLayout;
 import android.content.Context;
 import android.os.Bundle;
@@ -28,8 +28,8 @@ import android.widget.LinearLayout;
 public class MainActivity extends ActionBarActivity {
 
 	private ViewPager viewPager;
-	private WeGoPagerAdapter pagerAdapter;
-	private ArrayList<WeGoFragment> fragments;
+	private TabPagerAdapter pagerAdapter;
+	private ArrayList<TabFragment> fragments;
 	private SlidingTabLayout slidingTab;
 	private ActionBar actionBar;
 
@@ -38,14 +38,14 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		fragments = new ArrayList<WeGoFragment>();
+		fragments = new ArrayList<TabFragment>();
 		fragments.add(new TripFragment(this));
 		fragments.add(new NewsFragment(this));
 		fragments.add(new SocialFragment(this));
 		fragments.add(new MoreFragment(this));
 
 		viewPager = (ViewPager) findViewById(R.id.activity_main_pager);
-		pagerAdapter = new WeGoPagerAdapter(getSupportFragmentManager(), fragments);
+		pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), fragments);
 		viewPager.setAdapter(pagerAdapter);
 
 		slidingTab = (SlidingTabLayout) findViewById(R.id.activity_main_sliding_tabs);
@@ -76,22 +76,22 @@ public class MainActivity extends ActionBarActivity {
 			case MotionEvent.ACTION_DOWN:
 				pivotX = event.getX() / view.getWidth();
 				pivotY = event.getY() / view.getHeight();
-				scaleDown(view);
+				onScaleDown(view);
 				break;
 
 			case MotionEvent.ACTION_UP:
-				scaleUp(view);
+				onScaleUp(view);
 				view.performClick();
 				break;
 
 			case MotionEvent.ACTION_MOVE:
-				scaleUp(view);
+				onScaleUp(view);
 				break;
 			}
 			return true;
 		}
 
-		private void scaleUp(View view) {
+		protected void onScaleUp(View view) {
 			ScaleAnimation scaleAnimation = new ScaleAnimation(toX, fromX, toY, fromY, Animation.RELATIVE_TO_SELF, pivotX, Animation.RELATIVE_TO_SELF, pivotY);
 			scaleAnimation.setFillEnabled(true);
 			scaleAnimation.setFillAfter(true);
@@ -99,7 +99,7 @@ public class MainActivity extends ActionBarActivity {
 			view.startAnimation(scaleAnimation);
 		}
 
-		private void scaleDown(View view) {
+		protected void onScaleDown(View view) {
 			ScaleAnimation scaleAnimation = new ScaleAnimation(fromX, toX, fromY, toY, Animation.RELATIVE_TO_SELF, pivotX, Animation.RELATIVE_TO_SELF, pivotY);
 			scaleAnimation.setFillEnabled(true);
 			scaleAnimation.setFillAfter(true);

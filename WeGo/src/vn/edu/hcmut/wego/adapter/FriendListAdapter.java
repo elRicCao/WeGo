@@ -3,7 +3,7 @@ package vn.edu.hcmut.wego.adapter;
 import java.util.ArrayList;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.activity.UserPageActivity;
+import vn.edu.hcmut.wego.activity.UserInfoActivity;
 import vn.edu.hcmut.wego.entity.User;
 import android.content.Context;
 import android.content.Intent;
@@ -45,7 +45,7 @@ public class FriendListAdapter extends ArrayAdapter<User> {
 		infoButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(context, UserPageActivity.class);
+				Intent intent = new Intent(context, UserInfoActivity.class);
 				context.startActivity(intent);
 			}
 		});

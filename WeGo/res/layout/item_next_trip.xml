@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shadow_background_responsive"
+    android:baselineAligned="false"
+    android:clickable="true" >
+
+    <!-- Start location -->
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/item_next_trip_start_location_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/spacing_small" >
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:contentDescription="@string/item_trip_label_start_location"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_label_start_location" />
+
+            <TextView
+                android:id="@+id/item_next_trip_start_location"
+                style="@style/WeGo.TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ho Chi Minh City" />
+        </LinearLayout>
+
+        <!-- Destinations -->
+
+        <LinearLayout
+            android:id="@+id/item_next_trip_destination_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/spacing_small" >
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:contentDescription="@string/item_trip_label_start_location"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_label_destination" />
+
+            <TextView
+                android:id="@+id/item_next_trip_destination"
+                style="@style/WeGo.TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nha Trang - Da Lat" />
+        </LinearLayout>
+
+        <!-- Leader information -->
+
+        <LinearLayout
+            android:id="@+id/item_next_trip_leader_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+           android:padding="@dimen/spacing_small" >
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:contentDescription="@string/item_trip_label_leader"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_label_trip_leader" />
+
+            <TextView
+                android:id="@+id/item_next_trip_leader"
+                style="@style/WeGo.TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="elRic"
+                android:textColor="@color/green"
+                android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/item_next_trip_leader_reputation"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_tiny"
+                android:layout_marginStart="@dimen/spacing_tiny"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="3.5" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Starting days -->
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:padding="@dimen/spacing_small" >
+
+        <TextView
+            android:id="@+id/item_next_trip_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:text="500.000đ"
+            android:textColor="@color/gray"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/item_next_trip_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_next_trip_cost"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:text="Nov 20 - Nov 25"
+            android:textColor="@color/gray"
+            android:textSize="14sp" />
+        
+        <TextView
+            android:id="@+id/item_next_trip_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/red"
+            android:padding="5dp"
+            android:text="@string/item_trip_next_full"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" 
+            android:textAllCaps="true"/>
+    </RelativeLayout>
+
+</LinearLayout>

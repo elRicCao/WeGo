@@ -17,14 +17,14 @@
         android:scrollbars="none" />
 
     <LinearLayout
-        android:id="@+id/fragment_news_button_bar"
+        android:id="@+id/activity_user_page_button_bar"
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" >
 
         <LinearLayout
-            android:id="@+id/fragment_news_button_status"
+            android:id="@+id/activity_user_page_message"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -49,14 +49,14 @@
         </LinearLayout>
 
         <View
-            android:layout_width="1sp"
+            android:layout_width="1px"
             android:layout_height="match_parent"
             android:layout_marginBottom="14dp"
             android:layout_marginTop="14dp"
             android:background="@android:color/white" />
 
         <LinearLayout
-            android:id="@+id/fragment_news_button_photo"
+            android:id="@+id/activity_user_page_friend"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -81,14 +81,14 @@
         </LinearLayout>
 
         <View
-            android:layout_width="1sp"
+            android:layout_width="1px"
             android:layout_height="match_parent"
             android:layout_marginBottom="14dp"
             android:layout_marginTop="14dp"
             android:background="@android:color/white" />
 
         <LinearLayout
-            android:id="@+id/fragment_news_button_review"
+            android:id="@+id/activity_user_page_follow"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

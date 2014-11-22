@@ -41,7 +41,7 @@
             android:textSize="16sp"
             android:textStyle="bold" 
             android:textColor="@android:color/white"
-            android:text="@string/fragment_follow_button_sort"/>
+            android:text="Sort"/>
         
     </LinearLayout>
 

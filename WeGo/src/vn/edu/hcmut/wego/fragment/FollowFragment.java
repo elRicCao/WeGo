@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-public class FollowFragment extends WeGoFragment {
+public class FollowFragment extends TabFragment {
 
 	private Context context;
 	private ArrayList<News> news;
@@ -28,7 +28,7 @@ public class FollowFragment extends WeGoFragment {
 
 	public FollowFragment(Context context) {
 		this.context = context;
-		setTitle(context.getString(R.string.title_fragment_follow));
+		setTitle("Follow");
 	}
 
 	@Override

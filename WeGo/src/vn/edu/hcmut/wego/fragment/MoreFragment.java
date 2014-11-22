@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MoreFragment extends WeGoFragment {
+public class MoreFragment extends TabFragment {
 
 	private static final String title = "More";
-	private static final int iconRes = R.drawable.ic_rank;
+	private static final int iconRes = R.drawable.ic_tab_more;
 
 	public MoreFragment(Context context) {
 		super(title, iconRes);

@@ -3,14 +3,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <!-- Button bar -->
+
+    <LinearLayout
+        android:id="@+id/fragment_social_button_bar"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <LinearLayout
+            android:id="@+id/fragment_social_button_friend"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:contentDescription="@string/fragment_social_button_friend"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_action_friend" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_social_button_friend"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="14dp"
+            android:background="@android:color/white" />
+
+        <LinearLayout
+            android:id="@+id/fragment_social_button_group"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:contentDescription="@string/fragment_social_button_group"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_action_group" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_social_button_group"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_above="@id/fragment_social_button_bar"
+        android:layout_alignParentTop="true" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
             <!-- Friend request section -->
 
@@ -26,32 +95,36 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/section_title"
+                    android:background="@color/green"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:contentDescription="@string/fragment_social_friend_request"
-                        android:src="@drawable/ic_trip_next" />
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:contentDescription="@string/fragment_social_section_friend_request"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_label_friend_request" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="@string/fragment_social_friend_request"
+                        android:text="@string/fragment_social_section_friend_request"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <ListView
+                <LinearLayout
                     android:id="@+id/fragment_social_friend_request_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
             </LinearLayout>
-            
+
+            <!-- Section Group Invite -->
+
             <LinearLayout
                 android:id="@+id/fragment_social_section_group_invite"
                 android:layout_width="match_parent"
@@ -64,36 +137,38 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/section_title"
+                    android:background="@color/green"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:contentDescription="@string/fragment_social_group_invite"
-                        android:src="@drawable/ic_trip_next" />
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:contentDescription="@string/fragment_social_section_group_invite"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_label_group_invite" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="@string/fragment_social_group_invite"
+                        android:text="@string/fragment_social_section_group_invite"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <ListView
+                <LinearLayout
                     android:id="@+id/fragment_social_group_invite_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
             </LinearLayout>
 
-            <!-- Friend list section -->
+            <!-- Section Friend Message -->
 
             <LinearLayout
-                android:id="@+id/fragment_social_section_friend_list"
+                android:id="@+id/fragment_social_section_friend_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
@@ -104,34 +179,38 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/section_title"
+                    android:background="@color/green"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:contentDescription="@string/fragment_social_friend"
-                        android:src="@drawable/ic_trip_next" />
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:contentDescription="@string/fragment_social_section_friend_message"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_label_friend_message" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="@string/fragment_social_friend"
+                        android:text="@string/fragment_social_section_friend_message"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/fragment_social_friend_list"
+                <LinearLayout
+                    android:id="@+id/fragment_social_friend_message"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
             </LinearLayout>
-            
+
+            <!-- Section Group Message -->
+
             <LinearLayout
-                android:id="@+id/fragment_social_section_group_list"
+                android:id="@+id/fragment_social_section_group_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
@@ -142,30 +221,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/section_title"
+                    android:background="@color/green"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:contentDescription="@string/fragment_social_group"
-                        android:src="@drawable/ic_trip_next" />
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:contentDescription="@string/fragment_social_section_group_message"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_label_group_message" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="@string/fragment_social_group"
+                        android:text="@string/fragment_social_section_group_message"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/fragment_social_group_list"
+                <LinearLayout
+                    android:id="@+id/fragment_social_group_message"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

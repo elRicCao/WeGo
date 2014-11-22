@@ -171,8 +171,9 @@ public class ServerRequest {
 			case LOGIN:
 				parseResult = Utils.parseResult(requestType, result);
 				User user = (parseResult.isEmpty())? null: (User) parseResult.get(0);
+				parseResult.add(user);
 				if (callback != null)
-					callback.onCompleted(user);
+					callback.onCompleted(user, parseResult);
 				break;
 
 			default:

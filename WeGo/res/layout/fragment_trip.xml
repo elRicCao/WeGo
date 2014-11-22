@@ -12,16 +12,30 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" >
 
-        <Button
+        <LinearLayout
             android:id="@+id/fragment_trip_button_create"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0sp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/fragment_trip_button_create"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:contentDescription="@string/fragment_trip_button_create"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_action_create_trip" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_trip_button_create"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Content -->
@@ -54,7 +68,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/section_title"
+                    android:background="@color/green"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
@@ -62,12 +76,12 @@
                         android:layout_width="@dimen/icon_size"
                         android:layout_height="@dimen/icon_size"
                         android:contentDescription="@string/fragment_trip_current"
-                        android:src="@drawable/ic_trip_current" />
+                        android:src="@drawable/ic_label_trip_current" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/section_title"
+                        android:background="@color/green"
                         android:padding="@dimen/spacing_small"
                         android:text="@string/fragment_trip_current"
                         android:textAllCaps="true"
@@ -80,7 +94,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shadow" >
+                    android:background="@drawable/shadow_background_white" >
 
                     <!-- Start location -->
 
@@ -95,9 +109,9 @@
                         <ImageView
                             android:layout_width="@dimen/icon_size"
                             android:layout_height="@dimen/icon_size"
-                            android:contentDescription="@string/fragment_trip_current_trip_start"
+                            android:contentDescription="@string/item_trip_label_start_location"
                             android:scaleType="fitXY"
-                            android:src="@drawable/ic_trip_current_start" />
+                            android:src="@drawable/ic_label_trip_current_start" />
 
                         <TextView
                             android:id="@+id/fragment_trip_current_trip_start"
@@ -107,7 +121,7 @@
                             android:text="Ho Chi Minh City" />
                     </LinearLayout>
 
-                    <!-- End location -->
+                    <!-- Current location -->
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -120,9 +134,9 @@
                         <ImageView
                             android:layout_width="@dimen/icon_size"
                             android:layout_height="@dimen/icon_size"
-                            android:contentDescription="@string/fragment_trip_current_trip_end"
+                            android:contentDescription="@string/item_trip_label_leader"
                             android:scaleType="fitXY"
-                            android:src="@drawable/ic_trip_current_location" />
+                            android:src="@drawable/ic_label_trip_current_location" />
 
                         <TextView
                             android:id="@+id/fragment_trip_current_trip_end"
@@ -144,7 +158,7 @@
                         android:padding="@dimen/spacing_small" >
 
                         <TextView
-                            android:id="@+id/fragment_trip_current_trip_day_remain"
+                            android:id="@+id/item_suggest_trip_time"
                             style="@style/WeGo.TextAppearance.Huge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -154,7 +168,7 @@
                             style="@style/WeGo.TextAppearance.Tiny"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/fragment_trip_current_trip_day_reamain" />
+                            android:text="@string/fragment_trip_current_trip_day_remain" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -173,7 +187,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/section_title"
+                    android:background="@color/green"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
@@ -181,7 +195,7 @@
                         android:layout_width="@dimen/icon_size"
                         android:layout_height="@dimen/icon_size"
                         android:contentDescription="@string/fragment_trip_next_trip"
-                        android:src="@drawable/ic_trip_next" />
+                        android:src="@drawable/ic_label_trip_next" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -193,11 +207,14 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+                <!-- Programmatically add next trip to list -->
+
                 <LinearLayout
                     android:id="@+id/fragment_trip_next_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    android:orientation="vertical"
+                    android:splitMotionEvents="false" />
             </LinearLayout>
 
             <!-- Suggest section -->
@@ -212,7 +229,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/section_title"
+                    android:background="@color/green"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
@@ -221,7 +238,7 @@
                         android:layout_height="@dimen/icon_size"
                         android:contentDescription="@string/fragment_trip_suggest_trip"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_trip_suggest" />
+                        android:src="@drawable/ic_label_trip_suggest" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -239,7 +256,8 @@
                     android:id="@+id/fragment_trip_suggest_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    android:orientation="vertical"
+                    android:splitMotionEvents="false" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

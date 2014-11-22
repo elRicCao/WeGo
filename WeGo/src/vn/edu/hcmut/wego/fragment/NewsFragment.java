@@ -23,10 +23,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-public class NewsFragment extends WeGoFragment {
+public class NewsFragment extends TabFragment {
 
 	private static final String title = "News";
-	private static final int iconRes = R.drawable.ic_news;
+	private static final int iconRes = R.drawable.ic_tab_news;
 
 	private Context context;
 	private ArrayList<News> news;
@@ -60,7 +60,7 @@ public class NewsFragment extends WeGoFragment {
 		// progressBar = (ProgressBar) rootView.findViewById(R.id.fragment_news_progress_bar);
 
 		// Set up button bar
-		buttonBar = (LinearLayout) rootView.findViewById(R.id.fragment_news_button_bar);
+		buttonBar = (LinearLayout) rootView.findViewById(R.id.activity_user_page_button_bar);
 
 		// Set up list view, touch event for list view, and adapter
 		newsList = (ListView) rootView.findViewById(R.id.fragment_news_list);

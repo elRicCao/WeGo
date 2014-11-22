@@ -1,5 +1,10 @@
 package vn.edu.hcmut.wego.entity;
 
+/**
+ * Class for holding province information
+ * @author elRic
+ *
+ */
 public class Province {
 	private int id;
 	private String name;
@@ -28,4 +33,10 @@ public class Province {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	@Override
+	public String toString() {
+		return "Province [id=" + id + ", name=" + name + ", description=" + description + "]";
+	}
+
 }

@@ -1,10 +1,14 @@
 package vn.edu.hcmut.wego.entity;
 
+/**
+ * Class for holding district information
+ * @author elRic
+ *
+ */
 public class District {
 	private int id;
 	private String name;
 	private String description;
-	private Province province;
 
 	public int getId() {
 		return id;
@@ -30,11 +34,9 @@ public class District {
 		this.description = description;
 	}
 
-	public Province getProvince() {
-		return province;
+	@Override
+	public String toString() {
+		return "District [id=" + id + ", name=" + name + ", description=" + description + "]";
 	}
 
-	public void setProvince(Province province) {
-		this.province = province;
-	}
 }

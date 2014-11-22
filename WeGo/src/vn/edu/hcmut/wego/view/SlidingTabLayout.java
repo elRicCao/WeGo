@@ -16,7 +16,7 @@
 
 package vn.edu.hcmut.wego.view;
 
-import vn.edu.hcmut.wego.adapter.WeGoPagerAdapter;
+import vn.edu.hcmut.wego.adapter.TabPagerAdapter;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -160,7 +160,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 	}
 
 	private void populateTabStrip() {
-		final WeGoPagerAdapter adapter = (WeGoPagerAdapter) mViewPager.getAdapter();
+		final TabPagerAdapter adapter = (TabPagerAdapter) mViewPager.getAdapter();
 		final View.OnClickListener tabClickListener = new TabClickListener();
 
 		for (int i = 0; i < adapter.getCount(); i++) {

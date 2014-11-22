@@ -1,21 +1,50 @@
 package vn.edu.hcmut.wego.entity;
 
+/**
+ * Class for holding information of place. Place can be a administrative unit such as Province and City or detail unit such as Hotel and Restaurant
+ * 
+ * @author elRic
+ *
+ */
 public class Place {
 
 	public enum PlaceType {
+		Province, City, Distric, MinorCity, Town, Hotel, Resort, RestHouse, Restaurant
 	}
 
+	// Id of place in database
 	private int id;
+
+	// Name of place
 	private String name;
+
+	// Description of place
 	private String description;
-	private String address;
-	private District district;
-	private Province province;
+
+	// Type of place
 	private PlaceType type;
+
+	// Total number of reviews of this place
 	private int numOfReviews;
+
+	// Average rate of this place
 	private double averageRate;
+
+	// Cost of place
+	private int cost;
+
+	// Exact address of place with number, street, ward
+	private String address;
+
+	// Province and district of place. If place is a province or city, district can be null
+	private AdminUnit adminUnit;
+
+	// GPS location of place
 	private double longtitude;
 	private double latitude;
+
+	// True if this place is a special landmark
+	private boolean isSpecial;
 
 	public int getId() {
 		return id;
@@ -39,30 +68,6 @@ public class Place {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public District getDistrict() {
-		return district;
-	}
-
-	public void setDistrict(District district) {
-		this.district = district;
-	}
-
-	public Province getProvince() {
-		return province;
-	}
-
-	public void setProvince(Province province) {
-		this.province = province;
 	}
 
 	public PlaceType getType() {
@@ -89,6 +94,30 @@ public class Place {
 		this.averageRate = averageRate;
 	}
 
+	public int getCost() {
+		return cost;
+	}
+
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public AdminUnit getAdminUnit() {
+		return adminUnit;
+	}
+
+	public void setAdminUnit(AdminUnit adminUnit) {
+		this.adminUnit = adminUnit;
+	}
+
 	public double getLongtitude() {
 		return longtitude;
 	}
@@ -103,5 +132,35 @@ public class Place {
 
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
+	}
+
+	public boolean isSpecial() {
+		return isSpecial;
+	}
+
+	public void setSpecial(boolean isSpecial) {
+		this.isSpecial = isSpecial;
+	}
+
+	@Override
+	public String toString() {
+		return "Place [id=" + id + ", name=" + name + ", description=" + description + ", type=" + type + ", numOfReviews=" + numOfReviews + ", averageRate=" + averageRate + ", cost=" + cost
+				+ ", address=" + address + ", adminUnit=" + adminUnit + ", longtitude=" + longtitude + ", latitude=" + latitude + ", isSpecial=" + isSpecial + "]";
+	}
+
+	/**
+	 * Class for holding district and provice
+	 * 
+	 * @author elRic
+	 *
+	 */
+	public class AdminUnit {
+		public District district;
+		public Province province;
+
+		@Override
+		public String toString() {
+			return "AdminUnit [district=" + district + ", province=" + province + "]";
+		}
 	}
 }

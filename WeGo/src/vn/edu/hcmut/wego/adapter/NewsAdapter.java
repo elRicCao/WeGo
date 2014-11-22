@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import vn.edu.hcmut.wego.R;
+import vn.edu.hcmut.wego.activity.UserInfoActivity;
 import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.entity.News.NewsType;
 import vn.edu.hcmut.wego.entity.User;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
@@ -68,6 +71,14 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		// Set up owner name view
 		TextView ownerNameView = (TextView) convertView.findViewById(R.id.item_news_user_name);
 		ownerNameView.setText(user.getName());
+		ownerNameView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(context, UserInfoActivity.class);
+				context.startActivity(intent);
+			}
+		});
 
 		// Set up owner action
 		TextView ownerActionView = (TextView) convertView.findViewById(R.id.item_news_user_action);
