@@ -3,48 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <!-- Button bar -->
-
-    <LinearLayout
-        android:id="@+id/fragment_trip_button_bar"
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
-
-        <LinearLayout
-            android:id="@+id/fragment_trip_button_create"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:contentDescription="@string/fragment_trip_button_create"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_action_create_trip" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_trip_button_create"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
-
     <!-- Content -->
 
     <ScrollView
         android:id="@+id/fragment_trip_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/fragment_trip_button_bar"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true" >
 
         <LinearLayout
@@ -216,50 +180,74 @@
                     android:orientation="vertical"
                     android:splitMotionEvents="false" />
             </LinearLayout>
-
-            <!-- Suggest section -->
-
-            <LinearLayout
-                android:id="@+id/fragment_trip_section_suggest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_normal"
-                android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/green"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
-                        android:contentDescription="@string/fragment_trip_suggest_trip"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_label_trip_suggest" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/spacing_small"
-                        android:text="@string/fragment_trip_suggest_trip"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Programmatically add suggestion entries -->
-
-                <LinearLayout
-                    android:id="@+id/fragment_trip_suggest_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:splitMotionEvents="false" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <!-- Button bar -->
+
+    <LinearLayout
+        android:id="@+id/fragment_trip_button_bar"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <LinearLayout
+            android:id="@+id/fragment_trip_button_create"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:contentDescription="@string/fragment_trip_button_create"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_action_create_trip" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_trip_button_create"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="14dp"
+            android:background="@android:color/white" />
+
+        <LinearLayout
+            android:id="@+id/fragment_trip_button_suggest"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:contentDescription="@string/fragment_trip_button_suggest"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_label_trip_suggest" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_trip_button_suggest"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

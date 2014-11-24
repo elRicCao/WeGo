@@ -199,7 +199,6 @@
                 <ImageView
                     android:layout_width="@dimen/icon_size"
                     android:layout_height="@dimen/icon_size"
-                    android:clickable="true"
                     android:contentDescription="@string/item_news_comment"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_action_comment" />

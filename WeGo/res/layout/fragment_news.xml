@@ -13,11 +13,10 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="@dimen/spacing_normal"
         android:listSelector="@android:color/transparent"
-        android:padding="@dimen/spacing_normal"
-        android:scrollbars="none" />
+        android:padding="@dimen/spacing_normal"/>
 
     <LinearLayout
-        android:id="@+id/activity_user_page_button_bar"
+        android:id="@+id/fragment_news_bottom_bar"
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

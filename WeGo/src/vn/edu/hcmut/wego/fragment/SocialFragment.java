@@ -1,20 +1,25 @@
 package vn.edu.hcmut.wego.fragment;
 
 import vn.edu.hcmut.wego.R;
+import vn.edu.hcmut.wego.activity.MainActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 public class SocialFragment extends TabFragment {
 
 	private static final String title = "Social";
 	private static final int iconRes = R.drawable.ic_tab_social;
 	
+	private Context context;
+	
 	public SocialFragment(Context context) {
 		super(title, iconRes);
+		this.context = context;
 	}
 	
 	@Override
@@ -44,6 +49,11 @@ public class SocialFragment extends TabFragment {
 			View messageView = inflater.inflate(R.layout.item_group_message, container, false);
 			groupMessage.addView(messageView);
 		}
+		
+		LinearLayout buttonBar = (LinearLayout) rootView.findViewById(R.id.fragment_social_button_bar);
+		
+		ScrollView socialNews = (ScrollView) rootView.findViewById(R.id.fragment_social_list);
+		socialNews.setOnTouchListener(new MainActivity.BottomBarListener(context, buttonBar));
 		
 		return rootView;
 	}

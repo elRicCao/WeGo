@@ -163,17 +163,10 @@ public class Trip {
 		this.places = places;
 	}
 
-	/**
-	 * @return the messages
-	 */
 	public ArrayList<Message> getMessages() {
 		return messages;
 	}
 
-	/**
-	 * @param messages
-	 *            the messages to set
-	 */
 	public void setMessages(ArrayList<Message> messages) {
 		this.messages = messages;
 	}

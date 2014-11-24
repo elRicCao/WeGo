@@ -3,31 +3,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_dialog_white"
-    android:clickable="true"
-    android:padding="16dp" >
+    android:clickable="true" >
 
-    <TextView
-        android:id="@+id/dialog_comment_like"
+    <RelativeLayout 
+        android:id="@+id/dialog_friend_list_control_group" 
+        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="177 people like this" 
-        android:paddingBottom="16dp"/>
+        android:layout_height="wrap_content">
+
+        <ImageButton 
+            android:id="@+id/dialog_friend_list_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_action_sort"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+        
+        <TextView
+            android:id="@+id/dialog_comment_like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="177 friends"
+            android:textStyle="bold" 
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/dialog_comment_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/dialog_comment_input_group"
-        android:layout_below="@id/dialog_comment_like"
+        android:layout_below="@id/dialog_friend_list_control_group"
         android:divider="@android:color/transparent"
-        android:dividerHeight="16dp" />
+        android:dividerHeight="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
 
     <RelativeLayout
         android:id="@+id/dialog_comment_input_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="16dp" >
+        android:padding="16dp" >
 
         <ImageButton
             android:id="@+id/dialog_comment_send"
@@ -57,6 +76,8 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_above="@id/dialog_comment_input_group"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:alpha="0.5"
         android:background="@color/gray" />
 

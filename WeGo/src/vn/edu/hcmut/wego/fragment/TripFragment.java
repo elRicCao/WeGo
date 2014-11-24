@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 
 public class TripFragment extends TabFragment {
 
@@ -61,26 +62,11 @@ public class TripFragment extends TabFragment {
 				}
 			});
 		}
-
-		LinearLayout suggestTrip = (LinearLayout) rootView.findViewById(R.id.fragment_trip_suggest_list);
-		for (int i = 0; i < 5; i++) {
-			View tripView = inflater.inflate(R.layout.item_suggest_trip, container, false);
-			suggestTrip.addView(tripView);
-
-			RatingBar ratingBar = (RatingBar) tripView.findViewById(R.id.item_suggest_trip_leader_reputation);
-			LayerDrawable layerDrawable = (LayerDrawable) ratingBar.getProgressDrawable();
-			layerDrawable.getDrawable(2).setColorFilter(getResources().getColor(R.color.green), PorterDuff.Mode.SRC_ATOP);
-
-			tripView.setOnTouchListener(new MainActivity.TileOnTouchListerner());
-			tripView.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View view) {
-					Intent intent = new Intent(context, TripInfoActivity.class);
-					startActivity(intent);
-				}
-			});
-		}
+		
+		LinearLayout buttonBar = (LinearLayout) rootView.findViewById(R.id.fragment_trip_button_bar);
+		
+		ScrollView content = (ScrollView) rootView.findViewById(R.id.fragment_trip_content);
+		content.setOnTouchListener(new MainActivity.BottomBarListener(context, buttonBar));
 
 		return rootView;
 	}

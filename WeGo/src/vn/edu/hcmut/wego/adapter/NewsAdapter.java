@@ -1,21 +1,20 @@
 package vn.edu.hcmut.wego.adapter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.activity.UserInfoActivity;
 import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.entity.News.NewsType;
 import vn.edu.hcmut.wego.entity.User;
+import vn.edu.hcmut.wego.utility.Utils;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,8 +23,10 @@ public class NewsAdapter extends ArrayAdapter<News> {
 	private Context context;
 	private ArrayList<News> news;
 
-	// private CommentButtonListener callback;
+	private CommentListener listener;
+
 	// private DatabaseOpenHelper database;
+	private News newsItem;
 
 	public NewsAdapter(Context context, ArrayList<News> news) {
 		super(context, 0, news);
@@ -40,136 +41,126 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(context);
 			convertView = inflater.inflate(R.layout.item_news, parent, false);
+
+			ViewHolder holder = new ViewHolder();
+			holder.actionGroup = (RelativeLayout) convertView.findViewById(R.id.item_news_action_group);
+			holder.actorView = (TextView) convertView.findViewById(R.id.item_news_actor);
+			holder.otherActorView = (TextView) convertView.findViewById(R.id.item_news_actor_others);
+			holder.connectorView = (TextView) convertView.findViewById(R.id.item_news_actor_connector);
+			holder.actionView = (TextView) convertView.findViewById(R.id.item_news_actor_action);
+			holder.ownerNameView = (TextView) convertView.findViewById(R.id.item_news_user_name);
+			holder.ownerActionView = (TextView) convertView.findViewById(R.id.item_news_user_action);
+			holder.timeView = (TextView) convertView.findViewById(R.id.item_news_time);
+			holder.contentView = (TextView) convertView.findViewById(R.id.item_news_content);
+			holder.likesView = (TextView) convertView.findViewById(R.id.item_news_num_of_likes);
+			holder.commentsView = (TextView) convertView.findViewById(R.id.item_news_num_of_comments);
+			holder.commentGroup = (LinearLayout) convertView.findViewById(R.id.item_news_comment_group);
+			holder.likeGroup = (LinearLayout) convertView.findViewById(R.id.item_news_like_group);
+			convertView.setTag(holder);
 		}
 
 		// Get news item corresponding by postion
-		final News newsItem = news.get(position);
-		User user = newsItem.getOwner();
+		newsItem = news.get(position);
+		User owner = newsItem.getOwner();
 
-		// Set up action indicator bar
-		RelativeLayout actionGroup = (RelativeLayout) convertView.findViewById(R.id.item_news_action_group);
+		// Get view holder from view tag
+		ViewHolder holder = (ViewHolder) convertView.getTag();
+
+		// Set up action group, showing the action of other users causing the news
 		if (newsItem.getType() == NewsType.POST || newsItem.getType() == NewsType.PHOTO || newsItem.getType() == NewsType.REVIEW) {
-			actionGroup.setVisibility(View.GONE);
+			holder.actionGroup.setVisibility(View.GONE);
 		} else {
-			TextView actorView = (TextView) convertView.findViewById(R.id.item_news_actor);
-			actorView.setText(newsItem.getActors().get(0).getName());
-
-			if (newsItem.getActors().size() > 1) {
-				convertView.findViewById(R.id.item_news_actor_connector).setVisibility(View.VISIBLE);
-				TextView otherActorView = (TextView) convertView.findViewById(R.id.item_news_actor_others);
-				if (newsItem.getActors().size() == 2) {
-					otherActorView.setText(newsItem.getActors().get(1).getName());
+			holder.actorView.setText(newsItem.getActors().get(0).getName());
+			holder.actionView.setText(Utils.getActionText(context, newsItem.getType()));
+			
+			int numOfActors = newsItem.getActors().size();
+			if (numOfActors > 1) {
+				holder.connectorView.setVisibility(View.VISIBLE);
+				if (numOfActors == 2) {
+					holder.otherActorView.setText(newsItem.getActors().get(1).getName());
 				} else {
-					otherActorView.setText(String.valueOf(newsItem.getActors().size() - 1) + context.getResources().getString(R.string.item_news_actor_others));
+					holder.otherActorView.setText(String.valueOf(numOfActors - 1) + Utils.getString(context, R.string.item_news_actor_others));
 				}
 			}
-
-			TextView actionView = (TextView) convertView.findViewById(R.id.item_news_actor_action);
-			actionView.setText(getActionText(newsItem.getType()));
 		}
 
-		// Set up owner name view
-		TextView ownerNameView = (TextView) convertView.findViewById(R.id.item_news_user_name);
-		ownerNameView.setText(user.getName());
-		ownerNameView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View view) {
-				Intent intent = new Intent(context, UserInfoActivity.class);
-				context.startActivity(intent);
-			}
-		});
+		// Set up owner's name. If this view is clicked, jump to user info screen
+		holder.ownerNameView.setText(owner.getName());
+		holder.ownerNameView.setOnClickListener(new UserInfoActivity.UserInfoListener(context, owner));
 
 		// Set up owner action
-		TextView ownerActionView = (TextView) convertView.findViewById(R.id.item_news_user_action);
-		ownerActionView.setText(getOwnerActionText(newsItem.getType()));
+		holder.ownerActionView.setText(Utils.getOwnerActionText(context, newsItem.getType()));
 
 		// Set up time view
-		TextView timeView = (TextView) convertView.findViewById(R.id.item_news_time);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d 'at' h:ma", Locale.US);
-		timeView.setText(dateFormat.format(newsItem.getTime()).replace("AM", "am").replace("PM", "pm"));
+		holder.timeView.setText(Utils.formatDate(newsItem.getTime()));
 
 		// Set up content view
-		TextView contentView = (TextView) convertView.findViewById(R.id.item_news_content);
-		contentView.setText(newsItem.getContent());
+		holder.contentView.setText(newsItem.getContent());
 
 		// Set up like indicator view
-		TextView likesView = (TextView) convertView.findViewById(R.id.item_news_num_of_likes);
-		likesView.setText(String.valueOf(newsItem.getNumOfLikes()));
+		holder.likesView.setText(String.valueOf(newsItem.getNumOfLikes()));
 
 		// Set up comment indicator view
-		TextView commentsView = (TextView) convertView.findViewById(R.id.item_news_num_of_comments);
-		commentsView.setText(String.valueOf(newsItem.getNumOfComments()));
+		holder.commentsView.setText(String.valueOf(newsItem.getNumOfComments()));
+
+		// Set up comment listener
+		holder.commentGroup.setOnClickListener(commentClickListener);
+
+		// Set up like listener
+		holder.likeGroup.setOnClickListener(likeListener);
 
 		return convertView;
 	}
 
-	// public void setCommentButtonListener(CommentButtonListener callback) {
-	// this.callback = callback;
-	// }
-
-	// public interface CommentButtonListener {
-	// public void onClick(News newsItem);
-	// }
-
 	/**
-	 * Get action text of actor from resources
-	 * 
-	 * @param type
-	 * @return action text
+	 * Hold view of news item
 	 */
-	private String getActionText(NewsType type) {
-		String actionText = new String();
-		switch (type) {
-		case COMMENT_POST:
-			actionText = context.getResources().getString(R.string.item_news_actor_action_comment_post);
-			break;
-		case LIKE_POST:
-			actionText = context.getResources().getString(R.string.item_news_actor_action_like_post);
-			break;
-		case COMMENT_PHOTO:
-			actionText = context.getResources().getString(R.string.item_news_actor_action_comment_photo);
-			break;
-		case LIKE_PHOTO:
-			actionText = context.getResources().getString(R.string.item_news_actor_action_like_photo);
-			break;
-		case LIKE_REVIEW:
-			actionText = context.getResources().getString(R.string.item_news_actor_action_like_review);
-			break;
-		default:
-			break;
-		}
-		return actionText;
+	private static class ViewHolder {
+		
+		// Action group
+		RelativeLayout actionGroup;
+		TextView actorView;
+		TextView connectorView;
+		TextView otherActorView;
+		TextView actionView;
+
+		// Owner info
+		TextView ownerNameView;
+		TextView ownerActionView;
+
+		// Time
+		TextView timeView;
+
+		// Content
+		TextView contentView;
+
+		// Like and comment
+		TextView likesView;
+		TextView commentsView;
+		LinearLayout commentGroup;
+		LinearLayout likeGroup;
 	}
 
-	/**
-	 * Get action text of owner from resources
-	 * 
-	 * @param type
-	 * @return action text
-	 */
-	private String getOwnerActionText(NewsType type) {
-		String actionText = new String();
-		switch (type) {
-		case POST:
-		case COMMENT_POST:
-		case LIKE_POST:
-			actionText = context.getResources().getString(R.string.item_news_user_action_write_status);
-			break;
-
-		case PHOTO:
-		case COMMENT_PHOTO:
-		case LIKE_PHOTO:
-			actionText = context.getResources().getString(R.string.item_news_user_action_post_photo);
-			break;
-
-		case REVIEW:
-		case LIKE_REVIEW:
-			actionText = context.getResources().getString(R.string.item_news_user_action_write_review);
-			break;
-		default:
-			break;
+	private OnClickListener commentClickListener = new OnClickListener() {
+		@Override
+		public void onClick(View view) {
+			if (listener != null && newsItem != null) {
+				listener.onComment(newsItem);
+			}
 		}
-		return actionText;
+	};
+	private OnClickListener likeListener = new OnClickListener() {
+		@Override
+		public void onClick(View view) {
+
+		}
+	};
+
+	public void setCommentListener(CommentListener listener) {
+		this.listener = listener;
+	}
+
+	public interface CommentListener {
+		public void onComment(News newsItem);
 	}
 }

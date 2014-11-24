@@ -7,6 +7,8 @@ import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.activity.MainActivity;
 //import vn.edu.hcmut.wego.activity.MainActivity.ShowHideButtonBarOnTouchListener;
 import vn.edu.hcmut.wego.adapter.NewsAdapter;
+import vn.edu.hcmut.wego.adapter.NewsAdapter.CommentListener;
+import vn.edu.hcmut.wego.dialog.CommentDialog;
 import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.entity.News.NewsType;
 import vn.edu.hcmut.wego.entity.User;
@@ -15,6 +17,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,27 +60,16 @@ public class NewsFragment extends TabFragment {
 		final View rootView = inflater.inflate(R.layout.fragment_news, container, false);
 
 		// Set up progress bar. This progress bar is shown only on startup when list is empty
-		// progressBar = (ProgressBar) rootView.findViewById(R.id.fragment_news_progress_bar);
+		progressBar = (ProgressBar) rootView.findViewById(R.id.fragment_news_progress_bar);
 
 		// Set up button bar
-		buttonBar = (LinearLayout) rootView.findViewById(R.id.activity_user_page_button_bar);
+		buttonBar = (LinearLayout) rootView.findViewById(R.id.fragment_news_bottom_bar);
 
 		// Set up list view, touch event for list view, and adapter
 		newsList = (ListView) rootView.findViewById(R.id.fragment_news_list);
 		newsList.setOnTouchListener(new MainActivity.BottomBarListener(context, buttonBar));
 		newsList.setAdapter(newsAdapter);
-
-		// newsAdapter.setCommentButtonListener(new CommentButtonListener() {
-		// @Override
-		// public void onClick(News newsItem) {
-		// Log.i("Debug", String.valueOf(test));
-		// test = !test;
-		//
-		// FragmentManager fragmentManager = NewsFragment.this.getFragmentManager();
-		// CommentDialog commentDialog = new CommentDialog();
-		// commentDialog.show(fragmentManager, "comment_dialog");
-		// }
-		// });
+		newsAdapter.setCommentListener(commentListener);
 
 		// If news list is empty, show progress bar and create a server request to fetch data from server
 		// if (newsAdapter.isEmpty()) {
@@ -95,29 +87,15 @@ public class NewsFragment extends TabFragment {
 		return rootView;
 	}
 
-	private class CommentDialog extends DialogFragment {
+	private CommentListener commentListener = new CommentListener() {
 
 		@Override
-		public void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			setStyle(STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
+		public void onComment(News newsItem) {
+			FragmentManager fragmentManager = NewsFragment.this.getFragmentManager();
+			CommentDialog commentDialog = new CommentDialog(context);
+			commentDialog.show(fragmentManager, "comment_dialog");
 		}
-
-		@Override
-		public void onStart() {
-			super.onStart();
-			getDialog().getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-			getDialog().getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_ADJUST_RESIZE | LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-			getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.dialog_comment, container, false);
-
-			return rootView;
-		}
-	}
+	};
 
 	private void debug() {
 		User user1 = new User();

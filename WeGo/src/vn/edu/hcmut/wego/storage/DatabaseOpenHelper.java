@@ -6,7 +6,7 @@ import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.entity.InviteRequest;
 import vn.edu.hcmut.wego.entity.InviteRequest.Type;
 import vn.edu.hcmut.wego.entity.User;
-import vn.edu.hcmut.wego.utility.Utility;
+import vn.edu.hcmut.wego.utility.Utils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -123,7 +123,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		database.execSQL(CREATE_TABLE_NEWS);
 		database.execSQL(CREATE_TABLE_LOCATION);
 		
-		Utility.putValueToSharedPreferences(context, Constant.PREFS_IS_DATABASE_CREATED, "true");
+		Utils.putValueToSharedPreferences(context, Constant.PREFS_IS_DATABASE_CREATED, "true");
 	}
 	/* @formatter:on */
 

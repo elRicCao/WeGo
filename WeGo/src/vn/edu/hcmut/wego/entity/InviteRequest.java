@@ -1,15 +1,28 @@
 package vn.edu.hcmut.wego.entity;
 
+/**
+ * General class for invite and request
+ * @author elRic
+ *
+ */
 public class InviteRequest {
 
+	// Type of invite or request
 	public enum Type {
 		FRIEND_REQUEST, GROUP_REQUEST, GROUP_INVITE, TRIP_REQUEST, TRIP_INVITE
 	};
-
-	private int id;
-	private int senderId;
-	private int receiverId;
+	
 	private Type type;
+
+	// Id of invite or request corresponding to type
+	private int id;
+	
+	// Id of sender corresponding to type
+	private int senderId;
+	
+	// Id of receiver corresponding to type
+	private int receiverId;
+	
 
 	public InviteRequest() {
 	}

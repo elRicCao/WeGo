@@ -1,12 +1,17 @@
 package vn.edu.hcmut.wego.activity;
 
 import vn.edu.hcmut.wego.R;
+import vn.edu.hcmut.wego.entity.User;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.RatingBar;
 
 public class UserInfoActivity extends Activity {
@@ -38,5 +43,23 @@ public class UserInfoActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public static class UserInfoListener implements OnClickListener {
+
+		private Context context;
+		private User user;
+		
+		public UserInfoListener(Context context, User user) {
+			this.context = context;
+			this.user = user;
+		}
+		
+		@Override
+		public void onClick(View view) {
+			Intent intent = new Intent(context, UserInfoActivity.class);
+			context.startActivity(intent);
+		}
+		
 	}
 }

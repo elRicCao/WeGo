@@ -5,7 +5,7 @@
     android:layout_height="match_parent" >
 
     <LinearLayout
-        android:id="@+id/activity_user_page_button_bar"
+        android:id="@+id/fragment_news_bottom_bar"
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
     </LinearLayout>
     
     <ScrollView
-        android:layout_above="@id/activity_user_page_button_bar"
+        android:layout_above="@id/fragment_news_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 

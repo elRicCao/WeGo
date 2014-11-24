@@ -65,6 +65,7 @@
     <string name="fragment_trip_suggest_trip">Suggest</string>
     <string name="fragment_trip_next_trip">Next</string>
     <string name="fragment_trip_button_create">Create Trip</string>
+    <string name="fragment_trip_button_suggest">Suggest</string>
 
     <!-- Item trip -->
     <string name="item_trip_label_start_location">Start Location</string>
@@ -100,22 +101,26 @@
     <string name="fragment_more_top_place">Top Place</string>
     <string name="fragment_more_top_photo">Top Photo</string>
     <string name="fragment_more_top_review">Top Review</string>
+    <string name="fragment_more_button_wishlist">Wishlist</string>
     
     <!-- Activity user page -->
     <string name="activity_user_page_button_message">Message</string>
     <string name="activity_user_page_button_friend">Friend</string>
     <string name="activity_user_page_button_follow">Follow</string>
     
+    <!-- Dialog comment -->
+    <string name="dialog_comment_input">Write a comment...</string>
+    <string name="dialog_comment_send">Send</string>
     
+    <!-- Item comment -->
+    <string name="item_comment_image">Image</string>
+    
+    <string name="space">" "</string>
     <string name="title_fragment_map">Map</string>
     <string name="title_fragment_more">More</string>
     <string name="title_fragment_members">Members</string>
     <string name="title_fragment_schedule">Schedule</string>
     <string name="title_fragment_friends">Friend</string>
-    <string name="fragment_friends_button_message">Message</string>
-    <string name="fragment_friends_button_request">Friend Request</string>
-    <string name="fragment_more_button_update_info">Update Info</string>
-    <string name="fragment_more_button_create_group">Create Group</string>
     <string name="item_friend_info">Friend Info</string>
     <string name="item_friend_image">Profile Photo</string>
     <string name="item_friend_request_image">Profile Image</string>
