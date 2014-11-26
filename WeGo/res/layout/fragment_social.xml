@@ -6,7 +6,7 @@
     <ScrollView
         android:id="@+id/fragment_social_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -199,17 +199,13 @@
             android:gravity="center"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:contentDescription="@string/fragment_social_button_friend"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_action_friend" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_user_100"
+                android:drawableStart="@drawable/ic_user_100"
                 android:text="@string/fragment_social_button_friend"
+                android:gravity="center_vertical"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -231,16 +227,12 @@
             android:gravity="center"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:contentDescription="@string/fragment_social_button_group"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_action_group" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_action_group"
+                android:drawableStart="@drawable/ic_action_group"
+                android:gravity="center_vertical"
                 android:text="@string/fragment_social_button_group"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"

@@ -25,6 +25,7 @@
                 android:layout_marginLeft="@dimen/spacing_normal"
                 android:layout_marginRight="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_normal"
+                android:background="@drawable/card_background"
                 android:orientation="vertical" >
 
                 <!-- Current trip title -->
@@ -32,7 +33,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/green"
+                    android:background="@drawable/background_section_title"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
@@ -45,7 +46,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/green"
                         android:padding="@dimen/spacing_small"
                         android:text="@string/fragment_trip_current"
                         android:textAllCaps="true"
@@ -57,8 +57,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shadow_background_white" >
+                    android:layout_height="wrap_content">
 
                     <!-- Start location -->
 
@@ -71,8 +70,8 @@
                         android:padding="@dimen/spacing_small" >
 
                         <ImageView
-                            android:layout_width="@dimen/icon_size"
-                            android:layout_height="@dimen/icon_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:contentDescription="@string/item_trip_label_start_location"
                             android:scaleType="fitXY"
                             android:src="@drawable/ic_label_trip_current_start" />
@@ -146,12 +145,13 @@
                 android:layout_marginLeft="@dimen/spacing_normal"
                 android:layout_marginRight="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_normal"
+                android:background="@drawable/card_background"
                 android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/green"
+                    android:background="@drawable/background_section_title"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
@@ -225,7 +225,7 @@
             android:background="@android:color/white" />
 
         <LinearLayout
-            android:id="@+id/fragment_trip_button_suggest"
+            android:id="@+id/fragment_trip_suggest"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -233,16 +233,12 @@
             android:gravity="center"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:contentDescription="@string/fragment_trip_button_suggest"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_label_trip_suggest" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_action_suggest"
+                android:drawableStart="@drawable/ic_action_suggest"
+                android:gravity="center"
                 android:text="@string/fragment_trip_button_suggest"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"

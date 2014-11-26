@@ -2,13 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shadow_background_white"
+    android:background="@drawable/card_background"
     android:orientation="horizontal" >
-
-    <View
-        android:layout_width="12dp"
-        android:layout_height="match_parent"
-        android:background="@color/green" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,68 +11,63 @@
 
         <!-- Action group -->
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/item_news_action_group"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <!-- Main actor's name -->
-
-            <TextView
-                android:id="@+id/item_news_actor"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_normal"
-                android:layout_marginLeft="@dimen/spacing_normal"
-                android:layout_marginStart="@dimen/spacing_normal"
-                android:layout_marginTop="@dimen/spacing_normal"
-                android:textColor="@color/green"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:padding="12dp" >
 
-            <!-- Connector -->
+                <!-- Main actor's name -->
 
-            <TextView
-                android:id="@+id/item_news_actor_connector"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/item_news_actor"
-                android:layout_toEndOf="@id/item_news_actor"
-                android:layout_toRightOf="@id/item_news_actor"
-                android:text="@string/item_news_actor_connector"
-                android:textColor="@color/gray"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/item_news_actor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green"
+                    android:textStyle="bold" />
 
-            <!-- Other actors' name -->
+                <!-- Connector -->
 
-            <TextView
-                android:id="@+id/item_news_actor_others"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/item_news_actor"
-                android:layout_toEndOf="@id/item_news_actor_connector"
-                android:layout_toRightOf="@id/item_news_actor_connector"
-                android:textColor="@color/green"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/item_news_actor_connector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/item_news_actor_connector"
+                    android:textColor="@color/gray"
+                    android:visibility="gone" />
 
-            <!-- Action -->
+                <!-- Other actors' name -->
 
-            <TextView
-                android:id="@+id/item_news_actor_action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/item_news_actor"
-                android:layout_toEndOf="@id/item_news_actor_others"
-                android:layout_toRightOf="@id/item_news_actor_others"
-                android:textColor="@color/gray" />
+                <TextView
+                    android:id="@+id/item_news_actor_others"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green"
+                    android:textStyle="bold" />
+
+                <!-- Action -->
+
+                <TextView
+                    android:id="@+id/item_news_actor_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray" />
+            </LinearLayout>
 
             <!-- Divider -->
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_below="@id/item_news_actor"
-                android:background="@color/green" />
-        </RelativeLayout>
+                android:alpha="0.5"
+                android:background="@color/gray" />
+        </LinearLayout>
 
         <!-- Owner info -->
 
@@ -95,6 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
                 android:contentDescription="@string/item_friend_image"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_user_default" />
@@ -102,12 +93,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
                 android:layout_toEndOf="@id/item_news_user_image"
                 android:layout_toRightOf="@id/item_news_user_image"
-                android:gravity="center_vertical"
-                android:paddingLeft="12sp"
-                android:paddingRight="12sp"
-                android:paddingStart="12sp" >
+                android:gravity="center_vertical" >
 
                 <TextView
                     android:id="@+id/item_news_user_name"
@@ -142,7 +133,8 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_below="@id/item_news_owner_info"
-            android:background="@color/green" />
+            android:alpha="0.5"
+            android:background="@color/gray" />
 
         <!-- News content -->
 
@@ -151,66 +143,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_news_owner_info"
-            android:layout_margin="@dimen/spacing_normal"
+            android:padding="12dp"
             android:textColor="@color/gray" />
 
-        <!-- Like and comment indicator -->
+        <!-- Like and comment -->
 
         <LinearLayout
             android:id="@+id/item_news_like_and_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_news_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:visibility="gone" >
 
-            <LinearLayout
-                android:id="@+id/item_news_like_group"
+            <TextView
+                android:id="@+id/item_news_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/spacing_small" >
+                android:drawableLeft="@drawable/ic_action_like"
+                android:drawableStart="@drawable/ic_action_like"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
-                    android:clickable="true"
-                    android:contentDescription="@string/item_news_like"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_action_like" />
-
-                <TextView
-                    android:id="@+id/item_news_num_of_likes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/gray"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/item_news_comment_group"
+            <TextView
+                android:id="@+id/item_news_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/spacing_small" >
-
-                <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
-                    android:contentDescription="@string/item_news_comment"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_action_comment" />
-
-                <TextView
-                    android:id="@+id/item_news_num_of_comments"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/gray"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:drawableLeft="@drawable/ic_action_comment"
+                android:drawableStart="@drawable/ic_action_comment"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </RelativeLayout>
 

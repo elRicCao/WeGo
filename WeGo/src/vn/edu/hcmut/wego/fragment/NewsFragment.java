@@ -32,11 +32,19 @@ public class NewsFragment extends TabFragment {
 	private static final int iconRes = R.drawable.ic_tab_news;
 
 	private Context context;
-	private ArrayList<News> news;
 	private NewsAdapter newsAdapter;
 	private ProgressBar progressBar;
-	private LinearLayout buttonBar;
+	private LinearLayout bottomBar;
 	private ListView newsList;
+
+	private CommentListener commentListener = new CommentListener() {
+		@Override
+		public void onComment(News newsItem) {
+			FragmentManager fragmentManager = NewsFragment.this.getFragmentManager();
+			CommentDialog commentDialog = new CommentDialog(context);
+			commentDialog.show(fragmentManager, "comment_dialog");
+		}
+	};
 
 	public NewsFragment(Context context) {
 		super(title, iconRes);
@@ -46,30 +54,27 @@ public class NewsFragment extends TabFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		news = new ArrayList<News>();
-		newsAdapter = new NewsAdapter(context, news);
+		newsAdapter = new NewsAdapter(context, new ArrayList<News>());
+		newsAdapter.setCommentListener(commentListener);
 
 		// TODO: Debug entry
-		debug();
+		addFakeData();
 	}
 
 	@Override
-	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		// Inflate fragment layout
-		final View rootView = inflater.inflate(R.layout.fragment_news, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_news, container, false);
 
-		// Set up progress bar. This progress bar is shown only on startup when list is empty
+		// Get control of all views
 		progressBar = (ProgressBar) rootView.findViewById(R.id.fragment_news_progress_bar);
-
-		// Set up button bar
-		buttonBar = (LinearLayout) rootView.findViewById(R.id.fragment_news_bottom_bar);
+		bottomBar = (LinearLayout) rootView.findViewById(R.id.fragment_news_bottom_bar);
+		newsList = (ListView) rootView.findViewById(R.id.fragment_news_list);
 
 		// Set up list view, touch event for list view, and adapter
-		newsList = (ListView) rootView.findViewById(R.id.fragment_news_list);
-		newsList.setOnTouchListener(new MainActivity.BottomBarListener(context, buttonBar));
+		newsList.setOnTouchListener(new MainActivity.BottomBarListener(context, bottomBar));
 		newsList.setAdapter(newsAdapter);
-		newsAdapter.setCommentListener(commentListener);
 
 		// If news list is empty, show progress bar and create a server request to fetch data from server
 		// if (newsAdapter.isEmpty()) {
@@ -87,17 +92,7 @@ public class NewsFragment extends TabFragment {
 		return rootView;
 	}
 
-	private CommentListener commentListener = new CommentListener() {
-
-		@Override
-		public void onComment(News newsItem) {
-			FragmentManager fragmentManager = NewsFragment.this.getFragmentManager();
-			CommentDialog commentDialog = new CommentDialog(context);
-			commentDialog.show(fragmentManager, "comment_dialog");
-		}
-	};
-
-	private void debug() {
+	private void addFakeData() {
 		User user1 = new User();
 		user1.setName("elRic");
 

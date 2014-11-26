@@ -73,12 +73,16 @@
                 android:value="vn.edu.hcmut.wego.activity.MainActivity" />
         </activity>
         <activity
-            android:name="vn.edu.hcmut.wego.activity.StatusActivity"
+            android:name=".activity.StatusActivity"
             android:label="@string/title_activity_status"
             android:parentActivityName=".activity.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="vn.edu.hcmut.wego.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name="vn.edu.hcmut.wego.activity.GroupInfoActivity"
+            android:label="@string/title_activity_group_info" >
         </activity>
     </application>
 

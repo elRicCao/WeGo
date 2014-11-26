@@ -3,11 +3,14 @@ package vn.edu.hcmut.wego.adapter;
 import java.util.ArrayList;
 
 import vn.edu.hcmut.wego.R;
+import vn.edu.hcmut.wego.activity.UserInfoActivity;
 import vn.edu.hcmut.wego.entity.Message;
 import vn.edu.hcmut.wego.utility.Utils;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -45,6 +48,14 @@ public class CommentAdapter extends ArrayAdapter<Message> {
 		//TODO: Load avatar
 		
 		holder.name.setText(item.getSender().getName());
+		holder.name.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(context, UserInfoActivity.class);
+				context.startActivity(intent);
+			}
+		});
 		
 		holder.content.setText(item.getContent());
 		

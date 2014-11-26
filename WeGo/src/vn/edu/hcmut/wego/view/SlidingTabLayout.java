@@ -169,7 +169,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 			
 			int height = (int) (ICON_OFFSET_DIPS * getResources().getDisplayMetrics().density);
 			int width = (int) (ICON_OFFSET_DIPS * getResources().getDisplayMetrics().density);
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 			tabIconView.setLayoutParams(params);
 			
 			tabIconView.setBackgroundResource(adapter.getPageIconRes(i));

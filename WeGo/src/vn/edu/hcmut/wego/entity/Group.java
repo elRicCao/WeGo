@@ -32,13 +32,7 @@ public class Group {
 	private boolean isPublic;
 
 	public Group() {
-
-	}
-
-	public Group(int id, String name, String description, String status) {
-		this.id = id;
-		this.name = name;
-		this.description = description;
+		this.messages = new ArrayList<Message>();
 	}
 
 	public int getId() {
@@ -63,14 +57,6 @@ public class Group {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public ArrayList<Message> getMessages() {
-		return messages;
-	}
-
-	public void setMessages(ArrayList<Message> messages) {
-		this.messages = messages;
 	}
 
 	public boolean isPublic() {
@@ -100,6 +86,14 @@ public class Group {
 	@Override
 	public String toString() {
 		return "Group [id=" + id + ", name=" + name + ", description=" + description + ", isPublic=" + isPublic + "]";
+	}
+
+	public ArrayList<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(ArrayList<Message> messages) {
+		this.messages = messages;
 	}
 
 }

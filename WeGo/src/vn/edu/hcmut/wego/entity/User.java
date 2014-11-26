@@ -4,16 +4,26 @@ import java.util.ArrayList;
 
 public class User {
 
+	public enum UserStatus {
+		OFFLINE, ONLINE
+	}
+
 	private int id;
 	private String name;
 	private String image;
 	private String email;
 	private String phone;
-	private String status;
+	private UserStatus status;
 	private Place location;
 	private int numOfVote;
 	private double averageVote;
 	private ArrayList<Review> votes;
+	private ArrayList<Message> recentMessages;
+	
+	public User() {
+		votes = new ArrayList<Review>();
+		recentMessages = new ArrayList<Message>();
+	}
 
 	public int getNumOfVote() {
 		return numOfVote;
@@ -79,11 +89,11 @@ public class User {
 		this.phone = phone;
 	}
 
-	public String getStatus() {
+	public UserStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(UserStatus status) {
 		this.status = status;
 	}
 
@@ -93,5 +103,17 @@ public class User {
 
 	public void setLocation(Place location) {
 		this.location = location;
+	}
+
+	public ArrayList<Message> getRecentMessages() {
+		return recentMessages;
+	}
+
+	public void setRecentMessages(ArrayList<Message> recentMessages) {
+		this.recentMessages = recentMessages;
+	}
+	
+	public void addRecentMessage(Message message) {
+		this.recentMessages.add(message);
 	}
 }

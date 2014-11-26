@@ -1,5 +1,7 @@
 package vn.edu.hcmut.wego.activity;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -248,13 +250,15 @@ public class LoginActivity extends ActionBarActivity {
 	 * @return true if there is preference logged in data, otherwise return false
 	 */
 	private boolean isLoggedIn() {
-		Session session = Session.getActiveSession();
-		if (session != null) {
-			if (!session.isClosed())
-				if (!session.getAccessToken().isEmpty())
-					return true;
-		}
-		return false;
+//		Session session = Session.getActiveSession();
+//		if (session != null) {
+//			if (!session.isClosed())
+//				if (!session.getAccessToken().isEmpty())
+//					return true;
+//		}
+//		return false;
+		//TODO: Debug
+		return true;
 	}
 
 	/**

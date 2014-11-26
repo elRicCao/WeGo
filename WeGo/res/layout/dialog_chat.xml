@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_dialog_white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/dialog_chat_input_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="16dp" >
+
+        <ImageButton
+            android:id="@+id/dialog_chat_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/background_action_green"
+            android:contentDescription="@string/dialog_chat_send"
+            android:src="@drawable/ic_action_send" />
+
+        <EditText
+            android:id="@+id/dialog_chat_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:imeOptions="actionSend"
+            android:layout_toLeftOf="@id/dialog_chat_send"
+            android:layout_toStartOf="@id/dialog_chat_send"
+            android:background="@drawable/background_dialog_input"
+            android:hint="@string/dialog_chat_input"
+            android:inputType="text|textCapSentences|textNoSuggestions"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/dialog_chat_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/dialog_chat_input_group"
+        android:background="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="12dp"
+        android:listSelector="@android:color/transparent"
+        android:padding="16dp"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="vertical"
+        android:stackFromBottom="true"
+        android:transcriptMode="normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@id/dialog_chat_input_group"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:alpha="0.5"
+        android:background="@color/gray" />
+
+</RelativeLayout>

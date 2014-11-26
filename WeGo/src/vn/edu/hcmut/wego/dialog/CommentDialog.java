@@ -38,7 +38,7 @@ public class CommentDialog extends DialogFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		getDialog().getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		getDialog().getWindow().setLayout(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
 		getDialog().getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_ADJUST_RESIZE | LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 		getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 	}

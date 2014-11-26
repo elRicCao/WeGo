@@ -84,7 +84,9 @@
     <string name="fragment_social_button_group">Groups</string>
 
     <!-- Item friend request -->
-
+    <string name="item_friend_request_image">Profile Image</string>
+    <string name="item_friend_request_decline">Decline</string>
+    <string name="item_friend_request_accept">Accept</string>
 
     <!-- Item group invite -->
     <string name="item_group_invite_image">Group Image</string>
@@ -102,19 +104,40 @@
     <string name="fragment_more_top_photo">Top Photo</string>
     <string name="fragment_more_top_review">Top Review</string>
     <string name="fragment_more_button_wishlist">Wishlist</string>
-    
+
     <!-- Activity user page -->
     <string name="activity_user_page_button_message">Message</string>
     <string name="activity_user_page_button_friend">Friend</string>
     <string name="activity_user_page_button_follow">Follow</string>
-    
+
     <!-- Dialog comment -->
     <string name="dialog_comment_input">Write a comment...</string>
     <string name="dialog_comment_send">Send</string>
-    
+
+    <!-- Dialog friend -->
+    <string name="dialog_friend_sort">Sort</string>
+    <string name="dialog_friend_search">Search</string>
+    <string name="dialog_friend_no_friend">Your have no friend</string>
+
+    <!-- Dialog group -->
+    <string name="dialog_group_sort">Sort</string>
+    <string name="dialog_group_no_group">Your have no group</string>
+
+    <!-- Dialog chat -->
+    <string name="dialog_chat_input">Write your message...</string>
+    <string name="dialog_chat_send">Send</string>
+
+    <!-- Item group -->
+    <string name="item_group_image">Group Image</string>
+
     <!-- Item comment -->
     <string name="item_comment_image">Image</string>
-    
+
+    <!-- Item chat contact -->
+    <string name="item_chat_contact_image">Contact Image</string>
+
+    <!-- Item chat current user -->
+    <string name="item_chat_current_user_image">Current User Image</string>
     <string name="space">" "</string>
     <string name="title_fragment_map">Map</string>
     <string name="title_fragment_more">More</string>
@@ -123,11 +146,8 @@
     <string name="title_fragment_friends">Friend</string>
     <string name="item_friend_info">Friend Info</string>
     <string name="item_friend_image">Profile Photo</string>
-    <string name="item_friend_request_image">Profile Image</string>
-    <string name="item_friend_request_button_decline">Decline</string>
-    <string name="item_friend_request_button_accept">Accept</string>
-    <string name="item_friend_request_button_delete">Delete</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_status">StatusActivity</string>
+    <string name="title_activity_group_info">GroupInfoActivity</string>
 
 </resources>

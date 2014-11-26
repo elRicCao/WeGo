@@ -38,9 +38,6 @@ public class Place {
 	// Exact address of place with number, street, ward
 	private String address;
 
-	// Province and district of place. If place is a province or city, district can be null
-	private AdminUnit adminUnit;
-
 	// Place review
 	private ArrayList<Review> reviews;
 
@@ -50,6 +47,25 @@ public class Place {
 
 	// True if this place is a special landmark
 	private boolean isSpecial;
+	
+	private Place district;
+	private Place province;
+
+	public Place getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(Place district) {
+		this.district = district;
+	}
+
+	public Place getProvince() {
+		return province;
+	}
+
+	public void setProvince(Place province) {
+		this.province = province;
+	}
 
 	public int getId() {
 		return id;
@@ -115,14 +131,6 @@ public class Place {
 		this.address = address;
 	}
 
-	public AdminUnit getAdminUnit() {
-		return adminUnit;
-	}
-
-	public void setAdminUnit(AdminUnit adminUnit) {
-		this.adminUnit = adminUnit;
-	}
-
 	public ArrayList<Review> getReviews() {
 		return reviews;
 	}
@@ -153,27 +161,5 @@ public class Place {
 
 	public void setSpecial(boolean isSpecial) {
 		this.isSpecial = isSpecial;
-	}
-
-	@Override
-	public String toString() {
-		return "Place [id=" + id + ", name=" + name + ", description=" + description + ", type=" + type + ", numOfReviews=" + numOfReviews + ", averageRate=" + averageRate + ", cost=" + cost
-				+ ", address=" + address + ", adminUnit=" + adminUnit + ", longtitude=" + longtitude + ", latitude=" + latitude + ", isSpecial=" + isSpecial + "]";
-	}
-
-	/**
-	 * Class for holding district and provice
-	 * 
-	 * @author elRic
-	 *
-	 */
-	public static class AdminUnit {
-		public District district;
-		public Province province;
-
-		@Override
-		public String toString() {
-			return "AdminUnit [district=" + district + ", province=" + province + "]";
-		}
 	}
 }

@@ -15,7 +15,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class NewsAdapter extends ArrayAdapter<News> {
@@ -43,7 +42,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 			convertView = inflater.inflate(R.layout.item_news, parent, false);
 
 			ViewHolder holder = new ViewHolder();
-			holder.actionGroup = (RelativeLayout) convertView.findViewById(R.id.item_news_action_group);
+			holder.actionGroup = (LinearLayout) convertView.findViewById(R.id.item_news_action_group);
 			holder.actorView = (TextView) convertView.findViewById(R.id.item_news_actor);
 			holder.otherActorView = (TextView) convertView.findViewById(R.id.item_news_actor_others);
 			holder.connectorView = (TextView) convertView.findViewById(R.id.item_news_actor_connector);
@@ -52,10 +51,8 @@ public class NewsAdapter extends ArrayAdapter<News> {
 			holder.ownerActionView = (TextView) convertView.findViewById(R.id.item_news_user_action);
 			holder.timeView = (TextView) convertView.findViewById(R.id.item_news_time);
 			holder.contentView = (TextView) convertView.findViewById(R.id.item_news_content);
-			holder.likesView = (TextView) convertView.findViewById(R.id.item_news_num_of_likes);
-			holder.commentsView = (TextView) convertView.findViewById(R.id.item_news_num_of_comments);
-			holder.commentGroup = (LinearLayout) convertView.findViewById(R.id.item_news_comment_group);
-			holder.likeGroup = (LinearLayout) convertView.findViewById(R.id.item_news_like_group);
+			holder.likeView = (TextView) convertView.findViewById(R.id.item_news_like);
+			holder.commentView = (TextView) convertView.findViewById(R.id.item_news_comment);
 			convertView.setTag(holder);
 		}
 
@@ -72,7 +69,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		} else {
 			holder.actorView.setText(newsItem.getActors().get(0).getName());
 			holder.actionView.setText(Utils.getActionText(context, newsItem.getType()));
-			
+
 			int numOfActors = newsItem.getActors().size();
 			if (numOfActors > 1) {
 				holder.connectorView.setVisibility(View.VISIBLE);
@@ -97,17 +94,13 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		// Set up content view
 		holder.contentView.setText(newsItem.getContent());
 
-		// Set up like indicator view
-		holder.likesView.setText(String.valueOf(newsItem.getNumOfLikes()));
+		// Set up like view
+		holder.likeView.setText(String.valueOf(newsItem.getNumOfLikes()));
+		holder.likeView.setOnClickListener(likeListener);
 
-		// Set up comment indicator view
-		holder.commentsView.setText(String.valueOf(newsItem.getNumOfComments()));
-
-		// Set up comment listener
-		holder.commentGroup.setOnClickListener(commentClickListener);
-
-		// Set up like listener
-		holder.likeGroup.setOnClickListener(likeListener);
+		// Set up comment view
+		holder.commentView.setText(String.valueOf(newsItem.getNumOfComments()));
+		holder.commentView.setOnClickListener(commentClickListener);
 
 		return convertView;
 	}
@@ -116,9 +109,9 @@ public class NewsAdapter extends ArrayAdapter<News> {
 	 * Hold view of news item
 	 */
 	private static class ViewHolder {
-		
+
 		// Action group
-		RelativeLayout actionGroup;
+		LinearLayout actionGroup;
 		TextView actorView;
 		TextView connectorView;
 		TextView otherActorView;
@@ -135,10 +128,8 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		TextView contentView;
 
 		// Like and comment
-		TextView likesView;
-		TextView commentsView;
-		LinearLayout commentGroup;
-		LinearLayout likeGroup;
+		TextView likeView;
+		TextView commentView;
 	}
 
 	private OnClickListener commentClickListener = new OnClickListener() {
@@ -152,7 +143,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 	private OnClickListener likeListener = new OnClickListener() {
 		@Override
 		public void onClick(View view) {
-
+			view.setSelected(!view.isSelected());
 		}
 	};
 

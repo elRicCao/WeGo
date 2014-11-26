@@ -10,8 +10,8 @@
         android:id="@+id/dialog_comment_like"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="177 people like this" 
-        android:paddingBottom="16dp"/>
+        android:paddingBottom="16dp"
+        android:text="177 people like this" />
 
     <ListView
         android:id="@+id/dialog_comment_list"

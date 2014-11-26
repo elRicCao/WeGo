@@ -52,7 +52,8 @@ public class TripFragment extends TabFragment {
 			LayerDrawable layerDrawable = (LayerDrawable) ratingBar.getProgressDrawable();
 			layerDrawable.getDrawable(2).setColorFilter(getResources().getColor(R.color.green), PorterDuff.Mode.SRC_ATOP);
 
-			tripView.setOnTouchListener(new MainActivity.TileOnTouchListerner());
+			
+			
 			tripView.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -61,6 +62,11 @@ public class TripFragment extends TabFragment {
 					startActivity(intent);
 				}
 			});
+			
+			if (i < 1) {
+				View dividerView = inflater.inflate(R.layout.item_divider, container, false);
+				nextTrip.addView(dividerView);
+			}
 		}
 		
 		LinearLayout buttonBar = (LinearLayout) rootView.findViewById(R.id.fragment_trip_button_bar);
