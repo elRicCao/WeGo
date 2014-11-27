@@ -18,6 +18,7 @@ package vn.edu.hcmut.wego.view;
 
 import vn.edu.hcmut.wego.adapter.TabPagerAdapter;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
@@ -64,7 +65,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
 	}
 
 	private static final int TITLE_OFFSET_DIPS = 24;
-	private static final int ICON_OFFSET_DIPS = 40;
+	
+	private static final int ICON_MARGIN_DIPS = 6;
 
 	private int mTitleOffset;
 
@@ -153,8 +155,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
 		int equalWidth = getResources().getDisplayMetrics().widthPixels / mViewPager.getAdapter().getCount();
 
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(equalWidth, LinearLayout.LayoutParams.WRAP_CONTENT);
+//		tabView.setBackgroundColor(Color.WHITE);
 
 		tabView.setLayoutParams(params);
+//		tabView.setPadding(0, 6, 0, 6);
 
 		return tabView;
 	}
@@ -167,9 +171,11 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
 			ImageView tabIconView = new ImageView(getContext());
 			
-			int height = (int) (ICON_OFFSET_DIPS * getResources().getDisplayMetrics().density);
-			int width = (int) (ICON_OFFSET_DIPS * getResources().getDisplayMetrics().density);
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+			
+			int mIconMargin = (int) (ICON_MARGIN_DIPS * getResources().getDisplayMetrics().density);
+			
+			params.setMargins(0, mIconMargin, 0, mIconMargin);
 			tabIconView.setLayoutParams(params);
 			
 			tabIconView.setBackgroundResource(adapter.getPageIconRes(i));

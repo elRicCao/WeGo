@@ -30,6 +30,8 @@ public class Group {
 
 	// Group privacy. If true, everone can see this group
 	private boolean isPublic;
+	
+	private String announcement;
 
 	public Group() {
 		this.messages = new ArrayList<Message>();
@@ -94,6 +96,14 @@ public class Group {
 
 	public void setMessages(ArrayList<Message> messages) {
 		this.messages = messages;
+	}
+
+	public String getAnnouncement() {
+		return announcement;
+	}
+
+	public void setAnnouncement(String announcement) {
+		this.announcement = announcement;
 	}
 
 }

@@ -28,7 +28,7 @@
             android:layout_marginRight="12dp"
             android:layout_toEndOf="@id/item_chat_contact_image"
             android:layout_toRightOf="@id/item_chat_contact_image"
-            android:background="@drawable/background_chat_contact"
+            android:background="@drawable/background_chat_other_user"
             android:orientation="vertical" >
 
             <TextView

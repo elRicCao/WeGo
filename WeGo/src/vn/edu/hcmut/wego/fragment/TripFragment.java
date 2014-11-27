@@ -33,7 +33,6 @@ public class TripFragment extends TabFragment {
 		ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_trip, container, false);
 
 		LinearLayout currentTrip = (LinearLayout) rootView.findViewById(R.id.fragment_trip_section_current_trip);
-		currentTrip.setOnTouchListener(new MainActivity.TileOnTouchListerner());
 		currentTrip.setOnClickListener(new OnClickListener() {
 			
 			@Override

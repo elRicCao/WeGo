@@ -58,6 +58,8 @@ public class Trip {
 
 	// Trip invite
 	private ArrayList<InviteRequest> invites;
+	
+	private String announcement;
 
 	public int getId() {
 		return id;
@@ -191,6 +193,14 @@ public class Trip {
 	public String toString() {
 		return "Trip [id=" + id + ", leader=" + leader + ", description=" + description + ", startDate=" + startDate + ", endDate=" + endDate + ", status=" + status + ", startPlace=" + startPlace
 				+ ", route=" + Arrays.toString(route) + ", plan=" + Arrays.toString(plan) + ", isPublic=" + isPublic + ", members=" + members + ", places=" + places + ", cost=" + cost + "]";
+	}
+
+	public String getAnnouncement() {
+		return announcement;
+	}
+
+	public void setAnnouncement(String announcement) {
+		this.announcement = announcement;
 	}
 
 	/**

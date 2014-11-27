@@ -22,14 +22,15 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="12dp"
-                android:orientation="vertical" >
+                android:orientation="vertical" 
+                android:background="@drawable/background_card">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/green"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal" 
+                    android:background="@drawable/background_section_title">
 
                     <ImageView
                         android:layout_width="@dimen/icon_size"
@@ -64,12 +65,13 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="12dp"
-                android:orientation="vertical" >
+                android:orientation="vertical" 
+                android:background="@drawable/background_card">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/green"
+                    android:background="@drawable/background_section_title"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
@@ -106,12 +108,13 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="12dp"
-                android:orientation="vertical" >
+                android:orientation="vertical" 
+                android:background="@drawable/background_card">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/green"
+                    android:background="@drawable/background_section_title"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
@@ -146,12 +149,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
+                android:background="@drawable/background_card"
                 android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/green"
+                    android:background="@drawable/background_section_title"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 

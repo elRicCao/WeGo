@@ -25,7 +25,7 @@
                 android:layout_marginLeft="@dimen/spacing_normal"
                 android:layout_marginRight="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_normal"
-                android:background="@drawable/card_background"
+                android:background="@drawable/background_card"
                 android:orientation="vertical" >
 
                 <!-- Current trip title -->
@@ -55,9 +55,11 @@
 
                 <!-- Current trip information -->
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" 
+                    android:background="@drawable/background_action_green">
 
                     <!-- Start location -->
 
@@ -65,75 +67,63 @@
                         android:id="@+id/fragment_trip_current_trip_start_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/spacing_small" >
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:padding="5dp">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@string/item_trip_label_start_location"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/backgound_avatar"
+                            android:contentDescription="@string/item_trip_label_leader"
                             android:scaleType="fitXY"
-                            android:src="@drawable/ic_label_trip_current_start" />
+                            android:src="@drawable/ho_chi_minh" />
 
                         <TextView
                             android:id="@+id/fragment_trip_current_trip_start"
-                            style="@style/WeGo.TextAppearance.Medium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ho Chi Minh City" />
+                            android:text="Ho Chi Minh City" 
+                            android:textColor="@color/gray"/>
                     </LinearLayout>
+                    
+                    <ImageView 
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/next"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"/>
 
                     <!-- Current location -->
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/fragment_trip_current_trip_start_info"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/spacing_small" >
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:padding="5dp">
 
                         <ImageView
-                            android:layout_width="@dimen/icon_size"
-                            android:layout_height="@dimen/icon_size"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/backgound_avatar"
                             android:contentDescription="@string/item_trip_label_leader"
                             android:scaleType="fitXY"
-                            android:src="@drawable/ic_label_trip_current_location" />
+                            android:src="@drawable/nha_trang" />
 
                         <TextView
                             android:id="@+id/fragment_trip_current_trip_end"
-                            style="@style/WeGo.TextAppearance.Medium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nha Trang" />
+                            android:text="Nha Trang" 
+                            android:textColor="@color/gray"/>
                     </LinearLayout>
-
-                    <!-- Remaining days -->
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/spacing_small" >
-
-                        <TextView
-                            android:id="@+id/item_suggest_trip_time"
-                            style="@style/WeGo.TextAppearance.Huge"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="5" />
-
-                        <TextView
-                            style="@style/WeGo.TextAppearance.Tiny"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/fragment_trip_current_trip_day_remain" />
-                    </LinearLayout>
-                </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <!-- Next trip section -->
@@ -145,7 +135,7 @@
                 android:layout_marginLeft="@dimen/spacing_normal"
                 android:layout_marginRight="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_normal"
-                android:background="@drawable/card_background"
+                android:background="@drawable/background_card"
                 android:orientation="vertical" >
 
                 <LinearLayout

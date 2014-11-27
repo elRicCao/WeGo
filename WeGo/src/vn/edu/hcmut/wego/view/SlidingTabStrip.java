@@ -29,12 +29,12 @@ class SlidingTabStrip extends LinearLayout {
 
 	private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 2;
 	private static final byte DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26;
-	private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 4;
+	private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 6;
 	private static final int DEFAULT_SELECTED_INDICATOR_COLOR = 0xFF669900;
 
 	private static final int DEFAULT_DIVIDER_THICKNESS_DIPS = 1;
 	private static final byte DEFAULT_DIVIDER_COLOR_ALPHA = 0x20;
-//	private static final float DEFAULT_DIVIDER_HEIGHT = 0.5f;
+	// private static final float DEFAULT_DIVIDER_HEIGHT = 0.5f;
 
 	private final int mBottomBorderThickness;
 	private final Paint mBottomBorderPaint;
@@ -45,10 +45,12 @@ class SlidingTabStrip extends LinearLayout {
 	private final int mDefaultBottomBorderColor;
 
 	private final Paint mDividerPaint;
-//	private final float mDividerHeight;
+	// private final float mDividerHeight;
 
 	private int mSelectedPosition;
 	private float mSelectionOffset;
+
+	private final Paint mBackgroundPaint;
 
 	private SlidingTabLayout.TabColorizer mCustomTabColorizer;
 	private final SimpleTabColorizer mDefaultTabColorizer;
@@ -80,9 +82,11 @@ class SlidingTabStrip extends LinearLayout {
 		mSelectedIndicatorThickness = (int) (SELECTED_INDICATOR_THICKNESS_DIPS * density);
 		mSelectedIndicatorPaint = new Paint();
 
-//		mDividerHeight = DEFAULT_DIVIDER_HEIGHT;
+		// mDividerHeight = DEFAULT_DIVIDER_HEIGHT;
 		mDividerPaint = new Paint();
 		mDividerPaint.setStrokeWidth((int) (DEFAULT_DIVIDER_THICKNESS_DIPS * density));
+
+		mBackgroundPaint = new Paint();
 	}
 
 	void setCustomTabColorizer(SlidingTabLayout.TabColorizer customTabColorizer) {
@@ -114,8 +118,11 @@ class SlidingTabStrip extends LinearLayout {
 	protected void onDraw(Canvas canvas) {
 		final int height = getHeight();
 		final int childCount = getChildCount();
-//		final int dividerHeightPx = (int) (Math.min(Math.max(0f, mDividerHeight), 1f) * height);
+		// final int dividerHeightPx = (int) (Math.min(Math.max(0f, mDividerHeight), 1f) * height);
 		final SlidingTabLayout.TabColorizer tabColorizer = mCustomTabColorizer != null ? mCustomTabColorizer : mDefaultTabColorizer;
+
+		mBackgroundPaint.setColor(Color.WHITE);
+		canvas.drawRect(0, 0, getWidth(), height, mBackgroundPaint);
 
 		// Thick colored underline below the current selection
 		if (childCount > 0) {
