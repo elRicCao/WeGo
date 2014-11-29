@@ -1,118 +1,47 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/a"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    tools:context="vn.edu.hcmut.wego.activity.UserInfoActivity" >
 
     <LinearLayout
-        android:id="@+id/fragment_news_bottom_bar"
+        android:id="@+id/fragment_user_info_bottom_bar"
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" >
 
         <LinearLayout
-            android:id="@+id/activity_user_page_message"
+            android:id="@+id/activity_user_info_message"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:contentDescription="@string/activity_user_page_button_message"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_action_status" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_user_page_button_message"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="14dp"
-            android:layout_marginTop="14dp"
-            android:background="@android:color/white" />
-
-        <LinearLayout
-            android:id="@+id/activity_user_page_friend"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:contentDescription="@string/activity_user_page_button_friend"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_action_photo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_user_page_button_friend"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="14dp"
-            android:layout_marginTop="14dp"
-            android:background="@android:color/white" />
-
-        <LinearLayout
-            android:id="@+id/activity_user_page_follow"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:contentDescription="@string/activity_user_page_button_follow"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_action_review" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_user_page_button_follow"
+                android:drawableLeft="@drawable/ic_action_friend_message"
+                android:drawableStart="@drawable/ic_action_friend_message"
+                android:gravity="center_vertical"
+                android:text="@string/activity_user_info_button_message"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
-    
+
     <ScrollView
-        android:layout_above="@id/fragment_news_bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_above="@id/fragment_user_info_bottom_bar" >
 
         <LinearLayout
-            android:id="@+id/LinearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            tools:context="vn.edu.hcmut.wego.activity.UserInfoActivity" >
+            android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -248,15 +177,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:background="@drawable/shadow_background_white"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_card"
                 android:gravity="center_horizontal"
                 android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/green"
+                    android:background="@drawable/background_section_title"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="5dp" >
@@ -312,14 +243,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:background="@drawable/shadow_background_white"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_card"
                 android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/green"
+                    android:background="@drawable/background_section_title"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="5dp" >
@@ -406,13 +339,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:background="@drawable/shadow_background_white"
+                android:background="@drawable/background_card"
                 android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/green"
+                    android:background="@drawable/background_section_title"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="5dp" >

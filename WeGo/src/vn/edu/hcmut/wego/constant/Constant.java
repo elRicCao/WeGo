@@ -6,6 +6,9 @@ public class Constant {
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "WeGoDB.db";
 	public static final String DATABASE_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+	
+	public static final String INTENT_USER_ID = "user_id";
+	public static final String INTENT_GROUP_ID = "group_id";
 
 	// Shared preferences
 	public static final String PREFS_NAME = "WeGoFile";

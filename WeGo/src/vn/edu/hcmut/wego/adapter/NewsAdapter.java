@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -83,7 +85,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
 		// Set up owner's name. If this view is clicked, jump to user info screen
 		holder.ownerNameView.setText(owner.getName());
-		holder.ownerNameView.setOnClickListener(new UserInfoActivity.UserInfoListener(context, owner));
+		holder.ownerNameView.setOnClickListener(new UserInfoActivity.UserInfoListener(context, owner.getId()));
 
 		// Set up owner action
 		holder.ownerActionView.setText(Utils.getOwnerActionText(context, newsItem.getType()));
@@ -95,11 +97,8 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		holder.contentView.setText(newsItem.getContent());
 
 		// Set up like view
-		holder.likeView.setText(String.valueOf(newsItem.getNumOfLikes()));
 		holder.likeView.setOnClickListener(likeListener);
-
-		// Set up comment view
-		holder.commentView.setText(String.valueOf(newsItem.getNumOfComments()));
+		
 		holder.commentView.setOnClickListener(commentClickListener);
 
 		return convertView;

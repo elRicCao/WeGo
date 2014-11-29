@@ -105,10 +105,8 @@
     <string name="fragment_more_top_review">Top Review</string>
     <string name="fragment_more_button_wishlist">Wishlist</string>
 
-    <!-- Activity user page -->
-    <string name="activity_user_page_button_message">Message</string>
-    <string name="activity_user_page_button_friend">Friend</string>
-    <string name="activity_user_page_button_follow">Follow</string>
+    <!-- Activity user info -->
+    <string name="activity_user_info_button_message">Message</string>
 
     <!-- Dialog comment -->
     <string name="dialog_comment_input">Write a comment...</string>
@@ -149,5 +147,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_status">StatusActivity</string>
     <string name="title_activity_group_info">GroupInfoActivity</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="search_place_hint">WeGo</string>
+    <string name="title_activity_user_photo">User Photo</string>
 
 </resources>

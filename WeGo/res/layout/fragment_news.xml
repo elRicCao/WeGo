@@ -14,7 +14,8 @@
         android:dividerHeight="@dimen/spacing_normal"
         android:listSelector="@android:color/transparent"
         android:padding="@dimen/spacing_normal"
-        android:scrollbarStyle="outsideOverlay" />
+        android:scrollbarStyle="outsideOverlay"
+        android:descendantFocusability="blocksDescendants"/>
 
     <LinearLayout
         android:id="@+id/fragment_news_bottom_bar"
@@ -67,34 +68,6 @@
                 android:drawableStart="@drawable/ic_action_photo"
                 android:gravity="center"
                 android:text="@string/fragment_news_button_photo"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="12dp"
-            android:layout_marginTop="12dp"
-            android:background="@android:color/white" />
-
-        <LinearLayout
-            android:id="@+id/fragment_news_button_review"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_action_review"
-                android:drawableStart="@drawable/ic_action_review"
-                android:gravity="center"
-                android:text="@string/fragment_news_button_review"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />

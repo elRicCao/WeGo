@@ -2,7 +2,7 @@ package vn.edu.hcmut.wego.entity;
 
 import java.util.ArrayList;
 
-public class User {
+public class User{
 
 	public enum UserStatus {
 		OFFLINE, ONLINE
@@ -19,7 +19,7 @@ public class User {
 	private double averageVote;
 	private ArrayList<Review> votes;
 	private ArrayList<Message> recentMessages;
-	
+
 	public User() {
 		votes = new ArrayList<Review>();
 		recentMessages = new ArrayList<Message>();
@@ -112,7 +112,7 @@ public class User {
 	public void setRecentMessages(ArrayList<Message> recentMessages) {
 		this.recentMessages = recentMessages;
 	}
-	
+
 	public void addRecentMessage(Message message) {
 		this.recentMessages.add(message);
 	}

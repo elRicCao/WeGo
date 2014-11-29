@@ -1,7 +1,7 @@
 package vn.edu.hcmut.wego.activity;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.entity.User;
+import vn.edu.hcmut.wego.constant.Constant;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -48,16 +48,17 @@ public class UserInfoActivity extends Activity {
 	public static class UserInfoListener implements OnClickListener {
 
 		private Context context;
-		private User user;
+		private int userId;
 		
-		public UserInfoListener(Context context, User user) {
+		public UserInfoListener(Context context, int userId) {
 			this.context = context;
-			this.user = user;
+			this.userId = userId;
 		}
 		
 		@Override
 		public void onClick(View view) {
 			Intent intent = new Intent(context, UserInfoActivity.class);
+			intent.putExtra(Constant.INTENT_USER_ID, userId);
 			context.startActivity(intent);
 		}
 		

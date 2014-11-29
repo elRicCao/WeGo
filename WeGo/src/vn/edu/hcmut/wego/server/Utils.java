@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.constant.Constant;
+import vn.edu.hcmut.wego.entity.Place;
 import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
 import android.util.Log;
@@ -27,6 +29,12 @@ class Utils {
 
 	private static final String LOGIN_FUNCTION = "selectUser";
 
+	private static final String PHP_SEARCH = "Search";
+
+	private static final String SEARCH_FUNCTION = "selectPlace";
+	
+	private static final String SUGGEST_FUNCTION = "suggestPlace";
+
 	/**
 	 * Make HTTP request to server
 	 * 
@@ -35,7 +43,7 @@ class Utils {
 	 * @return
 	 */
 	static JSONObject makeHttpRequest(RequestType requestType, JSONObject params) {
-		
+
 		// Request method is POST
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(Constant.QUERY_URL);
@@ -95,7 +103,7 @@ class Utils {
 		} catch (JSONException e) {
 			Log.e("JSON Parser", "Error parsing data " + e.toString());
 		}
-
+		Log.d("jsonObject", jsonObject.toString());
 		return jsonObject;
 	}
 
@@ -109,6 +117,10 @@ class Utils {
 		switch (requestType) {
 		case LOGIN:
 			return PHP_AUTHENTICATION;
+		case SEARCH:
+			return PHP_SEARCH;
+		case SUGGEST:
+			return PHP_SEARCH;
 		default:
 			return null;
 		}
@@ -124,6 +136,10 @@ class Utils {
 		switch (requestType) {
 		case LOGIN:
 			return LOGIN_FUNCTION;
+		case SEARCH:
+			return SEARCH_FUNCTION;
+		case SUGGEST:
+			return SUGGEST_FUNCTION;
 		default:
 			return null;
 		}
@@ -139,12 +155,11 @@ class Utils {
 	static ArrayList<Object> parseResult(RequestType requestType, JSONObject result) {
 
 		ArrayList<Object> objects = new ArrayList<Object>();
-		Log.i("Debug", result.toString());
 		try {
 			switch (requestType) {
 
 			case LOGIN:
-				
+
 				if (result.getInt(Constant.SUCCESS) == 1) {
 					JSONObject userInfo = result.getJSONArray(Constant.RESULT).getJSONObject(0);
 					User user = new User();
@@ -156,14 +171,40 @@ class Utils {
 				}
 				break;
 
-			default:
+			case SEARCH:
+				if (result.getInt(Constant.SUCCESS) == 1) {
+					for (int i = 0; i < result.getJSONArray(Constant.RESULT).length(); i++) {
+						JSONObject placeInfo = result.getJSONArray(Constant.RESULT).getJSONObject(i);
+						Place place = new Place();
+						place.setId(Integer.parseInt(placeInfo.getString("id")));
+						place.setName(placeInfo.getString("name"));
+						place.setLatitude(Double.parseDouble(placeInfo.getString("latitude")));
+						place.setLongtitude(Double.parseDouble(placeInfo.getString("longitude")));
+						objects.add(place);
+					}
+				}
 				break;
 				
+			case SUGGEST:
+				if (result.getInt(Constant.SUCCESS) == 1) {
+					for (int i = 0; i < result.getJSONArray(Constant.RESULT).length(); i++) {
+						JSONObject placeInfo = result.getJSONArray(Constant.RESULT).getJSONObject(i);
+						Place place = new Place();
+						place.setId(Integer.parseInt(placeInfo.getString("id")));
+						place.setName(placeInfo.getString("name"));
+						place.setLatitude(Double.parseDouble(placeInfo.getString("latitude")));
+						place.setLongtitude(Double.parseDouble(placeInfo.getString("longitude")));
+						objects.add(place);
+					}
+				}
+				break;
+			default:
+				break;
+
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		Log.i("Debug", "Parse result size: " + String.valueOf(objects.size()));
 		return objects;
 	}
 }

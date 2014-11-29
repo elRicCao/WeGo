@@ -114,7 +114,11 @@ public class ServerRequest {
 		ACTION_UPDATE_GROUP_INFO,
 
 		// TODO: DONT IMPLEMENT THIS
-		ACTION_CREATE_TRIP
+		ACTION_CREATE_TRIP,
+
+		SEARCH,
+
+		SUGGEST
 	}
 
 	private ServerRequest(AsyncTask<JSONObject, Void, JSONObject> task, JSONObject params) {
@@ -170,11 +174,20 @@ public class ServerRequest {
 			switch (requestType) {
 			case LOGIN:
 				parseResult = Utils.parseResult(requestType, result);
-				User user = (parseResult.isEmpty())? null: (User) parseResult.get(0);
+				User user = (parseResult.isEmpty()) ? null : (User) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(user);
 				break;
-
+			case SEARCH:
+				parseResult = Utils.parseResult(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
+			case SUGGEST:
+				parseResult = Utils.parseResult(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
 			default:
 				break;
 			}

@@ -5,20 +5,17 @@ import java.util.Comparator;
 import java.util.Date;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.activity.UserMessageActivity;
 import vn.edu.hcmut.wego.adapter.FriendAdapter;
+import vn.edu.hcmut.wego.dialog.ChatDialog.ChatDialogType;
 import vn.edu.hcmut.wego.entity.Message;
 import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.entity.User.UserStatus;
-import vn.edu.hcmut.wego.fragment.NewsFragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,9 +32,11 @@ public class FriendDialog extends DialogFragment {
 
 	private Context context;
 	private FriendAdapter adapter;
+	private final int userId;
 
-	public FriendDialog(Context context) {
+	public FriendDialog(Context context, int userId) {
 		this.context = context;
+		this.userId = userId;
 	}
 
 	@Override
@@ -99,8 +98,9 @@ public class FriendDialog extends DialogFragment {
 	private OnItemClickListener friendListItemClickListener = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			User friend = adapter.getItem(position);
 			FragmentManager fragmentManager = FriendDialog.this.getFragmentManager();
-			ChatDialog chatDialog = new ChatDialog(context);
+			ChatDialog chatDialog = new ChatDialog(context, ChatDialogType.FRIEND_MESSAGE, userId, friend.getId());
 			chatDialog.show(fragmentManager, "chat_dialog");
 		}
 	};
@@ -132,6 +132,26 @@ public class FriendDialog extends DialogFragment {
 				return lastMessRhs.getTime().compareTo(lastMessLhs.getTime());
 			}
 		});
+	}
+	
+	public static class FriendDialogListener implements OnClickListener {
+
+		private Context context;
+		private FragmentManager fragmentManager;
+		private int userId;
+		
+		public FriendDialogListener(Context context, FragmentManager fragmentManager, int userId) {
+			this.context = context;
+			this.fragmentManager = fragmentManager;
+			this.userId = userId;
+		}
+		
+		@Override
+		public void onClick(View view) {
+			FriendDialog friendDialog = new FriendDialog(context, userId);
+			friendDialog.show(fragmentManager, "friend_dialog");
+		}
+		
 	}
 
 	private void addFakeData() {

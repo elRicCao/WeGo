@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_action_green"
-    android:gravity="center_vertical"
+    android:background="@drawable/background_action"
     android:orientation="horizontal" >
 
     <ImageView
         android:id="@+id/item_friend_message_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:contentDescription="@string/item_friend_message_image"
         android:padding="@dimen/spacing_normal"
         android:scaleType="fitXY"
@@ -21,11 +21,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/spacing_normal"
         android:layout_marginRight="@dimen/spacing_normal"
-        android:layout_marginTop="@dimen/spacing_normal"
         android:gravity="end"
         android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/item_friend_message_time_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="November 20"
+            android:textColor="@color/gray" />
 
         <TextView
             android:id="@+id/item_friend_message_time_hour"
@@ -33,22 +40,14 @@
             android:layout_height="wrap_content"
             android:text="7:17am"
             android:textColor="@color/gray" />
-
-        <TextView
-            android:id="@+id/item_friend_message_time_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nov 20"
-            android:textColor="@color/gray" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/spacing_normal"
         android:layout_marginRight="@dimen/spacing_normal"
-        android:layout_marginTop="@dimen/spacing_normal"
-        android:layout_marginBottom="@dimen/spacing_normal"
         android:layout_toEndOf="@id/item_friend_message_image"
         android:layout_toLeftOf="@id/item_friend_message_time"
         android:layout_toRightOf="@id/item_friend_message_image"
@@ -68,7 +67,9 @@
             android:id="@+id/item_group_invite_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Let's go to Da Lat"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Let&apos;s go to Da Lat"
             android:textColor="@color/gray" />
     </LinearLayout>
 

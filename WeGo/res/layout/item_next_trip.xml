@@ -3,7 +3,7 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_action_green"
+    android:background="@drawable/background_action"
     android:baselineAligned="false"
     android:clickable="true" >
 
@@ -12,90 +12,51 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="7"
+        android:layout_weight="1"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:id="@+id/item_next_trip_start_location_group"
+        <TextView
+            android:id="@+id/item_next_trip_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_tag_start"
+            android:drawableStart="@drawable/ic_tag_start"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="6dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="6dp" >
-
-            <ImageView
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:contentDescription="@string/item_trip_label_start_location"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_label_start_location" />
-
-            <TextView
-                android:id="@+id/item_next_trip_start_location"
-                style="@style/WeGo.TextAppearance.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ho Chi Minh City" />
-        </LinearLayout>
+            android:text="Ho Chi Minh City"
+            android:textColor="@color/gray"
+            android:textSize="14sp" />
 
         <!-- Destinations -->
 
-        <LinearLayout
-            android:id="@+id/item_next_trip_destination_group"
+        <TextView
+            android:id="@+id/item_next_trip_destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_tag_destination"
+            android:drawableStart="@drawable/ic_tag_destination"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="6dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="6dp" >
-
-            <ImageView
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:contentDescription="@string/item_trip_label_start_location"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_label_destination" />
-
-            <TextView
-                android:id="@+id/item_next_trip_destination"
-                style="@style/WeGo.TextAppearance.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nha Trang - Da Lat" />
-        </LinearLayout>
+            android:text="Nha Trang"
+            android:textColor="@color/gray"
+            android:textSize="14sp" />
 
         <!-- Leader information -->
 
         <LinearLayout
-            android:id="@+id/item_next_trip_leader_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="6dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="6dp" >
-
-            <ImageView
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:contentDescription="@string/item_trip_label_leader"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_label_trip_leader" />
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/item_next_trip_leader"
-                style="@style/WeGo.TextAppearance.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_tag_leader"
+                android:drawableStart="@drawable/ic_tag_leader"
+                android:gravity="center_vertical"
                 android:text="elRic"
                 android:textColor="@color/green"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <RatingBar
@@ -103,8 +64,8 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/spacing_tiny"
-                android:layout_marginStart="@dimen/spacing_tiny"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:rating="3.5" />
@@ -116,7 +77,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="5"
+        android:layout_weight="1"
         android:padding="@dimen/spacing_small" >
 
         <TextView
@@ -125,7 +86,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
             android:text="500.000đ"
             android:textColor="@color/gray"
             android:textSize="22sp" />

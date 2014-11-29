@@ -13,15 +13,14 @@ import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.entity.News.NewsType;
 import vn.edu.hcmut.wego.entity.User;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -31,23 +30,16 @@ public class NewsFragment extends TabFragment {
 	private static final String title = "News";
 	private static final int iconRes = R.drawable.ic_tab_news;
 
+	private int userId;
 	private Context context;
 	private NewsAdapter newsAdapter;
 	private ProgressBar progressBar;
 	private LinearLayout bottomBar;
 	private ListView newsList;
 
-	private CommentListener commentListener = new CommentListener() {
-		@Override
-		public void onComment(News newsItem) {
-			FragmentManager fragmentManager = NewsFragment.this.getFragmentManager();
-			CommentDialog commentDialog = new CommentDialog(context);
-			commentDialog.show(fragmentManager, "comment_dialog");
-		}
-	};
-
-	public NewsFragment(Context context) {
+	public NewsFragment(Context context, int userId) {
 		super(title, iconRes);
+		this.userId = userId;
 		this.context = context;
 	}
 
@@ -91,6 +83,15 @@ public class NewsFragment extends TabFragment {
 
 		return rootView;
 	}
+
+	private CommentListener commentListener = new CommentListener() {
+		@Override
+		public void onComment(News newsItem) {
+			FragmentManager fragmentManager = NewsFragment.this.getFragmentManager();
+			CommentDialog commentDialog = new CommentDialog(context);
+			commentDialog.show(fragmentManager, "comment_dialog");
+		}
+	};
 
 	private void addFakeData() {
 		User user1 = new User();

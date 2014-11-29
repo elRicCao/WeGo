@@ -1,16 +1,16 @@
 package vn.edu.hcmut.wego.activity;
 
-import java.util.ArrayList;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.R;
+import vn.edu.hcmut.wego.constant.Constant;
+import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.server.ServerRequest;
 import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
 import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
-import vn.edu.hcmut.wego.utility.Utils;
 import vn.edu.hcmut.wego.utility.Security;
+import vn.edu.hcmut.wego.utility.Utils;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Service;
@@ -18,7 +18,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -30,6 +29,7 @@ import android.widget.Toast;
 
 import com.facebook.AppEventsLogger;
 import com.facebook.FacebookOperationCanceledException;
+import com.facebook.Request;
 import com.facebook.Session;
 import com.facebook.Session.StatusCallback;
 import com.facebook.SessionState;
@@ -235,9 +235,11 @@ public class LoginActivity extends ActionBarActivity {
 				}
 				
 				// Save login info
-
+				User user = (User) results[0];
+				
 				// Proceed to main activity and finish this activity
 				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+				intent.putExtra(Constant.INTENT_USER_ID, user.getId());
 				startActivity(intent);
 				finish();
 			}
@@ -250,15 +252,15 @@ public class LoginActivity extends ActionBarActivity {
 	 * @return true if there is preference logged in data, otherwise return false
 	 */
 	private boolean isLoggedIn() {
-//		Session session = Session.getActiveSession();
-//		if (session != null) {
-//			if (!session.isClosed())
-//				if (!session.getAccessToken().isEmpty())
-//					return true;
-//		}
-//		return false;
+		Session session = Session.getActiveSession();
+		if (session != null) {
+			if (!session.isClosed())
+				if (!session.getAccessToken().isEmpty())
+					return true;
+		}
+		return false;
 		//TODO: Debug
-		return true;
+//		return false;
 	}
 
 	/**

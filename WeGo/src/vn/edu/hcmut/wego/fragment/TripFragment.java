@@ -3,6 +3,7 @@ package vn.edu.hcmut.wego.fragment;
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.activity.CurrentTripActivity;
 import vn.edu.hcmut.wego.activity.MainActivity;
+import vn.edu.hcmut.wego.activity.MapActivity;
 import vn.edu.hcmut.wego.activity.TripInfoActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -22,9 +23,15 @@ public class TripFragment extends TabFragment {
 	private static final String title = "Trip";
 	private static final int iconRes = R.drawable.ic_tab_trip;
 	private Context context;
+	private int userId;
 
-	public TripFragment(Context context) {
+	public TripFragment() {
+
+	}
+
+	public TripFragment(Context context, int userId) {
 		super(title, iconRes);
+		this.userId = userId;
 		this.context = context;
 	}
 
@@ -34,7 +41,7 @@ public class TripFragment extends TabFragment {
 
 		LinearLayout currentTrip = (LinearLayout) rootView.findViewById(R.id.fragment_trip_section_current_trip);
 		currentTrip.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(context, CurrentTripActivity.class);
@@ -51,8 +58,6 @@ public class TripFragment extends TabFragment {
 			LayerDrawable layerDrawable = (LayerDrawable) ratingBar.getProgressDrawable();
 			layerDrawable.getDrawable(2).setColorFilter(getResources().getColor(R.color.green), PorterDuff.Mode.SRC_ATOP);
 
-			
-			
 			tripView.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -61,18 +66,29 @@ public class TripFragment extends TabFragment {
 					startActivity(intent);
 				}
 			});
-			
+
 			if (i < 1) {
 				View dividerView = inflater.inflate(R.layout.item_divider, container, false);
 				nextTrip.addView(dividerView);
 			}
 		}
-		
+
 		LinearLayout buttonBar = (LinearLayout) rootView.findViewById(R.id.fragment_trip_button_bar);
-		
+
 		ScrollView content = (ScrollView) rootView.findViewById(R.id.fragment_trip_content);
 		content.setOnTouchListener(new MainActivity.BottomBarListener(context, buttonBar));
 
+		LinearLayout buttonCreateTrip = (LinearLayout) rootView.findViewById(R.id.fragment_trip_button_create);
+		buttonCreateTrip.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, MapActivity.class);
+				startActivity(intent);
+				
+			}
+		});
+		
 		return rootView;
 	}
 

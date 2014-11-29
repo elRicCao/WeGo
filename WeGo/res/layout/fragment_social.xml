@@ -22,32 +22,20 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="12dp"
-                android:orientation="vertical" 
-                android:background="@drawable/background_card">
+                android:background="@drawable/background_card"
+                android:orientation="vertical" >
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_section_title"
+                    android:drawableLeft="@drawable/ic_tag_friend_request"
+                    android:drawableStart="@drawable/ic_tag_friend_request"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" 
-                    android:background="@drawable/background_section_title">
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
-                        android:contentDescription="@string/fragment_social_section_friend_request"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_label_friend_request" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/fragment_social_section_friend_request"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:text="@string/fragment_social_section_friend_request"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/fragment_social_friend_request_list"
@@ -65,32 +53,20 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="12dp"
-                android:orientation="vertical" 
-                android:background="@drawable/background_card">
+                android:background="@drawable/background_card"
+                android:orientation="vertical" >
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_section_title"
+                    android:drawableLeft="@drawable/ic_tag_group_invite"
+                    android:drawableStart="@drawable/ic_tag_group_invite"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
-                        android:contentDescription="@string/fragment_social_section_group_invite"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_label_group_invite" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/fragment_social_section_group_invite"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:text="@string/fragment_social_section_group_invite"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/fragment_social_group_invite_list"
@@ -108,32 +84,20 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="12dp"
-                android:orientation="vertical" 
-                android:background="@drawable/background_card">
+                android:background="@drawable/background_card"
+                android:orientation="vertical" >
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_section_title"
+                    android:drawableLeft="@drawable/ic_tag_friend_message"
+                    android:drawableStart="@drawable/ic_tag_friend_message"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
-                        android:contentDescription="@string/fragment_social_section_friend_message"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_label_friend_message" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/fragment_social_section_friend_message"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:text="@string/fragment_social_section_friend_message"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/fragment_social_friend_message"
@@ -152,29 +116,17 @@
                 android:background="@drawable/background_card"
                 android:orientation="vertical" >
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_section_title"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
-                        android:contentDescription="@string/fragment_social_section_group_message"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_label_group_message" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/fragment_social_section_group_message"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:drawableLeft="@drawable/ic_tag_group_message"
+                    android:drawableStart="@drawable/ic_tag_group_message"
+                    android:text="@string/fragment_social_section_group_message"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" 
+                    android:gravity="center_vertical"/>
 
                 <LinearLayout
                     android:id="@+id/fragment_social_group_message"
@@ -206,10 +158,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_user_100"
-                android:drawableStart="@drawable/ic_user_100"
-                android:text="@string/fragment_social_button_friend"
+                android:drawableLeft="@drawable/ic_action_friend"
+                android:drawableStart="@drawable/ic_action_friend"
                 android:gravity="center_vertical"
+                android:text="@string/fragment_social_button_friend"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />

@@ -30,36 +30,25 @@
 
                 <!-- Current trip title -->
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_section_title"
+                    android:drawableLeft="@drawable/ic_tag_current"
+                    android:drawableStart="@drawable/ic_tag_current"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
-                        android:contentDescription="@string/fragment_trip_current"
-                        android:src="@drawable/ic_label_trip_current" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/spacing_small"
-                        android:text="@string/fragment_trip_current"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:text="@string/fragment_trip_current"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <!-- Current trip information -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" 
-                    android:background="@drawable/background_action_green">
+                    android:background="@drawable/background_action"
+                    android:orientation="horizontal" >
 
                     <!-- Start location -->
 
@@ -67,10 +56,10 @@
                         android:id="@+id/fragment_trip_current_trip_start_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
-                        android:layout_weight="1"
-                        android:padding="5dp">
+                        android:padding="5dp" >
 
                         <ImageView
                             android:layout_width="64dp"
@@ -85,27 +74,27 @@
                             android:id="@+id/fragment_trip_current_trip_start"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ho Chi Minh City" 
-                            android:textColor="@color/gray"/>
+                            android:text="Ho Chi Minh City"
+                            android:textColor="@color/gray" />
                     </LinearLayout>
-                    
-                    <ImageView 
+
+                    <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/next"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:layout_gravity="center"/>
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/next" />
 
                     <!-- Current location -->
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
-                        android:layout_weight="1"
-                        android:padding="5dp">
+                        android:padding="5dp" >
 
                         <ImageView
                             android:layout_width="64dp"
@@ -120,8 +109,8 @@
                             android:id="@+id/fragment_trip_current_trip_end"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nha Trang" 
-                            android:textColor="@color/gray"/>
+                            android:text="Nha Trang"
+                            android:textColor="@color/gray" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -138,28 +127,17 @@
                 android:background="@drawable/background_card"
                 android:orientation="vertical" >
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_section_title"
+                    android:drawableLeft="@drawable/ic_tag_next"
+                    android:drawableStart="@drawable/ic_tag_next"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
-                        android:contentDescription="@string/fragment_trip_next_trip"
-                        android:src="@drawable/ic_label_trip_next" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/spacing_small"
-                        android:text="@string/fragment_trip_next_trip"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:text="@string/fragment_trip_next_trip"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <!-- Programmatically add next trip to list -->
 
@@ -188,19 +166,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:contentDescription="@string/fragment_trip_button_create"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_action_create_trip" />
+            android:gravity="center" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_action_create"
+                android:drawableStart="@drawable/ic_action_create"
+                android:gravity="center_vertical"
                 android:text="@string/fragment_trip_button_create"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"

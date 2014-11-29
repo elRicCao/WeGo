@@ -4,14 +4,9 @@ import java.util.ArrayList;
 
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.activity.GroupInfoActivity;
-import vn.edu.hcmut.wego.activity.UserInfoActivity;
 import vn.edu.hcmut.wego.entity.Group;
-import vn.edu.hcmut.wego.entity.Message;
-import vn.edu.hcmut.wego.entity.User;
-import vn.edu.hcmut.wego.entity.User.UserStatus;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class GroupAdapter extends ArrayAdapter<Group> {
@@ -42,9 +36,7 @@ public class GroupAdapter extends ArrayAdapter<Group> {
 
 			ViewHolder holder = new ViewHolder();
 			holder.nameView = (TextView) convertView.findViewById(R.id.item_group_name);
-			holder.messageGroup = (LinearLayout) convertView.findViewById(R.id.item_group_recent_message);
-			holder.senderView = (TextView) convertView.findViewById(R.id.item_group_recent_message_sender);
-			holder.messageView = (TextView) convertView.findViewById(R.id.item_group_recent_message_content);
+			holder.announcementView = (TextView) convertView.findViewById(R.id.item_group_announcement);
 			holder.imageView = (ImageView) convertView.findViewById(R.id.item_group_image);
 			holder.infoButton = (ImageButton) convertView.findViewById(R.id.item_group_info);
 			convertView.setTag(holder);
@@ -57,13 +49,12 @@ public class GroupAdapter extends ArrayAdapter<Group> {
 		holder.nameView.setText(group.getName());
 
 		// Set recent message
-		if (!group.getMessages().isEmpty()) {
-			Message recentMessage = group.getMessages().get(group.getMessages().size() - 1);
-			holder.messageGroup.setVisibility(View.VISIBLE);
-			holder.senderView.setText(recentMessage.getSender().getName());
-			holder.messageView.setText(recentMessage.getContent());
-		} else {
-			holder.messageGroup.setVisibility(View.GONE);
+		if (group.getAnnouncement() == null) {
+			holder.announcementView.setVisibility(View.GONE);
+		}
+		else {
+			holder.announcementView.setVisibility(View.VISIBLE);
+			holder.announcementView.setText(group.getAnnouncement().getContent());
 		}
 
 		// Set info button listener
@@ -83,9 +74,7 @@ public class GroupAdapter extends ArrayAdapter<Group> {
 
 	private static class ViewHolder {
 		TextView nameView;
-		LinearLayout messageGroup;
-		TextView senderView;
-		TextView messageView;
+		TextView announcementView;
 		ImageButton infoButton;
 		ImageView imageView;
 	}

@@ -1,13 +1,15 @@
 package vn.edu.hcmut.wego.activity;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.R.id;
-import vn.edu.hcmut.wego.R.layout;
-import vn.edu.hcmut.wego.R.menu;
+import vn.edu.hcmut.wego.constant.Constant;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 public class GroupInfoActivity extends Activity {
 
@@ -34,5 +36,24 @@ public class GroupInfoActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public static class GroupInfoListener implements OnClickListener {
+
+		private Context context;
+		private int groupId;
+		
+		public GroupInfoListener(Context context, int groupId) {
+			this.context = context;
+			this.groupId = groupId;
+		}
+		
+		@Override
+		public void onClick(View view) {
+			Intent intent = new Intent(context, GroupInfoActivity.class);
+			intent.putExtra(Constant.INTENT_GROUP_ID, groupId);
+			context.startActivity(intent);
+		}
+		
 	}
 }
