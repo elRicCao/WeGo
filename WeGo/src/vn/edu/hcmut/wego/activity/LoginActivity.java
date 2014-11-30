@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -29,7 +30,6 @@ import android.widget.Toast;
 
 import com.facebook.AppEventsLogger;
 import com.facebook.FacebookOperationCanceledException;
-import com.facebook.Request;
 import com.facebook.Session;
 import com.facebook.Session.StatusCallback;
 import com.facebook.SessionState;
@@ -127,6 +127,7 @@ public class LoginActivity extends ActionBarActivity {
 				passwordField.requestFocus();
 				return;
 			}
+			
 			onLogin();
 		}
 	}
@@ -233,7 +234,6 @@ public class LoginActivity extends ActionBarActivity {
 					showActionViews();
 					return;
 				}
-				
 				// Save login info
 				User user = (User) results[0];
 				

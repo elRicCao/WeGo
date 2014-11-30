@@ -26,4 +26,6 @@ public class Constant {
 	public static final String EMPTY_RESULT = "[]";
 	public static final String QUERY_URL = "http://wego.journeymanager.esy.es/db_server.php";
 
+	// Server service params
+	public static final String PARAM_USER_ID = "user";
 }

@@ -65,6 +65,7 @@ public class GroupDialog extends DialogFragment {
 		View dividerView = (View) rootView.findViewById(R.id.dialog_group_divider);
 		TextView noFriendView = (TextView) rootView.findViewById(R.id.dialog_group_no_group);
 		ImageButton sortView = (ImageButton) rootView.findViewById(R.id.dialog_group_sort);
+		ImageButton createView = (ImageButton) rootView.findViewById(R.id.dialog_group_create);
 		ListView groupList = (ListView) rootView.findViewById(R.id.dialog_group_list);
 
 		if (adapter.getCount() > 0) {
@@ -79,6 +80,8 @@ public class GroupDialog extends DialogFragment {
 
 		groupList.setAdapter(adapter);
 		groupList.setOnItemClickListener(groupListItemListener);
+		
+		createView.setOnClickListener(new CreateGroupDialog.CreateGroupDialogListener(context, getFragmentManager(), userId));
 
 		return rootView;
 	}

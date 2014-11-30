@@ -19,6 +19,7 @@ public class News {
 	private Date time;
 	private int numOfLikes;
 	private int numOfComments;
+	private int rate;
 
 	public int getId() {
 		return id;
@@ -98,6 +99,14 @@ public class News {
 
 	public void setNumOfComments(int numOfComments) {
 		this.numOfComments = numOfComments;
+	}
+
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
 	}
 
 }

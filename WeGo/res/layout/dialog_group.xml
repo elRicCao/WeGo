@@ -15,16 +15,30 @@
         android:paddingRight="12dp"
         android:paddingTop="6dp" >
 
-        <ImageButton
-            android:id="@+id/dialog_group_sort"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/background_action"
-            android:contentDescription="@string/dialog_group_sort"
-            android:src="@drawable/ic_action_sort" />
+            android:orientation="horizontal" >
+            
+            <ImageButton
+                android:id="@+id/dialog_group_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_action"
+                android:contentDescription="@string/dialog_group_create"
+                android:src="@drawable/ic_action_create_group" />
+
+            <ImageButton
+                android:id="@+id/dialog_group_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_action"
+                android:contentDescription="@string/dialog_group_sort"
+                android:src="@drawable/ic_action_sort" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/dialog_group_num"

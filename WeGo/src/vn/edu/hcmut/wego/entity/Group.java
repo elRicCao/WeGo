@@ -31,6 +31,8 @@ public class Group {
 	// Group privacy. If true, everone can see this group
 	private boolean isPublic;
 	
+	private User admin;
+	
 	private Message announcement;
 
 	public Group() {
@@ -104,6 +106,14 @@ public class Group {
 
 	public void setAnnouncement(Message announcement) {
 		this.announcement = announcement;
+	}
+
+	public User getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(User admin) {
+		this.admin = admin;
 	}
 
 }

@@ -4,6 +4,13 @@
     <!-- Application -->
     <string name="app_name">WeGo</string>
 
+    <!-- Debug -->
+    <string name="default_user_name">elRic</string>
+    <string name="default_group_name">WeGo</string>
+    <string name="default_group_member">17</string>
+    <string name="default_group_description">We are young and we love traveling</string>
+    <string name="default_group_announcement">We are planning for a trip from Ho Chi Minh City to Nha Trang next week. Stay tuned!</string>
+        
     <!-- Facebook id -->
     <string name="facebook_app_id">365186526974087</string>
 
@@ -37,6 +44,15 @@
     <string name="signup_cancel_button">Cancel</string>
     <string name="signup_terms_and_conditions">I agree to the Terms and Conditions of WeGo</string>
     <string name="signup_instruction">Fill in all information below and press Sign Up. Note that each email is used only once</string>
+    
+    <!-- Group info -->
+    <string name="activity_group_info_admin">Admin</string>
+    <string name="activity_group_info_image">Group Image</string>
+    <string name="activity_group_info_announcement">Announcement</string>
+    <string name="activity_group_info_request">Group Request</string>
+    <string name="activity_group_info_message">Group Message</string>
+    <string name="activity_group_info_member">Member</string>
+    <string name="activity_group_info_join">Join</string>
 
     <!-- Fragment news -->
     <string name="title_fragment_news">News</string>
@@ -119,6 +135,7 @@
 
     <!-- Dialog group -->
     <string name="dialog_group_sort">Sort</string>
+    <string name="dialog_group_create">Create Group</string>
     <string name="dialog_group_no_group">Your have no group</string>
 
     <!-- Dialog chat -->

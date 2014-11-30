@@ -40,8 +40,10 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-//		userId = getIntent().getExtras().getInt(Constant.INTENT_USER_ID);
-		Log.i("Debug userId", String.valueOf(userId));
+		userId = getIntent().getExtras().getInt(Constant.INTENT_USER_ID);
+		
+		//TODO
+		Log.i("Debug", "Main user id " + String.valueOf(userId));
 
 		fragments = new ArrayList<TabFragment>();
 		fragments.add(new TripFragment(this, userId));
