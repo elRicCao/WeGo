@@ -76,34 +76,22 @@
         </activity>
         <activity
             android:name=".activity.CurrentTripActivity"
-            android:label="@string/title_activity_current_trip"
-            android:parentActivityName=".activity.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="vn.edu.hcmut.wego.activity.MainActivity" />
+            android:label="@string/title_activity_current_trip" >
         </activity>
         <activity
             android:name=".activity.TripInfoActivity"
-            android:label="@string/title_activity_trip_info"
-            android:parentActivityName=".activity.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="vn.edu.hcmut.wego.activity.MainActivity" />
+            android:label="@string/title_activity_trip_info" >
         </activity>
         <activity
             android:name=".activity.StatusActivity"
-            android:label="@string/title_activity_status"
-            android:parentActivityName=".activity.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="vn.edu.hcmut.wego.activity.MainActivity" />
+            android:label="@string/title_activity_status" >
         </activity>
         <activity
             android:name=".activity.GroupInfoActivity"
             android:label="@string/title_activity_group_info" >
         </activity>
         <activity
-            android:name="vn.edu.hcmut.wego.activity.MapActivity"
+            android:name=".activity.MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
 
@@ -113,6 +101,11 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyB2nzQePOgM0aDrnyes-L9FdegajVHJxP0" />
+
+        <activity
+            android:name="vn.edu.hcmut.wego.activity.PlaceInfoActivity"
+            android:label="@string/title_activity_place_info" >
+        </activity>
     </application>
 
 </manifest>

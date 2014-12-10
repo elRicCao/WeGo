@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -19,12 +20,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.constant.Constant;
-import vn.edu.hcmut.wego.entity.InviteRequest;
-import vn.edu.hcmut.wego.entity.Place;
 import vn.edu.hcmut.wego.entity.Group;
+import vn.edu.hcmut.wego.entity.InviteRequest;
 import vn.edu.hcmut.wego.entity.News;
-import vn.edu.hcmut.wego.entity.User.UserStatus;
+import vn.edu.hcmut.wego.entity.Place;
 import vn.edu.hcmut.wego.entity.User;
+import vn.edu.hcmut.wego.entity.User.UserStatus;
 import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
 import android.util.Log;
 
@@ -377,7 +378,7 @@ class Utils {
 						news_info.setPlace(news_place);
 						news_info.setRate(Integer.parseInt(news.getString("rate")));
 
-						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 						try {
 							news_info.setTime(formatter.parse(news.getString("time")));
 						} catch (ParseException e) {
@@ -426,18 +427,17 @@ class Utils {
 				break;
 
 			case FETCH_FRIEND_REQUEST:
-				
+
 				if (result.getInt(Constant.SUCCESS) == 1) {
 					JSONArray array = result.getJSONArray(Constant.RESULT);
 
 					for (int i = 0; i < array.length(); i++) {
-						
+
 						JSONObject tmp = array.getJSONObject(i);
 
 						InviteRequest friendRequest = new InviteRequest();
-						friendRequest.setId(Integer.parseInt(tmp.getString("id")));
-						friendRequest.setReceiverId(Integer.parseInt(tmp.getString("receiver")));
-						friendRequest.setSenderId(Integer.parseInt(tmp.getString("sender")));
+						// TODO: Sender is User
+						// friendRequest.setSenderId(Integer.parseInt(tmp.getString("sender")));
 						friendRequest.setType(InviteRequest.Type.FRIEND_REQUEST);
 
 						objects.add(friendRequest);
@@ -473,9 +473,8 @@ class Utils {
 						JSONObject tmp = array.getJSONObject(i);
 
 						InviteRequest groupRequest = new InviteRequest();
-						groupRequest.setId(Integer.parseInt(tmp.getString("id")));
-						groupRequest.setReceiverId(Integer.parseInt(tmp.getString("receiver")));
-						groupRequest.setSenderId(Integer.parseInt(tmp.getString("sender")));
+						// TODO: Sender is Group
+						// groupRequest.setSenderId(Integer.parseInt(tmp.getString("sender")));
 						groupRequest.setType(InviteRequest.Type.GROUP_INVITE);
 
 						objects.add(groupRequest);

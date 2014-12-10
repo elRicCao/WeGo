@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_action"
+    android:clickable="true"
+    android:padding="12dp" >
+
+    <ImageView
+        android:id="@+id/item_place_image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/background_circle_image"
+        android:src="@drawable/ho_chi_minh" />
+
+    <TextView
+        android:id="@+id/item_place_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="4.5"
+        android:textColor="@color/gray"
+        android:textSize="40sp" />
+
+    <LinearLayout
+        android:id="@+id/item_place_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_toEndOf="@id/item_place_image"
+        android:layout_toLeftOf="@id/item_place_rate"
+        android:layout_toRightOf="@id/item_place_image"
+        android:layout_toStartOf="@id/item_place_rate"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/item_place_info_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ho Chi Minh City"
+            android:textColor="@color/red"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_tag_rate"
+                android:drawableStart="@drawable/ic_tag_rate"
+                android:gravity="center_vertical"
+                android:text="17"
+                android:textColor="@color/green"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_tag_wishlist"
+                android:drawableStart="@drawable/ic_tag_wishlist"
+                android:gravity="center_vertical"
+                android:text="177"
+                android:textColor="@color/green"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

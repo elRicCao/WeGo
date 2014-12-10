@@ -198,44 +198,44 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	// database.insert(TABLE_USER, null, info);
 	// database.close();
 	// }
-
-	/**
-	 * Insert offer to database
-	 * 
-	 * @param offer
-	 */
-	public void insertOffer(InviteRequest offer) {
-		SQLiteDatabase database = this.getWritableDatabase();
-
-		ContentValues info = new ContentValues();
-
-		info.put(KEY_OFFER_ID, offer.getId());
-		info.put(KEY_OFFER_SENDER_ID, offer.getSenderId());
-		info.put(KEY_OFFER_RECEIVER_ID, offer.getReceiverId());
-
-		switch (offer.getType()) {
-		case FRIEND_REQUEST:
-			info.put(KEY_OFFER_IS_FRIEND_REQUEST, TRUE);
-			info.put(KEY_OFFER_IS_GROUP_REQUEST, FALSE);
-			info.put(KEY_OFFER_IS_GROUP_INVITE, FALSE);
-			break;
-
-		case GROUP_REQUEST:
-			info.put(KEY_OFFER_IS_FRIEND_REQUEST, FALSE);
-			info.put(KEY_OFFER_IS_GROUP_REQUEST, TRUE);
-			info.put(KEY_OFFER_IS_GROUP_INVITE, FALSE);
-			break;
-
-		case GROUP_INVITE:
-			info.put(KEY_OFFER_IS_FRIEND_REQUEST, FALSE);
-			info.put(KEY_OFFER_IS_GROUP_REQUEST, FALSE);
-			info.put(KEY_OFFER_IS_GROUP_INVITE, TRUE);
-			break;
-		}
-
-		database.insert(TABLE_OFFER, null, info);
-		database.close();
-	}
+//
+//	/**
+//	 * Insert offer to database
+//	 * 
+//	 * @param offer
+//	 */
+//	public void insertOffer(InviteRequest offer) {
+//		SQLiteDatabase database = this.getWritableDatabase();
+//
+//		ContentValues info = new ContentValues();
+//
+//		info.put(KEY_OFFER_ID, offer.getId());
+//		info.put(KEY_OFFER_SENDER_ID, offer.getSenderId());
+//		info.put(KEY_OFFER_RECEIVER_ID, offer.getReceiverId());
+//
+//		switch (offer.getType()) {
+//		case FRIEND_REQUEST:
+//			info.put(KEY_OFFER_IS_FRIEND_REQUEST, TRUE);
+//			info.put(KEY_OFFER_IS_GROUP_REQUEST, FALSE);
+//			info.put(KEY_OFFER_IS_GROUP_INVITE, FALSE);
+//			break;
+//
+//		case GROUP_REQUEST:
+//			info.put(KEY_OFFER_IS_FRIEND_REQUEST, FALSE);
+//			info.put(KEY_OFFER_IS_GROUP_REQUEST, TRUE);
+//			info.put(KEY_OFFER_IS_GROUP_INVITE, FALSE);
+//			break;
+//
+//		case GROUP_INVITE:
+//			info.put(KEY_OFFER_IS_FRIEND_REQUEST, FALSE);
+//			info.put(KEY_OFFER_IS_GROUP_REQUEST, FALSE);
+//			info.put(KEY_OFFER_IS_GROUP_INVITE, TRUE);
+//			break;
+//		}
+//
+//		database.insert(TABLE_OFFER, null, info);
+//		database.close();
+//	}
 
 	// public void insertNews(News news) {
 	// SQLiteDatabase database = this.getWritableDatabase();
@@ -255,13 +255,13 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	// database.close();
 	// }
 
-	public void deleteOffer(InviteRequest offer) {
-		SQLiteDatabase database = this.getWritableDatabase();
-
-		database.delete(TABLE_OFFER, KEY_OFFER_ID + " = ?", new String[] { String.valueOf(offer.getId()) });
-
-		database.close();
-	}
+//	public void deleteOffer(InviteRequest offer) {
+//		SQLiteDatabase database = this.getWritableDatabase();
+//
+//		database.delete(TABLE_OFFER, KEY_OFFER_ID + " = ?", new String[] { String.valueOf(offer.getId()) });
+//
+//		database.close();
+//	}
 
 	/**
 	 * Make this user as friend
@@ -315,41 +315,41 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	 * @param type
 	 * @return
 	 */
-	public ArrayList<InviteRequest> selectAllOffers(int userId, InviteRequest.Type type, boolean isSent) {
-
-		ArrayList<InviteRequest> offers = new ArrayList<InviteRequest>();
-
-		SQLiteDatabase database = getReadableDatabase();
-
-		// Identify type of offer
-		String keyType = (type == Type.FRIEND_REQUEST) ? KEY_OFFER_IS_FRIEND_REQUEST : (type == Type.GROUP_REQUEST) ? KEY_OFFER_IS_GROUP_REQUEST : KEY_OFFER_IS_GROUP_INVITE;
-
-		// Identify offer is sent or received
-		String keySenderOrReceiver = (isSent) ? KEY_OFFER_SENDER_ID : KEY_OFFER_RECEIVER_ID;
-
-		// Make selection
-		String selection = keySenderOrReceiver + " = ? " + " AND " + keyType + " = ?";
-
-		// Make arguments for selections
-		String[] selectionArgs = new String[] { String.valueOf(userId), String.valueOf(TRUE) };
-
-		// Query
-		Cursor cursor = database.query(TABLE_OFFER, null, selection, selectionArgs, null, null, null);
-
-		// Create objects to return
-		if (cursor.moveToFirst()) {
-			do {
-				InviteRequest offer = new InviteRequest();
-				offer.setId(cursor.getInt(0));
-				offer.setSenderId(cursor.getInt(1));
-				offer.setReceiverId(cursor.getInt(2));
-				offer.setType(type);
-				offers.add(offer);
-			} while (cursor.moveToNext());
-		}
-
-		return offers;
-	}
+//	public ArrayList<InviteRequest> selectAllOffers(int userId, InviteRequest.Type type, boolean isSent) {
+//
+//		ArrayList<InviteRequest> offers = new ArrayList<InviteRequest>();
+//
+//		SQLiteDatabase database = getReadableDatabase();
+//
+//		// Identify type of offer
+//		String keyType = (type == Type.FRIEND_REQUEST) ? KEY_OFFER_IS_FRIEND_REQUEST : (type == Type.GROUP_REQUEST) ? KEY_OFFER_IS_GROUP_REQUEST : KEY_OFFER_IS_GROUP_INVITE;
+//
+//		// Identify offer is sent or received
+//		String keySenderOrReceiver = (isSent) ? KEY_OFFER_SENDER_ID : KEY_OFFER_RECEIVER_ID;
+//
+//		// Make selection
+//		String selection = keySenderOrReceiver + " = ? " + " AND " + keyType + " = ?";
+//
+//		// Make arguments for selections
+//		String[] selectionArgs = new String[] { String.valueOf(userId), String.valueOf(TRUE) };
+//
+//		// Query
+//		Cursor cursor = database.query(TABLE_OFFER, null, selection, selectionArgs, null, null, null);
+//
+//		// Create objects to return
+//		if (cursor.moveToFirst()) {
+//			do {
+//				InviteRequest offer = new InviteRequest();
+//				offer.setId(cursor.getInt(0));
+//				offer.setSenderId(cursor.getInt(1));
+//				offer.setReceiverId(cursor.getInt(2));
+//				offer.setType(type);
+//				offers.add(offer);
+//			} while (cursor.moveToNext());
+//		}
+//
+//		return offers;
+//	}
 
 	/**
 	 * Select all news from database

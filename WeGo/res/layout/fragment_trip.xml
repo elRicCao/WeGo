@@ -65,7 +65,7 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:layout_margin="5dp"
-                            android:background="@drawable/backgound_avatar"
+                            android:background="@drawable/background_circle_image"
                             android:contentDescription="@string/item_trip_label_leader"
                             android:scaleType="fitXY"
                             android:src="@drawable/ho_chi_minh" />
@@ -100,7 +100,7 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:layout_margin="5dp"
-                            android:background="@drawable/backgound_avatar"
+                            android:background="@drawable/background_circle_image"
                             android:contentDescription="@string/item_trip_label_leader"
                             android:scaleType="fitXY"
                             android:src="@drawable/nha_trang" />

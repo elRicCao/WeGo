@@ -9,18 +9,17 @@ import vn.edu.hcmut.wego.activity.MainActivity;
 import vn.edu.hcmut.wego.adapter.NewsAdapter;
 import vn.edu.hcmut.wego.adapter.NewsAdapter.CommentListener;
 import vn.edu.hcmut.wego.dialog.CommentDialog;
+import vn.edu.hcmut.wego.dialog.StatusDialog;
 import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.entity.News.NewsType;
 import vn.edu.hcmut.wego.entity.User;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -80,6 +79,9 @@ public class NewsFragment extends TabFragment {
 		// }
 		// }).executeAsync();
 		// }
+		
+		LinearLayout statusButton = (LinearLayout) rootView.findViewById(R.id.fragment_news_button_status);
+		statusButton.setOnClickListener(new StatusDialog.CreateStatusDialogListener(context, getFragmentManager(), userId));
 
 		return rootView;
 	}

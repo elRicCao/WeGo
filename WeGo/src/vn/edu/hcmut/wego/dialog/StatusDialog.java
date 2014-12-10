@@ -18,12 +18,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
 
-public class CreateGroupDialog extends DialogFragment {
+public class StatusDialog extends DialogFragment {
 
 	private Context context;
 	private final int userId;
 
-	public CreateGroupDialog(Context context, int userId) {
+	public StatusDialog(Context context, int userId) {
 		this.context = context;
 		this.userId = userId;
 	}
@@ -45,18 +45,18 @@ public class CreateGroupDialog extends DialogFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.dialog_create_group, container, false);
+		View rootView = inflater.inflate(R.layout.dialog_status, container, false);
 
 		return rootView;
 	}
 
-	public static class CreateGroupDialogListener implements OnClickListener {
+	public static class CreateStatusDialogListener implements OnClickListener {
 
 		private Context context;
 		private FragmentManager fragmentManager;
 		private int userId;
 
-		public CreateGroupDialogListener(Context context, FragmentManager fragmentManager, int userId) {
+		public CreateStatusDialogListener(Context context, FragmentManager fragmentManager, int userId) {
 			this.context = context;
 			this.fragmentManager = fragmentManager;
 			this.userId = userId;
@@ -64,8 +64,8 @@ public class CreateGroupDialog extends DialogFragment {
 
 		@Override
 		public void onClick(View view) {
-			CreateGroupDialog dialog = new CreateGroupDialog(context, userId);
-			dialog.show(fragmentManager, "create_group_dialog");
+			StatusDialog dialog = new StatusDialog(context, userId);
+			dialog.show(fragmentManager, "status_dialog");
 		}
 
 	}

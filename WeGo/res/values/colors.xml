@@ -7,4 +7,5 @@
     <color name="gray">#707070</color>
     <color name="light_gray">#EDEDED</color>
     <color name="green_opac">#4D669900</color>
-    <color name="green_opac_v2">#33669900</color></resources>
+    <color name="green_opac_v2">#33669900</color>
+    <color name="gray_opac">#80707070</color></resources>

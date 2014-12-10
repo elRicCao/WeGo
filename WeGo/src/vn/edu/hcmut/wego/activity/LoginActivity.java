@@ -46,7 +46,6 @@ public class LoginActivity extends ActionBarActivity {
 	private EditText emailField;
 	private EditText passwordField;
 	private Button loginButton;
-	private TextView forgotPasswordLink;
 	private TextView signUpLink;
 	private ProgressBar progressBar;
 	private LoginButton fbLoginButton;
@@ -70,10 +69,6 @@ public class LoginActivity extends ActionBarActivity {
 		// Set up login button
 		loginButton = (Button) findViewById(R.id.activity_login_button);
 		loginButton.setOnClickListener(new LoginListener());
-
-		// Set up forgot password link
-		forgotPasswordLink = (TextView) findViewById(R.id.activity_login_forgot_password);
-		forgotPasswordLink.setOnClickListener(new ForgotPasswordListener());
 
 		// Set up sign up link
 		signUpLink = (TextView) findViewById(R.id.activity_login_sign_up);
@@ -140,15 +135,6 @@ public class LoginActivity extends ActionBarActivity {
 		public void onClick(View v) {
 			Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
 			startActivity(intent);
-		}
-	}
-
-	/**
-	 * On Click Listener for Forgot password like
-	 */
-	private class ForgotPasswordListener implements OnClickListener {
-		@Override
-		public void onClick(View v) {
 		}
 	}
 
@@ -272,7 +258,6 @@ public class LoginActivity extends ActionBarActivity {
 		loginButton.setVisibility(View.GONE);
 		fbLoginButton.setVisibility(View.GONE);
 		signUpLink.setVisibility(View.GONE);
-		forgotPasswordLink.setVisibility(View.GONE);
 	}
 
 	/**
@@ -284,6 +269,5 @@ public class LoginActivity extends ActionBarActivity {
 		loginButton.setVisibility(View.VISIBLE);
 		fbLoginButton.setVisibility(View.VISIBLE);
 		signUpLink.setVisibility(View.VISIBLE);
-		forgotPasswordLink.setVisibility(View.VISIBLE);
 	}
 }
