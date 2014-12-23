@@ -76,7 +76,8 @@
         </activity>
         <activity
             android:name=".activity.CurrentTripActivity"
-            android:label="@string/title_activity_current_trip" >
+            android:label="@string/title_activity_current_trip"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".activity.TripInfoActivity"
@@ -105,6 +106,14 @@
         <activity
             android:name="vn.edu.hcmut.wego.activity.PlaceInfoActivity"
             android:label="@string/title_activity_place_info" >
+        </activity>
+        <activity
+            android:name="vn.edu.hcmut.wego.activity.CreateTripActivity"
+            android:label="@string/title_activity_create_trip" >
+        </activity>
+        <activity
+            android:name="vn.edu.hcmut.wego.activity.SearchActivity"
+            android:label="@string/title_activity_search" >
         </activity>
     </application>
 

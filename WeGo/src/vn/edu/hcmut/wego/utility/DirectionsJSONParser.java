@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 
 import android.text.Html;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -17,8 +18,15 @@ public class DirectionsJSONParser {
 	
 	private ArrayList<String> array;
 	
+	private List<HashMap<String, Integer>> tripInfo;
+	
 	public ArrayList<String> getArrayString(){
 		return array;
+	}
+	
+	public List<HashMap<String, Integer>> getTripInfo()
+	{
+		return tripInfo;
 	}
 	
 	/** Receives a JSONObject and returns a list of lists containing latitude and longitude */
@@ -32,12 +40,19 @@ public class DirectionsJSONParser {
 		
 		try {
 			array = new ArrayList<String>();
+			tripInfo = new ArrayList<HashMap<String,Integer>>();
 			jRoutes = jObject.getJSONArray("routes");
 			
 			/** Traversing all routes */
 			for(int i=0;i<jRoutes.length();i++){			
 				jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
+				HashMap<String, Integer> hmTripInfo = new HashMap<String, Integer>();
+				hmTripInfo.put("distance", ((JSONObject)jLegs.get(i)).getJSONObject("distance").getInt("value"));
+				hmTripInfo.put("duration", ((JSONObject)jLegs.get(i)).getJSONObject("duration").getInt("value"));
+				tripInfo.add(hmTripInfo);
+
 				ArrayList<HashMap<String, String>> path = new ArrayList<HashMap<String, String>>();
+				
 				
 				/** Traversing all legs */
 				for(int j=0;j<jLegs.length();j++){

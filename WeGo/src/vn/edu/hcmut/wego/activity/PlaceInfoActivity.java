@@ -1,20 +1,52 @@
 package vn.edu.hcmut.wego.activity;
 
+import java.util.zip.Inflater;
+
+import com.google.android.gms.internal.fi;
+
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.R.id;
 import vn.edu.hcmut.wego.R.layout;
 import vn.edu.hcmut.wego.R.menu;
+import vn.edu.hcmut.wego.dialog.ReviewDialog;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-public class PlaceInfoActivity extends Activity {
+public class PlaceInfoActivity extends ActionBarActivity {
+	private ActionBar actionBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_place_info);
+		actionBar = getSupportActionBar();
+		actionBar.setTitle("Ho Chi Minh");
+		LinearLayout listRequest = (LinearLayout) findViewById(R.id.activity_user_info_recent_list);
+		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View child = inflater.inflate(R.layout.item_photo_place, null);
+		listRequest.addView(child);
+
+		LinearLayout btn = (LinearLayout) findViewById(R.id.activity_user_info_message);
+		btn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				ReviewDialog dialog = new ReviewDialog(getBaseContext(), 1);
+				dialog.show(getSupportFragmentManager(), "dialog_review");
+			}
+		});
+
 	}
 
 	@Override

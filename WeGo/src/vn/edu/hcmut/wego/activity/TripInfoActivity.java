@@ -5,10 +5,14 @@ import vn.edu.hcmut.wego.R.id;
 import vn.edu.hcmut.wego.R.layout;
 import vn.edu.hcmut.wego.R.menu;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 public class TripInfoActivity extends ActionBarActivity {
 
@@ -16,6 +20,7 @@ public class TripInfoActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trip_info);
+
 	}
 
 	@Override

@@ -35,16 +35,18 @@ public class ChatTripDialog extends DialogFragment {
 
 	private Context context;
 	private FriendAdapter adapter;
+	private int userId;
 	
-	public ChatTripDialog(Context context) {
+	public ChatTripDialog(Context context, int userId) {
 		this.context = context;
+		this.userId = userId;
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setStyle(STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
-		adapter = new FriendAdapter(context, new ArrayList<User>());
+		adapter = new FriendAdapter(context, new ArrayList<User>(), userId);
 		addFakeData();
 		sortRecent();
 	}
@@ -147,23 +149,23 @@ public class ChatTripDialog extends DialogFragment {
 
 		User user1 = new User();
 		user1.setName("elRic");
-		user1.setStatus(UserStatus.ONLINE);
+	//	user1.setStatus(UserStatus.ONLINE);
 
 		User user2 = new User();
 		user2.setName("Mai Huu Nhan");
-		user2.setStatus(UserStatus.ONLINE);
+	//	user2.setStatus(UserStatus.ONLINE);
 		user2.addRecentMessage(message);
 
 		User user3 = new User();
 		user3.setName("Phan Tran Viet");
-		user3.setStatus(UserStatus.ONLINE);
+	//	user3.setStatus(UserStatus.ONLINE);
 		user3.addRecentMessage(message2);
 		
 		Log.i("Debug compare message", message.getTime().toString() + " " + message2.getTime().toString() + " " + String.valueOf(message.getTime().compareTo(message2.getTime())));
 
 		User user4 = new User();
 		user4.setName("SuperBo");
-		user4.setStatus(UserStatus.OFFLINE);
+	//	user4.setStatus(UserStatus.OFFLINE);
 
 		adapter.add(user1);
 		adapter.add(user2);

@@ -21,7 +21,7 @@ public class ServerRequest {
 	private JSONObject params;
 
 	public static final String PARAM_USER_ID = "user_id";
-	
+
 	/**
 	 * Type of {@link ServerRequest}
 	 */
@@ -65,6 +65,9 @@ public class ServerRequest {
 		// Return: if not a member, return description, start date, end date, start - end locations (eg: HCM - Nha Trang - Da Lat), price
 		FETCH_TRIP_INFO,
 
+		FETCH_NEWS_FEED,
+
+		FETCH_LAST_MESSAGE,
 		// Params: user_id, content, isPublic. Return: success or fail
 		ACTION_POST,
 
@@ -122,7 +125,15 @@ public class ServerRequest {
 		// TODO: DONT IMPLEMENT THIS
 		ACTION_CREATE_TRIP,
 
-		SEARCH,
+		SEARCH_PLACE,
+
+		SEARCH_GROUP,
+
+		SEARCH_USER,
+
+		SEARCH_TRIP,
+
+		SELECT,
 
 		SUGGEST
 	}
@@ -176,7 +187,6 @@ public class ServerRequest {
 
 		@Override
 		protected void onPostExecute(JSONObject result) {
-			Log.i("Debug", "Server result " + result.toString());
 			ArrayList<Object> parseResult;
 			switch (requestType) {
 			case LOGIN:
@@ -193,6 +203,12 @@ public class ServerRequest {
 					callback.onCompleted(status);
 				break;
 
+			case FETCH_NEWS_FEED:
+				parseResult = Utils.parseResult(requestType, result);
+				// User user = (parseResult.isEmpty()) ? null : (User) parseResult.get(0);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
 			case FETCH_NEWS:
 				parseResult = Utils.parseResult(requestType, result);
 				ArrayList<News> news = new ArrayList<News>();
@@ -206,7 +222,11 @@ public class ServerRequest {
 				if (callback != null)
 					callback.onCompleted(news);
 				break;
-
+			case FETCH_LAST_MESSAGE:
+				parseResult = Utils.parseResult(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
 			case FETCH_FOLLOW_NEWS:
 				parseResult = Utils.parseResult(requestType, result);
 				ArrayList<News> follow_news = new ArrayList<News>();
@@ -223,20 +243,10 @@ public class ServerRequest {
 
 			case FETCH_USER_INFO:
 				parseResult = Utils.parseResult(requestType, result);
-				ArrayList<Object> objects = new ArrayList<Object>();
-				ArrayList<News> user_news = new ArrayList<News>();
-				if (!parseResult.isEmpty()) {
-					int chkFriend = (Integer) parseResult.get(0);
-					for (int i = 1; i < parseResult.size(); i++) {
-						user_news.add((News) parseResult.get(i));
-					}
-					objects.add(chkFriend);
-					objects.add(user_news);
-				} else {
-					objects = null;
-				}
+			
+		//		User userInfo = (parseResult.isEmpty()) ? null : (User) parseResult.get(0);
 				if (callback != null)
-					callback.onCompleted(objects);
+					callback.onCompleted(parseResult);
 				break;
 
 			case FETCH_FRIEND_LIST:
@@ -265,6 +275,9 @@ public class ServerRequest {
 				}
 				if (callback != null)
 					callback.onCompleted(offer);
+				// parseResult = Utils.parseResult(requestType, result);
+				// if (callback != null)
+				// callback.onCompleted(parseResult);
 				break;
 
 			case FETCH_GROUP_LIST:
@@ -293,6 +306,12 @@ public class ServerRequest {
 				}
 				if (callback != null)
 					callback.onCompleted(groupoffer);
+				break;
+			case FETCH_GROUP_INFO:
+				parseResult = Utils.parseResult(requestType, result);
+				Group groupInfo = (parseResult.isEmpty()) ? null : (Group) parseResult.get(0);
+				if (callback != null)
+					callback.onCompleted(groupInfo);
 				break;
 
 			case ACTION_POST:
@@ -407,12 +426,37 @@ public class ServerRequest {
 					callback.onCompleted(status15);
 				break;
 
-			case SEARCH:
+			case SELECT:
 				parseResult = Utils.parseResult(requestType, result);
 				if (callback != null)
 					callback.onCompleted(parseResult);
 				break;
 			case SUGGEST:
+				parseResult = Utils.parseResult(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
+			case SEARCH_PLACE:
+				parseResult = Utils.parseResult(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
+			case SEARCH_GROUP:
+				parseResult = Utils.parseResult(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
+			case SEARCH_USER:
+				parseResult = Utils.parseResult(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
+			case SEARCH_TRIP:
+				parseResult = Utils.parseResult(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
+			case FETCH_TRIP_LIST:
 				parseResult = Utils.parseResult(requestType, result);
 				if (callback != null)
 					callback.onCompleted(parseResult);

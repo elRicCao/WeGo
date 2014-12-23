@@ -40,6 +40,7 @@
     <string name="signup_email_hint">Email</string>
     <string name="signup_phone_hint">Phone number</string>
     <string name="signup_button">Sign up</string>
+    <string name="signup_location_hint">Location</string>
     <string name="signup_cancel_button">Cancel</string>
     <string name="signup_terms_and_conditions">I agree to the Terms and Conditions of WeGo</string>
     <string name="signup_instruction">Fill in all information below and press Sign Up. Note that each email is used only once</string>
@@ -176,5 +177,23 @@
     <string name="search_place_hint">WeGo</string>
     <string name="title_activity_user_photo">User Photo</string>
     <string name="title_activity_place_info">PlaceInfoActivity</string>
-
+    <string name="activity_current_trip_member">Member</string>
+    <string name="activity_current_trip_search">Search around</string>
+    <string name="activity_current_trip_warn">Warning</string>
+    <string name="departure_text_hint">Departure</string>
+    <string name="destination_text_hint">Destination</string>
+    <string name="next_step">Next Step</string>
+    <string name="action_invite_user">Invite</string>
+	<string name="title_activity_create_trip">Create Trip</string>
+	<string name="title_activity_search">Search</string>
+	
+	<string-array name="destinations">
+	    <item>Nha Trang</item>
+	</string-array>
+	
+	<string name="dialog_photo_image">Image</string>
+	<string name="dialog_photo_public">Make this photo public</string>
+	<string name="dialog_photo_description">Describe your photo</string>
+	<string name="dialog_photo_location">Location</string>
+	<string name="dialog_photo_post">Post Photo</string>
 </resources>

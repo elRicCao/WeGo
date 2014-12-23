@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_dialog_white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/dialog_status_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp" >
+
+        <RatingBar 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/ratingBarStyle"
+            android:max="5"
+            android:layout_gravity="center_horizontal"/>
+
+        <EditText
+            android:id="@+id/dialog_status_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="3"
+            android:background="@drawable/background_input_normal"
+            android:hint="What&apos;s your opinion?"
+            android:inputType="text|textCapSentences|textMultiLine"
+            android:scrollHorizontally="false"
+            android:singleLine="false"
+            android:textSize="14sp"
+            android:typeface="sans" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dialog_status_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/dialog_status_input"
+        android:alpha="0.5"
+        android:background="@color/gray" />
+
+    <Button
+        android:id="@+id/dialog_status_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_status_divider"
+        android:background="@drawable/background_action"
+        android:text="Review"
+        android:textColor="@color/green"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

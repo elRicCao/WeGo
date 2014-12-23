@@ -67,21 +67,44 @@ public class CommentDialog extends DialogFragment {
 		user4.setName("SuperBo");
 		
 		Message message = new Message();
-		message.setSender(user1);
-		message.setContent("Hello World!");
-		message.setTime(new Date());
+		message.setSender(user2);
+		message.setContent("Present >:D<");
+		Date date = new Date();
+		date.setDate(18);
+		date.setHours(22);
+		date.setMinutes(2);
+		date.setSeconds(13);
+		
+		message.setTime(date);
 		
 		adapter.add(message);
+		
+		
+		
+		message = new Message();
+		message.setSender(user3);
+		message.setContent("I miss home :(");
+		 date = new Date();
+		date.setDate(18);
+		date.setHours(22);
+		date.setMinutes(23);
+		date.setSeconds(18);
+		
+		message.setTime(date);
+		
 		adapter.add(message);
-		adapter.add(message);
-		adapter.add(message);
-		adapter.add(message);
-		adapter.add(message);
-		adapter.add(message);
-		adapter.add(message);
-		adapter.add(message);
-		adapter.add(message);
-		adapter.add(message);
+		
+		message = new Message();
+		message.setSender(user4);
+		message.setContent("When are you coming back?");
+		 date = new Date();
+		date.setDate(18);
+		date.setHours(22);
+		date.setMinutes(44);
+		date.setSeconds(53);
+		
+		message.setTime(date);
+		
 		adapter.add(message);
 	}
 }

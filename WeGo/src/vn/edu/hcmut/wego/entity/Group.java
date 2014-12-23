@@ -12,6 +12,8 @@ public class Group {
 
 	// Id of group in database
 	private int id;
+	
+	private int count;
 
 	// Name of group
 	private String name;
@@ -47,6 +49,14 @@ public class Group {
 		this.id = id;
 	}
 
+	public int getCount(){
+		return count;
+	}
+	
+	public void setCount(int count)
+	{
+		this.count = count;
+	}
 	public String getName() {
 		return name;
 	}

@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.adapter.GroupAdapter;
 import vn.edu.hcmut.wego.dialog.ChatDialog.ChatDialogType;
 import vn.edu.hcmut.wego.entity.Group;
 import vn.edu.hcmut.wego.entity.Message;
 import vn.edu.hcmut.wego.entity.User;
+import vn.edu.hcmut.wego.server.ServerRequest;
+import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
+import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -33,6 +39,13 @@ public class GroupDialog extends DialogFragment {
 	private Context context;
 	private GroupAdapter adapter;
 	private final int userId;
+	private RelativeLayout headerView;
+	private TextView numView;
+	private View dividerView;
+	private TextView noFriendView;
+	private ImageButton sortView;
+	private ImageButton createView;
+	private ListView groupList;
 
 	public GroupDialog(Context context, int userId) {
 		this.context = context;
@@ -44,6 +57,7 @@ public class GroupDialog extends DialogFragment {
 		super.onCreate(savedInstanceState);
 		setStyle(STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
 		adapter = new GroupAdapter(context, new ArrayList<Group>());
+		
 		addFakeData();
 		// sortRecent();
 	}
@@ -60,21 +74,15 @@ public class GroupDialog extends DialogFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.dialog_group, container, false);
 
-		RelativeLayout headerView = (RelativeLayout) rootView.findViewById(R.id.dialog_group_header);
-		TextView numView = (TextView) rootView.findViewById(R.id.dialog_group_num);
-		View dividerView = (View) rootView.findViewById(R.id.dialog_group_divider);
-		TextView noFriendView = (TextView) rootView.findViewById(R.id.dialog_group_no_group);
-		ImageButton sortView = (ImageButton) rootView.findViewById(R.id.dialog_group_sort);
-		ImageButton createView = (ImageButton) rootView.findViewById(R.id.dialog_group_create);
-		ListView groupList = (ListView) rootView.findViewById(R.id.dialog_group_list);
+		headerView = (RelativeLayout) rootView.findViewById(R.id.dialog_group_header);
+		numView = (TextView) rootView.findViewById(R.id.dialog_group_num);
+		dividerView = (View) rootView.findViewById(R.id.dialog_group_divider);
+		noFriendView = (TextView) rootView.findViewById(R.id.dialog_group_no_group);
+		sortView = (ImageButton) rootView.findViewById(R.id.dialog_group_sort);
+		createView = (ImageButton) rootView.findViewById(R.id.dialog_group_create);
+		groupList = (ListView) rootView.findViewById(R.id.dialog_group_list);
 
-		if (adapter.getCount() > 0) {
-			numView.setText(String.valueOf(adapter.getCount()) + " groups");
-		} else {
-			headerView.setVisibility(View.GONE);
-			dividerView.setVisibility(View.GONE);
-			noFriendView.setVisibility(View.VISIBLE);
-		}
+		
 
 		sortView.setOnClickListener(sortViewListener);
 
@@ -159,23 +167,31 @@ public class GroupDialog extends DialogFragment {
 	}
 
 	private void addFakeData() {
-		Group groupA = new Group();
-		groupA.setName("Saigon Traveler");
+		JSONObject params = new JSONObject();
+		try {
+			params.put("user", userId);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		ServerRequest.newServerRequest(RequestType.FETCH_GROUP_LIST, params, new ServerRequestCallback() {
 
-		User userA = new User();
-		userA.setName("elRic");
+			@Override
+			public void onCompleted(Object... results) {
+				// respond friend request
+				ArrayList<Group> groups = (ArrayList<Group>) results[0];
+				for(int i = 0; i < groups.size(); i++)
+				{
+					adapter.add(groups.get(i));
+				}	
+				if (adapter.getCount() > 0) {
+					numView.setText(String.valueOf(adapter.getCount()) + " groups");
+				} else {
+					headerView.setVisibility(View.GONE);
+					dividerView.setVisibility(View.GONE);
+					noFriendView.setVisibility(View.VISIBLE);
+				}
+			}
 
-		Message messageA = new Message();
-		messageA.setSender(userA);
-		messageA.setContent("Hey, anyone want to have a trip to Da Lat?");
-		messageA.setTime(new Date());
-
-		groupA.setAnnouncement(messageA);
-
-		Group groupB = new Group();
-		groupB.setName("iTravel");
-
-		adapter.add(groupA);
-		adapter.add(groupB);
+		}).executeAsync();
 	}
 }

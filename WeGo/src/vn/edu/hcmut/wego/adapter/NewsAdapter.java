@@ -55,6 +55,9 @@ public class NewsAdapter extends ArrayAdapter<News> {
 			holder.contentView = (TextView) convertView.findViewById(R.id.item_news_content);
 			holder.likeView = (TextView) convertView.findViewById(R.id.item_news_like);
 			holder.commentView = (TextView) convertView.findViewById(R.id.item_news_comment);
+			holder.imageView = (ImageView) convertView.findViewById(R.id.item_news_photo);
+			holder.likeText = (TextView) convertView.findViewById(R.id.item_news_like);
+			holder.commentText = (TextView) convertView.findViewById(R.id.item_news_comment);
 			convertView.setTag(holder);
 		}
 
@@ -73,19 +76,30 @@ public class NewsAdapter extends ArrayAdapter<News> {
 			holder.actionView.setText(Utils.getActionText(context, newsItem.getType()));
 
 			int numOfActors = newsItem.getActors().size();
-			if (numOfActors > 1) {
-				holder.connectorView.setVisibility(View.VISIBLE);
-				if (numOfActors == 2) {
-					holder.otherActorView.setText(newsItem.getActors().get(1).getName());
-				} else {
-					holder.otherActorView.setText(String.valueOf(numOfActors - 1) + Utils.getString(context, R.string.item_news_actor_others));
-				}
-			}
+//			if (numOfActors > 1) {
+//				holder.connectorView.setVisibility(View.VISIBLE);
+//				if (numOfActors == 2) {
+//					holder.otherActorView.setText(newsItem.getActors().get(1).getName());
+//				} else {
+//					holder.otherActorView.setText(String.valueOf(numOfActors - 1) + Utils.getString(context, R.string.item_news_actor_others));
+//				}
+//			}
 		}
-
+		if(position == 1)
+		{
+			holder.imageView.setVisibility(View.VISIBLE);
+			holder.likeText.setText(String.valueOf(8));
+			holder.commentText.setText(String.valueOf(12));
+		}
+		if(position == 2)
+		{
+		//	holder.imageView.setVisibility(View.VISIBLE);
+			holder.likeText.setText(String.valueOf(13));
+			holder.commentText.setText(String.valueOf(7));
+		}
 		// Set up owner's name. If this view is clicked, jump to user info screen
 		holder.ownerNameView.setText(owner.getName());
-		holder.ownerNameView.setOnClickListener(new UserInfoActivity.UserInfoListener(context, owner.getId()));
+		holder.ownerNameView.setOnClickListener(new UserInfoActivity.UserInfoListener(context, owner.getId(),1));
 
 		// Set up owner action
 		holder.ownerActionView.setText(Utils.getOwnerActionText(context, newsItem.getType()));
@@ -129,6 +143,12 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		// Like and comment
 		TextView likeView;
 		TextView commentView;
+		
+		ImageView imageView;
+		TextView likeText;
+		TextView commentText;
+		
+		
 	}
 
 	private OnClickListener commentClickListener = new OnClickListener() {

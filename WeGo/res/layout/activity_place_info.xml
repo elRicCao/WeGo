@@ -57,7 +57,7 @@
                     android:layout_height="144dp"
                     android:contentDescription="User Image"
                     android:scaleType="fitXY"
-                    android:src="@drawable/user_profile" />
+                    android:src="@drawable/ho_chi_minh" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -172,7 +172,7 @@
                     android:id="@+id/activity_user_info_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4.5"
+                    android:text="3.5"
                     android:textColor="@color/gray"
                     android:textSize="36sp" />
 
@@ -237,6 +237,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp" />
+                
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -13,6 +13,7 @@ import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.entity.News.NewsType;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -157,7 +158,7 @@ public class Utils {
 		}
 		return actionText;
 	}
-	
+
 	public static String getString(Context context, int id) {
 		return context.getResources().getString(id);
 	}
@@ -165,5 +166,15 @@ public class Utils {
 	public static String formatDate(Date date) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d 'at' h:ma", Locale.US);
 		return dateFormat.format(date).replace("AM", "am").replace("PM", "pm");
+	}
+
+	public static boolean isDeviceSupportCamera(Context context) {
+		if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+			// This device has a camera
+			return true;
+		} else {
+			// No camera on this device
+			return false;
+		}
 	}
 }

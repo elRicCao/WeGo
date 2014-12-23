@@ -4,18 +4,25 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.adapter.FriendAdapter;
 import vn.edu.hcmut.wego.dialog.ChatDialog.ChatDialogType;
 import vn.edu.hcmut.wego.entity.Message;
 import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.entity.User.UserStatus;
+import vn.edu.hcmut.wego.server.ServerRequest;
+import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
+import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +40,12 @@ public class FriendDialog extends DialogFragment {
 	private Context context;
 	private FriendAdapter adapter;
 	private final int userId;
+	private RelativeLayout headerView;
+	private TextView numView;
+	private View dividerView;
+	private TextView noFriendView;
+	private ImageButton sortView;
+	private ListView friendList;
 
 	public FriendDialog(Context context, int userId) {
 		this.context = context;
@@ -43,7 +56,8 @@ public class FriendDialog extends DialogFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setStyle(STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
-		adapter = new FriendAdapter(context, new ArrayList<User>());
+		adapter = new FriendAdapter(context, new ArrayList<User>(), userId);
+
 		addFakeData();
 		sortRecent();
 	}
@@ -60,20 +74,12 @@ public class FriendDialog extends DialogFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.dialog_friend, container, false);
 
-		RelativeLayout headerView = (RelativeLayout) rootView.findViewById(R.id.dialog_friend_header);
-		TextView numView = (TextView) rootView.findViewById(R.id.dialog_friend_num);
-		View dividerView = (View) rootView.findViewById(R.id.dialog_friend_divider);
-		TextView noFriendView = (TextView) rootView.findViewById(R.id.dialog_friend_no_friend);
-		ImageButton sortView = (ImageButton) rootView.findViewById(R.id.dialog_friend_sort);
-		ListView friendList = (ListView) rootView.findViewById(R.id.dialog_friend_list);
-
-		if (adapter.getCount() > 0) {
-			numView.setText(String.valueOf(adapter.getCount()) + " friends");
-		} else {
-			headerView.setVisibility(View.GONE);
-			dividerView.setVisibility(View.GONE);
-			noFriendView.setVisibility(View.VISIBLE);
-		}
+		headerView = (RelativeLayout) rootView.findViewById(R.id.dialog_friend_header);
+		numView = (TextView) rootView.findViewById(R.id.dialog_friend_num);
+		dividerView = (View) rootView.findViewById(R.id.dialog_friend_divider);
+		noFriendView = (TextView) rootView.findViewById(R.id.dialog_friend_no_friend);
+		sortView = (ImageButton) rootView.findViewById(R.id.dialog_friend_sort);
+		friendList = (ListView) rootView.findViewById(R.id.dialog_friend_list);
 
 		sortView.setOnClickListener(sortViewClickListener);
 
@@ -133,57 +139,54 @@ public class FriendDialog extends DialogFragment {
 			}
 		});
 	}
-	
+
 	public static class FriendDialogListener implements OnClickListener {
 
 		private Context context;
 		private FragmentManager fragmentManager;
 		private int userId;
-		
+
 		public FriendDialogListener(Context context, FragmentManager fragmentManager, int userId) {
 			this.context = context;
 			this.fragmentManager = fragmentManager;
 			this.userId = userId;
 		}
-		
+
 		@Override
 		public void onClick(View view) {
 			FriendDialog friendDialog = new FriendDialog(context, userId);
 			friendDialog.show(fragmentManager, "friend_dialog");
 		}
-		
+
 	}
 
 	private void addFakeData() {
-		Message message = new Message();
-		message.setContent("Let's go to Vung Tau");
-		message.setTime(new Date());
+		JSONObject params = new JSONObject();
+		try {
+			params.put("respond", false);
+			params.put("user", userId);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		ServerRequest.newServerRequest(RequestType.FETCH_FRIEND_LIST, params, new ServerRequestCallback() {
 
-		Message message2 = new Message();
-		message2.setContent("I change my mind");
-		message2.setTime(new Date(message.getTime().getTime() + 5000));
+			@Override
+			public void onCompleted(Object... results) {
+				// respond friend request
+				ArrayList<User> users = (ArrayList<User>) results[0];
+				for (int i = 0; i < users.size(); i++)
+					adapter.add(users.get(i));
+				if (adapter.getCount() > 0) {
+					numView.setText(String.valueOf(adapter.getCount()) + " friends");
+				} else {
+					headerView.setVisibility(View.GONE);
+					dividerView.setVisibility(View.GONE);
+					noFriendView.setVisibility(View.VISIBLE);
+				}
 
-		User user1 = new User();
-		user1.setName("elRic");
-		user1.setStatus(UserStatus.ONLINE);
+			}
 
-		User user2 = new User();
-		user2.setName("Mai Huu Nhan");
-		user2.setStatus(UserStatus.ONLINE);
-		user2.addRecentMessage(message);
+		}).executeAsync();
 
-		User user3 = new User();
-		user3.setName("Phan Tran Viet");
-		user3.setStatus(UserStatus.ONLINE);
-		user3.addRecentMessage(message2);
-
-		User user4 = new User();
-		user4.setName("SuperBo");
-		user4.setStatus(UserStatus.OFFLINE);
-
-		adapter.add(user1);
-		adapter.add(user2);
-		adapter.add(user3);
-		adapter.add(user4);
 	}
 }

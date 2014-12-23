@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="end"
     tools:context="vn.edu.hcmut.wego.activity.UserInfoActivity" >
 
     <LinearLayout
@@ -60,6 +61,7 @@
                     android:src="@drawable/user_profile" />
 
                 <TextView
+                    android:id="@+id/activity_user_info_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="elRic"
@@ -95,10 +97,11 @@
                         android:orientation="vertical" >
 
                         <TextView
+                            android:id="@+id/activity_user_info_num_of_friend"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="10"
+                            android:text="219"
                             android:textColor="@color/gray"
                             android:textSize="22sp" />
 
@@ -126,10 +129,11 @@
                         android:orientation="vertical" >
 
                         <TextView
+                            android:id="@+id/activity_user_info_num_of_follow"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="10"
+                            android:text="32"
                             android:textColor="@color/gray"
                             android:textSize="22sp" />
 
@@ -157,10 +161,11 @@
                         android:orientation="vertical" >
 
                         <TextView
+                            android:id="@+id/activity_user_info_num_of_trip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="10"
+                            android:text="13"
                             android:textColor="@color/gray"
                             android:textSize="22sp" />
 
@@ -211,7 +216,7 @@
                     android:id="@+id/activity_user_info_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4.5"
+                    android:text="3.5"
                     android:textColor="@color/gray"
                     android:textSize="36sp" />
 
@@ -292,6 +297,7 @@
                             android:textColor="@color/gray" />
 
                         <TextView
+                            android:id="@+id/activity_user_info_location"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:text="Ho Chi Minh City" />
@@ -310,6 +316,7 @@
                             android:textColor="@color/gray" />
 
                         <TextView
+                            android:id="@+id/activity_user_info_phone"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:text="0167 777 44 47" />
@@ -328,6 +335,7 @@
                             android:textColor="@color/gray" />
 
                         <TextView
+                            android:id="@+id/activity_user_info_email"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:text="cpnhatduy1707@gmail.com" />
@@ -373,9 +381,10 @@
                     android:padding="16dp" >
 
                     <TextView
+                        android:id="@+id/activity_user_info_recent_activities"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="No recent activity"
+                        android:text="Review Nha Trang"
                         android:textColor="@color/gray"
                         android:textStyle="italic" />
                 </LinearLayout>

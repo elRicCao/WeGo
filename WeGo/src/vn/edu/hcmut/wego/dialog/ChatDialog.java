@@ -172,5 +172,6 @@ public class ChatDialog extends DialogFragment {
 
 		adapter.add(message);
 		adapter.add(message2);
+		
 	}
 }

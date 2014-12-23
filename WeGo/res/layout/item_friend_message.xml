@@ -56,7 +56,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/item_group_invite_name"
+            android:id="@+id/item_friend_message_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mai Huu Nhan"
@@ -64,7 +64,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/item_group_invite_description"
+            android:id="@+id/item_friend_message_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"

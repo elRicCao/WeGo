@@ -59,15 +59,20 @@ public class GroupAdapter extends ArrayAdapter<Group> {
 
 		// Set info button listener
 		holder.infoButton.setFocusable(false);
-		holder.infoButton.setOnClickListener(infoButtonClickListener);
+		holder.infoButton.setOnClickListener(new infoButtonClickListener(group.getId()));
 
 		return convertView;
 	}
 
-	private OnClickListener infoButtonClickListener = new OnClickListener() {
+	private class infoButtonClickListener implements OnClickListener {
+		private int id;
+		public infoButtonClickListener(int id) {
+			this.id = id;
+		}
 		@Override
 		public void onClick(View view) {
 			Intent intent = new Intent(context, GroupInfoActivity.class);
+			intent.putExtra("group_id", id);
 			context.startActivity(intent);
 		}
 	};

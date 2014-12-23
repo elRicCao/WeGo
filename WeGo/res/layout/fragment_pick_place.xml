@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
+
+    <ScrollView
+        android:id="@+id/fragment_trip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Step 1"
+                android:textColor="@color/green"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add departure and destinations"
+                android:textColor="@color/gray"
+                android:textSize="18sp" />
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="12dp"
+                android:alpha="0.5"
+                android:background="@color/gray" />
+
+            <AutoCompleteTextView
+                android:id="@+id/departure_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/background_input_normal"
+                android:hint="@string/departure_text_hint"
+                android:textSize="14sp"
+                android:typeface="sans" >
+            </AutoCompleteTextView>
+
+            <LinearLayout
+                android:id="@+id/fragment_minor_destination_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <AutoCompleteTextView
+                android:id="@+id/destination_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/background_input_normal"
+                android:hint="@string/destination_text_hint"
+                android:textSize="14sp"
+                android:typeface="sans" >
+            </AutoCompleteTextView>
+
+
+            <ImageButton
+                android:id="@+id/button_add_minor_destination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_action"
+                android:contentDescription="Add Destination"
+                android:gravity="center"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_action_add" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/fragment_trip_button_bar"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <LinearLayout
+            android:id="@+id/button_next_step1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_action_next_step"
+                android:drawableStart="@drawable/ic_action_next_step"
+                android:gravity="center_vertical"
+                android:text="@string/next_step"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

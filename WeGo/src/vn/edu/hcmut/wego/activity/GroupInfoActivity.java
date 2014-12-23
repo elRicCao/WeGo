@@ -1,5 +1,7 @@
 package vn.edu.hcmut.wego.activity;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,6 +15,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class GroupInfoActivity extends Activity {
+public class GroupInfoActivity extends ActionBarActivity {
 
 	private ProgressBar loadingView;
 	private RelativeLayout contentView;
@@ -36,6 +41,7 @@ public class GroupInfoActivity extends Activity {
 	private TextView annoucementView;
 	private LinearLayout requestList;
 	private LinearLayout messageList;
+	private ActionBar actionBar;
 
 	private Group group;
 
@@ -43,10 +49,12 @@ public class GroupInfoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_group_info);
+		actionBar = getSupportActionBar();
+		actionBar.setTitle("WeGo");
 
 		getViews();
 
-//		loadData();
+		loadData();
 	}
 
 	@Override
@@ -65,6 +73,7 @@ public class GroupInfoActivity extends Activity {
 	}
 
 	private void getViews() {
+
 		loadingView = (ProgressBar) findViewById(R.id.activity_group_info_loading);
 		contentView = (RelativeLayout) findViewById(R.id.activity_group_info_content);
 		imageView = (ImageView) findViewById(R.id.activity_group_info_image);
@@ -79,22 +88,27 @@ public class GroupInfoActivity extends Activity {
 	}
 
 	private void loadData() {
-		try {
-			int userId = getIntent().getExtras().getInt(Constant.INTENT_USER_ID);
-			int groupId = getIntent().getExtras().getInt(Constant.INTENT_GROUP_ID);
-			JSONObject params = new JSONObject().put("user_id", userId).put("group_id", groupId);
-			setLoadingStatus(true);
-			ServerRequest.newServerRequest(RequestType.FETCH_GROUP_INFO, params, new ServerRequestCallback() {
-
-				@Override
-				public void onCompleted(Object... results) {
-					setLoadingStatus(false);
-					populateViews();
-				}
-			});
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		Intent intent = getIntent();
+		int group_id = intent.getExtras().getInt("group_id");
+		// JSONObject params = new JSONObject();
+		// try {
+		// params.put("group_id", group_id);
+		// } catch (JSONException e) {
+		// e.printStackTrace();
+		// }
+		// ServerRequest.newServerRequest(RequestType.FETCH_GROUP_INFO, params, new ServerRequestCallback() {
+		//
+		// @Override
+		// public void onCompleted(Object... results) {
+		// // respond friend request
+		// Group group = (Group) results[0];
+		// nameView.setText(group.getName());
+		// memberNumView.setText(String.valueOf(group.getCount()));
+		// adminNameView.setText(group.getAdmin().getName());
+		// annoucementView.setText(group.getAnnouncement().getContent());
+		// }
+		//
+		// }).executeAsync();
 	}
 
 	private void setLoadingStatus(boolean status) {

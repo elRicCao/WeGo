@@ -3,6 +3,7 @@ package vn.edu.hcmut.wego.adapter;
 import java.util.ArrayList;
 
 import vn.edu.hcmut.wego.R;
+import vn.edu.hcmut.wego.activity.GroupInfoActivity;
 import vn.edu.hcmut.wego.activity.UserInfoActivity;
 import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.entity.User.UserStatus;
@@ -22,11 +23,13 @@ public class FriendAdapter extends ArrayAdapter<User> {
 
 	private Context context;
 	private ArrayList<User> friends;
+	private int currentUserId;
 
-	public FriendAdapter(Context context, ArrayList<User> friends) {
+	public FriendAdapter(Context context, ArrayList<User> friends, int currentUserId) {
 		super(context, 0, friends);
 		this.context = context;
 		this.friends = friends;
+		this.currentUserId = currentUserId;
 	}
 
 	@Override
@@ -49,11 +52,11 @@ public class FriendAdapter extends ArrayAdapter<User> {
 
 		holder.nameView.setText(friend.getName());
 
-		if (friend.getStatus() == UserStatus.OFFLINE) {
-			holder.nameView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_status_offline, 0);
-		} else {
-			holder.nameView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_status_online, 0);
-		}
+//		if (friend.getStatus() == UserStatus.OFFLINE) {
+//			holder.nameView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_status_offline, 0);
+//		} else {
+//			holder.nameView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_status_online, 0);
+//		}
 
 		if (!friend.getRecentMessages().isEmpty()) {
 			holder.messageView.setVisibility(View.VISIBLE);
@@ -64,17 +67,23 @@ public class FriendAdapter extends ArrayAdapter<User> {
 		}
 		
 		holder.infoButton.setFocusable(false);
-		holder.infoButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(context, UserInfoActivity.class);
-				context.startActivity(intent);
-			}
-		});
+		holder.infoButton.setOnClickListener(new infoButtonClickListener(friend.getId()));
 
 		return convertView;
 	}
-
+	private class infoButtonClickListener implements OnClickListener {
+		private int userId;
+		public infoButtonClickListener(int userId ) {
+			this.userId = userId;
+		}
+		@Override
+		public void onClick(View view) {
+			Intent intent = new Intent(context, UserInfoActivity.class);
+			intent.putExtra("user_id", userId);
+			intent.putExtra("current_user_id", currentUserId);
+			context.startActivity(intent);
+		}
+	};
 	private static class ViewHolder {
 		TextView nameView;
 		TextView messageView;

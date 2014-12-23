@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="6dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="6dp" >
+
+    <ImageView
+        android:id="@+id/item_member_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/item_friend_image"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_user_default" />
+
+    <LinearLayout
+        android:id="@+id/item_member_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal" >
+        
+        <ImageButton
+            android:id="@+id/item_member_locate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_action"
+            android:contentDescription="@string/item_friend_info"
+            android:src="@drawable/ic_action_locate" />
+
+        <ImageButton
+            android:id="@+id/item_member_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_action"
+            android:contentDescription="@string/item_friend_info"
+            android:src="@drawable/ic_action_call" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_toEndOf="@id/item_member_image"
+        android:layout_toLeftOf="@id/item_member_action"
+        android:layout_toRightOf="@id/item_member_image"
+        android:layout_toStartOf="@id/item_member_action" >
+
+        <TextView
+            android:id="@+id/item_member_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="elric"
+            android:textColor="@color/green"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</RelativeLayout>

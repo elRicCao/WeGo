@@ -1,11 +1,21 @@
 package vn.edu.hcmut.wego.dialog;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import vn.edu.hcmut.wego.R;
+import vn.edu.hcmut.wego.activity.UserInfoActivity;
+import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.entity.Group;
+import vn.edu.hcmut.wego.entity.InviteRequest;
 import vn.edu.hcmut.wego.entity.Message;
 import vn.edu.hcmut.wego.entity.User;
+import vn.edu.hcmut.wego.server.ServerRequest;
+import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
+import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -17,6 +27,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class StatusDialog extends DialogFragment {
 
@@ -46,7 +58,22 @@ public class StatusDialog extends DialogFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.dialog_status, container, false);
+		JSONObject params = new JSONObject();
+		try {
+			params.put(Constant.PARAM_USER_ID, userId);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		ServerRequest.newServerRequest(RequestType.ACTION_CANCEL_GROUP_INVITE, params, new ServerRequestCallback() {
 
+			@Override
+			public void onCompleted(Object... results) {
+				if (results[0] != null) {
+					
+				}
+			}
+
+		}).executeAsync();
 		return rootView;
 	}
 

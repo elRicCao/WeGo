@@ -31,7 +31,7 @@
                 android:id="@+id/search_place_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/search_text"
+                android:background="@drawable/background_search_field"
                 android:hint="@string/search_place_hint"
                 android:textSize="18sp"
                 android:typeface="sans" >
@@ -114,7 +114,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/item_map"
+                    android:background="@drawable/background_map_item_normal"
                     android:clickable="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_gas_station" />
@@ -130,7 +130,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/item_map"
+                    android:background="@drawable/background_map_item_normal"
                     android:clickable="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_gas_station" />
@@ -146,7 +146,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/item_map"
+                    android:background="@drawable/background_map_item_normal"
                     android:clickable="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_gas_station" />
@@ -162,7 +162,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/item_map"
+                    android:background="@drawable/background_map_item_normal"
                     android:clickable="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_gas_station" />
@@ -178,7 +178,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/item_map"
+                    android:background="@drawable/background_map_item_normal"
                     android:clickable="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_gas_station" />

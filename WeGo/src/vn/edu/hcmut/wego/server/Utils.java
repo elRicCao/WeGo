@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import org.apache.http.HttpEntity;
@@ -22,9 +23,11 @@ import org.json.JSONObject;
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.entity.Group;
 import vn.edu.hcmut.wego.entity.InviteRequest;
+import vn.edu.hcmut.wego.entity.Message;
 import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.entity.Place;
 import vn.edu.hcmut.wego.entity.User;
+import vn.edu.hcmut.wego.entity.InviteRequest.Type;
 import vn.edu.hcmut.wego.entity.User.UserStatus;
 import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
 import android.util.Log;
@@ -38,12 +41,16 @@ class Utils {
 	private static final String SIGNUP_FUNCTION = "insertNewUser";
 
 	private static final String FETCH_NEWS_FUNCTION = "insertNewUser";
+	private static final String FETCH_NEWS_FEED_FUNCTION = "getNewFeeds";
 	private static final String FETCH_FOLLOW_NEWS_FUNCTION = "getFollowNews";
-	private static final String FETCH_USER_INFO_FUNCTION = "getUserNews";
+	private static final String FETCH_USER_INFO_FUNCTION = "getUserInfo";
 	private static final String FETCH_FRIEND_FUNCTION = "selectUserFriend";
 	private static final String FETCH_FRIEND_REQUEST_FUNCTION = "getFriendRequest";
 	private static final String FETCH_GROUP_LIST_FUNCTION = "selectUserGroup";
 	private static final String FETCH_GROUP_INVITE_FUNCTION = "selectUserInviteGroup";
+	private static final String FETCH_GROUP_INFO_FUNCTION = "getGroupInfo";
+	private static final String FETCH_LAST_MESSAGE_FUNCTION = "getLastMessage";
+	private static final String FETCH_TRIP_LIST_FUNCTION = "getTrip";
 
 	private static final String ACTION_POST_FUNCTION = "insertPost";
 	private static final String ACTION_COMMENT_POST_FUNCTION = "commentPost";
@@ -61,6 +68,22 @@ class Utils {
 	private static final String ACTION_CANCEL_GROUP_INVITE_FUNCTION = "cancelGroupInvite";
 	private static final String ACTION_SEND_GROUP_MESSAGE_FUNCTION = "sendGroupMessage";
 	private static final String ACTION_UPDATE_GROUP_INFO_FUNCTION = "updateGroup";
+	
+	private static final String PHP_SELECT = "Select";
+
+	private static final String SELECT_FUNCTION = "selectPlace";
+	
+	private static final String SUGGEST_FUNCTION = "suggestPlace";
+	
+	private static final String PHP_SEARCH = "Search";
+	
+	private static final String SEARCH_PLACE_FUNCTION = "searchPlace";
+	
+	private static final String SEARCH_GROUP_FUNCTION = "searchGroup";
+	
+	private static final String SEARCH_USER_FUNCTION = "searchUser";
+	
+	private static final String SEARCH_TRIP_FUNCTION = "searchTrip";
 
 	/**
 	 * Make HTTP request to server
@@ -95,6 +118,7 @@ class Utils {
 
 			httpPost.setHeader("json", paramsPost.toString());
 			httpPost.getParams().setParameter("jsonpost", jsonPost);
+			httpPost.setHeader("Content-type", "application/json; charset=utf-8");
 
 			HttpResponse httpResponse = httpClient.execute(httpPost);
 			HttpEntity httpEntity = httpResponse.getEntity();
@@ -148,18 +172,26 @@ class Utils {
 			return PHP_AUTHENTICATION;
 		case FETCH_NEWS:
 			return PHP_SOCIAL;
+		case FETCH_LAST_MESSAGE:
+			return PHP_SOCIAL;
 		case FETCH_FOLLOW_NEWS:
 			return PHP_SOCIAL;
 		case FETCH_USER_INFO:
-			return PHP_SOCIAL;
+			return PHP_SELECT;
 		case FETCH_FRIEND_LIST:
+			return PHP_SOCIAL;
+		case FETCH_NEWS_FEED:
 			return PHP_SOCIAL;
 		case FETCH_FRIEND_REQUEST:
 			return PHP_SOCIAL;
 		case FETCH_GROUP_LIST:
 			return PHP_SOCIAL;
+		case FETCH_GROUP_INFO:
+			return PHP_SOCIAL;
 		case FETCH_GROUP_INVITE:
 			return PHP_SOCIAL;
+		case FETCH_TRIP_LIST:
+			return PHP_SELECT;   
 		case ACTION_POST:
 			return PHP_SOCIAL;
 		case ACTION_COMMENT_POST:
@@ -192,6 +224,18 @@ class Utils {
 			return PHP_SOCIAL;
 		case ACTION_UPDATE_GROUP_INFO:
 			return PHP_SOCIAL;
+		case SELECT:
+			return PHP_SELECT;
+		case SUGGEST:
+			return PHP_SELECT;
+		case SEARCH_PLACE:
+			return PHP_SEARCH;
+		case SEARCH_GROUP:
+			return PHP_SEARCH;
+		case SEARCH_USER:
+			return PHP_SEARCH;
+		case SEARCH_TRIP:
+			return PHP_SEARCH;
 		default:
 			return null;
 		}
@@ -212,6 +256,8 @@ class Utils {
 			return SIGNUP_FUNCTION;
 		case FETCH_NEWS:
 			return FETCH_NEWS_FUNCTION;
+		case FETCH_LAST_MESSAGE:
+			return FETCH_LAST_MESSAGE_FUNCTION;
 		case FETCH_FOLLOW_NEWS:
 			return FETCH_FOLLOW_NEWS_FUNCTION;
 		case FETCH_USER_INFO:
@@ -222,8 +268,14 @@ class Utils {
 			return FETCH_FRIEND_REQUEST_FUNCTION;
 		case FETCH_GROUP_LIST:
 			return FETCH_GROUP_LIST_FUNCTION;
+		case FETCH_GROUP_INFO:
+			return FETCH_GROUP_INFO_FUNCTION;
 		case FETCH_GROUP_INVITE:
 			return FETCH_GROUP_INVITE_FUNCTION;
+		case FETCH_NEWS_FEED:
+			return FETCH_NEWS_FEED_FUNCTION;
+		case FETCH_TRIP_LIST:
+			return FETCH_TRIP_LIST_FUNCTION;
 		case ACTION_POST:
 			return ACTION_POST_FUNCTION;
 		case ACTION_COMMENT_POST:
@@ -257,6 +309,18 @@ class Utils {
 		case ACTION_UPDATE_GROUP_INFO:
 			return ACTION_UPDATE_GROUP_INFO_FUNCTION;
 
+		case SELECT:
+			return SELECT_FUNCTION;
+		case SUGGEST:
+			return SUGGEST_FUNCTION;
+		case SEARCH_PLACE:
+			return SEARCH_PLACE_FUNCTION;
+		case SEARCH_GROUP:
+			return SEARCH_GROUP_FUNCTION;
+		case SEARCH_USER:
+			return SEARCH_USER_FUNCTION;
+		case SEARCH_TRIP:
+			return SEARCH_TRIP_FUNCTION;	
 		default:
 			return null;
 		}
@@ -272,12 +336,10 @@ class Utils {
 	static ArrayList<Object> parseResult(RequestType requestType, JSONObject result) {
 
 		ArrayList<Object> objects = new ArrayList<Object>();
-		Log.i("Debug", result.toString());
 		try {
 			switch (requestType) {
 
 			case LOGIN:
-
 				if (result.getInt(Constant.SUCCESS) == 1) {
 					JSONObject userInfo = result.getJSONArray(Constant.RESULT).getJSONObject(0);
 					User user = new User();
@@ -297,111 +359,71 @@ class Utils {
 			case FETCH_NEWS:
 
 				break;
+			case FETCH_LAST_MESSAGE:
+				if (result.getInt(Constant.SUCCESS) == 1) {
+					JSONArray array = result.getJSONArray(Constant.RESULT);
+					for (int i = 0; i < array.length(); i++) {
+						JSONObject tmp = array.getJSONObject(i);
+						Message message = new Message();
+						message.setContent(tmp.getString("content"));
+						try {
+							SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+							message.setTime(formatter.parse(tmp.getString("time")));
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						User user = new User();
+						user.setId(tmp.getInt("id"));
+						user.setName(tmp.getString("name"));
+						message.setSender(user);
+						objects.add(message);
+					}
+				}
+				break;
+      
+			case FETCH_NEWS_FEED:
+	
+				break;
 
 			case FETCH_FOLLOW_NEWS:
 
 				break;
 
 			case FETCH_USER_INFO:
-
 				if (result.getInt(Constant.SUCCESS) == 1) {
-					int chkFriend = Integer.parseInt(result.getJSONArray("checkfriend").getJSONObject(0).getString("check_friend"));
-					JSONArray newsInfo = result.getJSONArray("news");
-
-					objects.add(chkFriend);
-					for (int i = 0; i < newsInfo.length(); i++) {
-						boolean chkNews = false;
-
-						JSONObject news = result.getJSONArray("news").getJSONObject(i);
-						JSONObject owner = result.getJSONArray("owner").getJSONObject(i);
-						JSONObject place = result.getJSONArray("place").getJSONObject(i);
-						JSONObject place_district = result.getJSONArray("place_district").getJSONObject(i);
-						JSONObject place_province = result.getJSONArray("place_province").getJSONObject(i);
-						JSONObject owner_place = result.getJSONArray("owner_place").getJSONObject(i);
-						JSONObject owner_place_district = result.getJSONArray("owner_place_district").getJSONObject(i);
-						JSONObject owner_place_province = result.getJSONArray("owner_place_province").getJSONObject(i);
-
-						Place owner_province = new Place();
-						owner_province.setId(Integer.parseInt(owner_place_province.getString("last_owner_province_id")));
-						owner_province.setName(owner_place_province.getString("last_owner_province_name"));
-						owner_province.setDescription(owner_place_province.getString("last_owner_province_description"));
-
-						Place owner_district = new Place();
-						owner_district.setId(Integer.parseInt(owner_place_district.getString("owner_place_district_id")));
-						owner_district.setName(owner_place_district.getString("owner_place_district_name"));
-						owner_district.setProvince(owner_province);
-						owner_district.setDescription(owner_place_district.getString("owner_place_district_description"));
-
-						Place owner_location = new Place();
-						owner_location.setId(Integer.parseInt(owner_place.getString("owner_place_id")));
-						owner_location.setName(owner_place.getString("owner_place_name"));
-						owner_location.setAddress(owner_place.getString("owner_place_address"));
-						owner_location.setDistrict(owner_district);
-						owner_location.setLongtitude(Double.parseDouble(owner_place.getString("owner_place_longtitude")));
-						owner_location.setLatitude(Double.parseDouble(owner_place.getString("owner_place_latitude")));
-
-						User news_owner = new User();
-						news_owner.setId(Integer.parseInt(owner.getString("owner")));
-						news_owner.setEmail(owner.getString("owner_email"));
-						news_owner.setImage(owner.getString("owner_avatar"));
-						news_owner.setLocation(owner_location);
-						news_owner.setName(owner.getString("owner_name"));
-						news_owner.setPhone(owner.getString("owner_phone"));
-
-						Place province = new Place();
-						province.setId(Integer.parseInt(place_province.getString("last_province_id")));
-						province.setName(place_province.getString("last_province_name"));
-						province.setDescription(place_province.getString("last_province_description"));
-
-						Place district = new Place();
-						district.setId(Integer.parseInt(place_district.getString("place_district_id")));
-						district.setName(place_district.getString("place_district_name"));
-						district.setProvince(province);
-						district.setDescription(place_district.getString("place_district_description"));
-
-						Place news_place = new Place();
-						news_place.setId(Integer.parseInt(place.getString("place_id")));
-						news_place.setName(place.getString("place_name"));
-						news_place.setAddress(place.getString("place_address"));
-						news_place.setDistrict(district);
-						news_place.setLongtitude(Double.parseDouble(place.getString("place_longtitude")));
-						news_place.setLatitude(Double.parseDouble(place.getString("place_latitude")));
-
-						News news_info = new News();
-						news_info.setActors(null);
-						news_info.setContent(news.getString("content"));
-						news_info.setId(Integer.parseInt(news.getString("id")));
-						news_info.setNumOfComments(Integer.parseInt(news.getString("num_of_comment")));
-						news_info.setNumOfLikes(Integer.parseInt(news.getString("num_of_like")));
-						news_info.setOwner(news_owner);
-						news_info.setPhoto(news.getString("Photo"));
-						news_info.setPlace(news_place);
-						news_info.setRate(Integer.parseInt(news.getString("rate")));
-
-						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-						try {
-							news_info.setTime(formatter.parse(news.getString("time")));
-						} catch (ParseException e) {
-							e.printStackTrace();
+					JSONArray array = result.getJSONArray(Constant.RESULT);
+					for (int i = 0; i < array.length(); i++) {
+						JSONObject tmp = array.getJSONObject(i);
+						User user = new User();
+						user.setId(Integer.parseInt(tmp.getString("id")));
+						user.setName(tmp.getString("name"));
+						user.setPhone(tmp.getString("phone"));
+						user.setNumOfFollow(Integer.parseInt(tmp.getString("follower")));
+						user.setNumOfFriend(Integer.parseInt(tmp.getString("friend")));
+						user.setNumOfTrip(Integer.parseInt(tmp.getString("trip")));
+						user.setEmail(tmp.getString("email"));
+						Place place = new Place();
+						place.setName(tmp.getString("location"));
+						user.setLocation(place);
+						JSONArray repu = tmp.getJSONArray("reputation");
+						if(repu.length() > 3)user.setNumOfVote(3);
+						else user.setNumOfVote(repu.length());
+						int totalRate = 0;
+						for(int j = 0; j < user.getNumOfVote(); j++)
+						{
+							totalRate += Integer.parseInt(repu.getJSONObject(j).getString("rate"));
 						}
-						// news_info.setType(Integer.parseInt(news.getString("type")));
-
-						for (int j = 0; j < objects.size(); j++) {
-							News nws = (News) objects.get(j);
-							if (nws.getId() == news_info.getId() && nws.getType() == news_info.getType()) {
-								if (nws.getTime().before(news_info.getTime())) {
-									nws.setTime(news_info.getTime());
-								}
-								ArrayList<User> tmp = nws.getActors();
-								tmp.addAll(news_info.getActors());
-								nws.setActors(tmp);
-								objects.set(j, nws);
-								chkNews = true;
-							}
+						if(user.getNumOfVote() > 0)user.setAverageVote(totalRate/user.getNumOfVote());
+						else user.setAverageVote(0);
+						JSONArray activities = tmp.getJSONArray("review");
+						for(int j = 0; j < activities.length(); j++)
+						{
+							user.addRecentActivity(activities.getJSONObject(j).getString("name"));
 						}
-						if (!chkNews) {
-							objects.add(news_info);
-						}
+						int friend = tmp.getInt("friend");
+						objects.add(user);
+						objects.add(friend);
 					}
 				}
 				break;
@@ -413,40 +435,46 @@ class Utils {
 
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject tmp = array.getJSONObject(i);
-
-						User friend = new User();
-						friend.setId(Integer.parseInt(tmp.getString("friendId")));
-						friend.setName(tmp.getString("friendName"));
-						friend.setPhone(tmp.getString("friendPhone"));
-						friend.setEmail(tmp.getString("friendEmail"));
-						friend.setStatus(UserStatus.ONLINE);
-
-						objects.add(friend);
+						User user = new User();
+						user.setId(Integer.parseInt(tmp.getString("id")));
+						user.setName(tmp.getString("name"));
+					//	user.setStatus(UserStatus.ONLINE);
+						Message message = new Message();
+						if (!tmp.getString("message").isEmpty()) {
+							message.setContent(tmp.getString("message"));
+							user.addRecentMessage(message);
+						}
+						objects.add(user);
 					}
 				}
 				break;
 
 			case FETCH_FRIEND_REQUEST:
-
 				if (result.getInt(Constant.SUCCESS) == 1) {
 					JSONArray array = result.getJSONArray(Constant.RESULT);
 
 					for (int i = 0; i < array.length(); i++) {
-
-						JSONObject tmp = array.getJSONObject(i);
-
+						JSONObject tmp = array.getJSONObject(i).getJSONArray("sender").getJSONObject(0);
 						InviteRequest friendRequest = new InviteRequest();
 						// TODO: Sender is User
 						// friendRequest.setSenderId(Integer.parseInt(tmp.getString("sender")));
-						friendRequest.setType(InviteRequest.Type.FRIEND_REQUEST);
 
+						friendRequest.setType(InviteRequest.Type.FRIEND_REQUEST);
+						User userRequest = new User();
+						userRequest.setId(Integer.parseInt(tmp.getString("id")));
+						userRequest.setName(tmp.getString("name"));
+						Place placeRequest = new Place();
+						JSONObject place = tmp.getJSONArray("location").getJSONObject(0);
+						placeRequest.setId(Integer.parseInt(place.getString("id")));
+						placeRequest.setName(place.getString("name"));
+						userRequest.setLocation(placeRequest);
+						friendRequest.setSender(userRequest);
 						objects.add(friendRequest);
 					}
 				}
 				break;
 
 			case FETCH_GROUP_LIST:
-
 				if (result.getInt(Constant.SUCCESS) == 1) {
 					JSONArray array = result.getJSONArray(Constant.RESULT);
 
@@ -454,21 +482,40 @@ class Utils {
 						JSONObject tmp = array.getJSONObject(i);
 
 						Group group = new Group();
-						group.setId(Integer.parseInt(tmp.getString("id")));
+				//		group.setId(Integer.parseInt(tmp.getString("id")));
 						group.setName(tmp.getString("name"));
+						Message message = new Message();
+						message.setContent(tmp.getString("annoucement"));
 						// group.setOwner(Integer.parseInt(tmp.getString("owner")));
-						group.setDescription(tmp.getString("description"));
+						group.setAnnouncement(message);
 
 						objects.add(group);
 					}
 				}
 				break;
-
+				
+			case FETCH_GROUP_INFO:
+				if (result.getInt(Constant.SUCCESS) == 1) {
+					JSONArray array = result.getJSONArray(Constant.RESULT);			
+					JSONObject tmp = array.getJSONObject(0);
+					Group group = new Group();
+					Message message = new Message();
+					message.setContent(tmp.getString("annoucement"));
+					group.setAnnouncement(message);
+					group.setName(tmp.getString("name"));
+					User user = new User();
+					user.setName(tmp.getString("owner"));
+					group.setAdmin(user);
+					group.setCount(Integer.parseInt(tmp.getString("count")));
+					objects.add(group); 
+						
+					
+				}
+				break;
 			case FETCH_GROUP_INVITE:
 
 				if (result.getInt(Constant.SUCCESS) == 1) {
 					JSONArray array = result.getJSONArray(Constant.RESULT);
-
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject tmp = array.getJSONObject(i);
 
@@ -476,7 +523,11 @@ class Utils {
 						// TODO: Sender is Group
 						// groupRequest.setSenderId(Integer.parseInt(tmp.getString("sender")));
 						groupRequest.setType(InviteRequest.Type.GROUP_INVITE);
-
+						Group group = new Group();
+						group.setId(Integer.parseInt(tmp.getString("id")));
+						group.setName(tmp.getString("name"));
+						group.setDescription(tmp.getString("description"));
+						groupRequest.setSender(group);
 						objects.add(groupRequest);
 					}
 				}
@@ -562,7 +613,7 @@ class Utils {
 				objects.add(result.getInt(Constant.SUCCESS));
 				break;
 
-			case SEARCH:
+			case SELECT:
 				if (result.getInt(Constant.SUCCESS) == 1) {
 					for (int i = 0; i < result.getJSONArray(Constant.RESULT).length(); i++) {
 						JSONObject placeInfo = result.getJSONArray(Constant.RESULT).getJSONObject(i);
@@ -575,7 +626,7 @@ class Utils {
 					}
 				}
 				break;
-
+				
 			case SUGGEST:
 				if (result.getInt(Constant.SUCCESS) == 1) {
 					for (int i = 0; i < result.getJSONArray(Constant.RESULT).length(); i++) {
@@ -585,11 +636,55 @@ class Utils {
 						place.setName(placeInfo.getString("name"));
 						place.setLatitude(Double.parseDouble(placeInfo.getString("latitude")));
 						place.setLongtitude(Double.parseDouble(placeInfo.getString("longitude")));
+						place.setAddress(placeInfo.getString("address"));
 						objects.add(place);
 					}
 				}
 				break;
+			case SEARCH_PLACE:
+				if (result.getInt(Constant.SUCCESS) == 1) {
+					for (int i = 0; i < result.getJSONArray(Constant.RESULT).length(); i++) {
+						JSONObject placeInfo = result.getJSONArray(Constant.RESULT).getJSONObject(i);
+						Place place = new Place();
+						place.setId(Integer.parseInt(placeInfo.getString("id")));
+						place.setName(placeInfo.getString("name"));
+						place.setLatitude(Double.parseDouble(placeInfo.getString("latitude")));
+						place.setLongtitude(Double.parseDouble(placeInfo.getString("longitude")));
+						place.setAddress(placeInfo.getString("address"));
+						objects.add(place);
+					}
+				}
+				break;
+			case SEARCH_GROUP:
+				if (result.getInt(Constant.SUCCESS) == 1) {
+					for (int i = 0; i < result.getJSONArray(Constant.RESULT).length(); i++) {
+						JSONObject groupInfo = result.getJSONArray(Constant.RESULT).getJSONObject(i);
+						Group group = new Group();
+						group.setId(Integer.parseInt(groupInfo.getString("id")));
+						group.setName(groupInfo.getString("name"));
+						group.setDescription(groupInfo.getString("description"));
 
+						objects.add(group);
+					}
+				}
+				break;
+			case SEARCH_USER:
+				if (result.getInt(Constant.SUCCESS) == 1) {
+					for (int i = 0; i < result.getJSONArray(Constant.RESULT).length(); i++) {
+						JSONObject userInfo = result.getJSONArray(Constant.RESULT).getJSONObject(i);
+						User user = new User();
+						user.setId(Integer.parseInt(userInfo.getString("id")));
+						user.setName(userInfo.getString("name"));
+						
+						objects.add(user);
+					}
+				}
+				break;
+			case SEARCH_TRIP:
+				
+				break;
+			case FETCH_TRIP_LIST:
+				break;
 			default:
 				break;
 

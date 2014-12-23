@@ -111,7 +111,7 @@ public class LoginActivity extends ActionBarActivity {
 			// Hide soft keyboard
 			InputMethodManager manager = (InputMethodManager) LoginActivity.this.getSystemService(Service.INPUT_METHOD_SERVICE);
 			manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-			
+
 			if (emailField.getText().toString().trim().isEmpty()) {
 				Toast.makeText(LoginActivity.this, "Please enter your email for your WeGo account", Toast.LENGTH_SHORT).show();
 				emailField.requestFocus();
@@ -122,7 +122,7 @@ public class LoginActivity extends ActionBarActivity {
 				passwordField.requestFocus();
 				return;
 			}
-			
+
 			onLogin();
 		}
 	}
@@ -186,7 +186,7 @@ public class LoginActivity extends ActionBarActivity {
 
 		// Set progress bar visible
 		progressBar.setVisibility(View.VISIBLE);
-		
+
 		// Hide other action views
 		hideActionViews();
 
@@ -206,23 +206,23 @@ public class LoginActivity extends ActionBarActivity {
 			public void onCompleted(Object... results) {
 				// Hide progress bar
 				progressBar.setVisibility(View.GONE);
-			
+
 				if (results.length == 0 || results[0] == null) {
 					// Show alert dialog: invalid login info
 					AlertDialog.Builder builder = new Builder(LoginActivity.this);
 					builder.setTitle(DIALOG_TITLE_LOGIN_FAILED).setMessage(INVALID_LOGIN_INFO).create().show();
-					
+
 					// Clear fields and request focus
 					passwordField.getText().clear();
 					emailField.requestFocus();
-					
+
 					// Show action views
 					showActionViews();
 					return;
 				}
 				// Save login info
 				User user = (User) results[0];
-				
+
 				// Proceed to main activity and finish this activity
 				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 				intent.putExtra(Constant.INTENT_USER_ID, user.getId());
@@ -235,6 +235,7 @@ public class LoginActivity extends ActionBarActivity {
 
 	/**
 	 * Check whether user has logged in
+	 * 
 	 * @return true if there is preference logged in data, otherwise return false
 	 */
 	private boolean isLoggedIn() {
@@ -245,8 +246,8 @@ public class LoginActivity extends ActionBarActivity {
 					return true;
 		}
 		return false;
-		//TODO: Debug
-//		return false;
+		// TODO: Debug
+		// return false;
 	}
 
 	/**

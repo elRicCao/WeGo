@@ -56,44 +56,44 @@ public class SignUpActivity extends ActionBarActivity {
 				String phone = phoneField.getText().toString();
 
 				// Use service to send info to server and receive result
-//				SignUpResult result = AuthenticationService.submitSignupInformation(username, email, password, phone);
-//
-//				// Switch case result: EXIST_EMAIL, EXIST_PHONE and SUCCESS
-//				// Show dialog for each case
-//				switch (result) {
-//				case EXIST_EMAIL: {
-//					AlertDialog.Builder builder = new Builder(SignUpActivity.this);
-//					builder.setTitle("Sign up Failed").setMessage("Email is already exist.");
-//					builder.create();
-//					builder.show();
-//					break;
-//				}
-//
-//				case EXIST_PHONE: {
-//					AlertDialog.Builder builder = new Builder(SignUpActivity.this);
-//					builder.setTitle("Sign up Failed").setMessage("Phone is already exist.");
-//					builder.create();
-//					builder.show();
-//					break;
-//				}
-//
-//				// Case Success
-//				default: {
-//					AlertDialog.Builder builder = new Builder(SignUpActivity.this);
-//					builder.setTitle("Success").setMessage("Your account has been successfully registered.");
-//					builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//
-//						@Override
-//						public void onClick(DialogInterface dialog, int which) {
-//							// Return to login activity
-//							finish();
-//						}
-//					});
-//					builder.create();
-//					builder.show();
-//					break;
-//				}
-//				}
+				// SignUpResult result = AuthenticationService.submitSignupInformation(username, email, password, phone);
+				//
+				// // Switch case result: EXIST_EMAIL, EXIST_PHONE and SUCCESS
+				// // Show dialog for each case
+				// switch (result) {
+				// case EXIST_EMAIL: {
+				// AlertDialog.Builder builder = new Builder(SignUpActivity.this);
+				// builder.setTitle("Sign up Failed").setMessage("Email is already exist.");
+				// builder.create();
+				// builder.show();
+				// break;
+				// }
+				//
+				// case EXIST_PHONE: {
+				// AlertDialog.Builder builder = new Builder(SignUpActivity.this);
+				// builder.setTitle("Sign up Failed").setMessage("Phone is already exist.");
+				// builder.create();
+				// builder.show();
+				// break;
+				// }
+				//
+				// // Case Success
+				// default: {
+				// AlertDialog.Builder builder = new Builder(SignUpActivity.this);
+				// builder.setTitle("Success").setMessage("Your account has been successfully registered.");
+				// builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				//
+				// @Override
+				// public void onClick(DialogInterface dialog, int which) {
+				// // Return to login activity
+				// finish();
+				// }
+				// });
+				// builder.create();
+				// builder.show();
+				// break;
+				// }
+				// }
 			}
 		});
 	}

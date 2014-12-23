@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp"
+    android:layout_marginTop="6dp"
+    android:background="@drawable/background_action"
+    android:clickable="true" >
+
+    <ImageView
+        android:id="@+id/item_place_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/po_nagar" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_toEndOf="@id/item_place_image"
+        android:layout_toRightOf="@id/item_place_image"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/item_place_info_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Po Nagar"
+            android:textColor="@color/green"
+            android:textStyle="bold" />
+
+        <RatingBar
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:max="5"
+            android:rating="4" />
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/background_action"
+        android:src="@drawable/ic_action_add" />
+
+</RelativeLayout>

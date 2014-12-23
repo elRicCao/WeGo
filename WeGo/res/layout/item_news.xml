@@ -100,7 +100,7 @@
                 android:contentDescription="@string/item_news_like"
                 android:drawableTop="@drawable/ic_action_like"
                 android:gravity="center_horizontal"
-                android:text="177"
+                android:text="17"
                 android:textColor="@color/green"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -113,7 +113,7 @@
                 android:contentDescription="@string/item_news_comment"
                 android:drawableTop="@drawable/ic_action_comment"
                 android:gravity="center_horizontal"
-                android:text="177"
+                android:text="3"
                 android:textColor="@color/green"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -176,11 +176,28 @@
 
     <!-- News content -->
 
-    <TextView
-        android:id="@+id/item_news_content"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:textColor="@color/gray" />
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/item_news_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:textColor="@color/gray" 
+            />
+
+        <ImageView
+            android:id="@+id/item_news_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:adjustViewBounds="true"
+            android:visibility="gone"
+            android:src="@drawable/ic_sa_pa"
+            android:scaleType="centerCrop" />
+    </LinearLayout>
 
 </LinearLayout>

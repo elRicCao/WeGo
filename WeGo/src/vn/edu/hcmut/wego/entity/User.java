@@ -16,13 +16,18 @@ public class User{
 	private UserStatus status;
 	private Place location;
 	private int numOfVote;
+	private int numOfFriend;
+	private int numOfFollow;
+	private int numOfTrip;
 	private double averageVote;
 	private ArrayList<Review> votes;
 	private ArrayList<Message> recentMessages;
+	private ArrayList<String> recentActivities;
 
 	public User() {
 		votes = new ArrayList<Review>();
 		recentMessages = new ArrayList<Message>();
+		recentActivities = new ArrayList<String>();
 	}
 
 	public int getNumOfVote() {
@@ -57,6 +62,30 @@ public class User{
 		this.id = id;
 	}
 
+	public int getNumOfFriend() {
+		return numOfFriend;
+	}
+
+	public void setNumOfFriend(int numOfFriend) {
+		this.numOfFriend = numOfFriend;
+	}
+	
+	public int getNumOfFollow() {
+		return numOfFollow;
+	}
+
+	public void setNumOfFollow(int numOfFollow) {
+		this.numOfFollow = numOfFollow;
+	}
+	
+	public int getNumOfTrip() {
+		return numOfTrip;
+	}
+
+	public void setNumOfTrip(int numOfTrip) {
+		this.numOfTrip = numOfTrip;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -89,13 +118,13 @@ public class User{
 		this.phone = phone;
 	}
 
-	public UserStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(UserStatus status) {
-		this.status = status;
-	}
+//	public UserStatus getStatus() {
+//		return status;
+//	}
+//
+//	public void setStatus(UserStatus status) {
+//		this.status = status;
+//	}
 
 	public Place getLocation() {
 		return location;
@@ -115,5 +144,17 @@ public class User{
 
 	public void addRecentMessage(Message message) {
 		this.recentMessages.add(message);
+	}
+	
+	public ArrayList<String> getRecentActivities() {
+		return recentActivities;
+	}
+	
+	public void setRecentActivities(ArrayList<String> recentActivities) {
+		this.recentActivities = recentActivities;
+	}
+
+	public void addRecentActivity(String activity) {
+		this.recentActivities.add(activity);
 	}
 }
