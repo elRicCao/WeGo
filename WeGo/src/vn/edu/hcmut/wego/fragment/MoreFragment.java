@@ -2,20 +2,31 @@ package vn.edu.hcmut.wego.fragment;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.activity.MainActivity;
 import vn.edu.hcmut.wego.activity.PlaceInfoActivity;
 import vn.edu.hcmut.wego.dialog.WishlistDialog;
+import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.entity.Place;
+import vn.edu.hcmut.wego.server.ServerRequest;
+import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
+import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 public class MoreFragment extends TabFragment {
 
@@ -23,89 +34,129 @@ public class MoreFragment extends TabFragment {
 	private static final int iconRes = R.drawable.ic_tab_more;
 	private Context context;
 	private int userId;
-	private ArrayList<Place> topPlaces;
 
 	public MoreFragment(Context context, int userId) {
 		super(context.getResources().getString(titleRes), iconRes);
 		this.context = context;
 		this.userId = userId;
-		this.topPlaces = new ArrayList<Place>();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_more, container, false);
 
-		LinearLayout topPlaces = (LinearLayout) rootView.findViewById(R.id.fragment_more_top_place_list);
-
-		LinearLayout topPhotos = (LinearLayout) rootView.findViewById(R.id.fragment_more_top_photo_list);
-		
+		LinearLayout topPlacesGroup = (LinearLayout) rootView.findViewById(R.id.fragment_more_top_place_list);
+		LinearLayout topPhotosGroup = (LinearLayout) rootView.findViewById(R.id.fragment_more_top_photo_list);
 		LinearLayout buttonBar = (LinearLayout) rootView.findViewById(R.id.fragment_more_button_bar);
-		
 		ScrollView content = (ScrollView) rootView.findViewById(R.id.fragment_more_content);
-		
+		LinearLayout wishlistButton = (LinearLayout) rootView.findViewById(R.id.fragment_more_button_wishlist);
+
 		content.setOnTouchListener(new MainActivity.BottomBarListener(context, buttonBar));
 
-		populateTopPlaces(inflater, topPlaces);
-		populateTopPhotos(inflater, topPhotos);
-		
-		LinearLayout wishlistButton = (LinearLayout) rootView.findViewById(R.id.fragment_more_button_wishlist);
+		populateTopPlaces(inflater, topPlacesGroup);
+		populateTopPhotos(inflater, topPhotosGroup);
+
 		wishlistButton.setOnClickListener(new WishlistDialog.WishlistDialogListener(context, getFragmentManager(), userId));
 
 		return rootView;
 	}
 
-	private void populateTopPlaces(LayoutInflater inflater, ViewGroup container) {
-		// int size = 2;
-		// for (int i = 0; i < size; i++) {
-		// View placeView = inflater.inflate(R.layout.item_place, container, false);
-		// container.addView(placeView);
-		//
-		// placeView.setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View view) {
-		// Intent intent = new Intent(context, PlaceInfoActivity.class);
-		// startActivity(intent);
-		// }
-		// });
-		//
-		// if (i < size - 1) {
-		// View dividerView = inflater.inflate(R.layout.item_divider, container, false);
-		// container.addView(dividerView);
-		// }
-		// }
+	private void populateTopPlaces(final LayoutInflater inflater, final ViewGroup container) {
+		JSONObject params = new JSONObject();
+		ServerRequest.newServerRequest(RequestType.FETCH_TOP_PLACE, params, new ServerRequestCallback() {
 
-		View placeView = inflater.inflate(R.layout.item_place, container, false);
-		container.addView(placeView);
+			@Override
+			public void onCompleted(Object... results) {
+				@SuppressWarnings("unchecked")
+				ArrayList<Place> topPlaces = (ArrayList<Place>) results[0];
 
-		View dividerView = inflater.inflate(R.layout.item_divider, container, false);
-		container.addView(dividerView);
+				for (int i = 0; i < topPlaces.size(); i++) {
+					View placeView = inflater.inflate(R.layout.item_place, container, false);
 
-		placeView = inflater.inflate(R.layout.item_place_fake_1, container, false);
-		container.addView(placeView);
+					TextView placeName = (TextView) placeView.findViewById(R.id.item_place_info_name);
+					TextView placeRate = (TextView) placeView.findViewById(R.id.item_place_rate);
+					TextView placeWishList = (TextView) placeView.findViewById(R.id.item_place_wishlist);
+					ImageView placeImage = (ImageView) placeView.findViewById(R.id.item_place_image);
 
-		dividerView = inflater.inflate(R.layout.item_divider, container, false);
-		container.addView(dividerView);
+					placeName.setText(topPlaces.get(i).getName());
+					placeRate.setText(String.valueOf(topPlaces.get(i).getAverageRate()));
+					placeWishList.setText(String.valueOf(topPlaces.get(i).getNumOfWishList()));
+					
+					Picasso.with(context).load(topPlaces.get(i).getAvatar()).into(placeImage);
 
-		placeView = inflater.inflate(R.layout.item_place_fake_2, container, false);
-		container.addView(placeView);
+					container.addView(placeView);
+
+					placeView.setOnClickListener(new PlaceInfoActivity.PlaceInfoListener(context, topPlaces.get(i).getId()));
+
+					if (i < topPlaces.size() - 1) {
+						View dividerView = inflater.inflate(R.layout.item_divider, container, false);
+						container.addView(dividerView);
+					}
+				}
+			}
+		}).executeAsync();
 	}
 
-	private void populateTopPhotos(LayoutInflater inflater, ViewGroup container) {
-		View placeView = inflater.inflate(R.layout.item_photo, container, false);
-		container.addView(placeView);
+	private void populateTopPhotos(final LayoutInflater inflater, final ViewGroup container) {
+		JSONObject params = new JSONObject();
+		ServerRequest.newServerRequest(RequestType.FETCH_TOP_PHOTO, params, new ServerRequestCallback() {
 
-		View dividerView = inflater.inflate(R.layout.item_divider, container, false);
-		container.addView(dividerView);
+			@Override
+			public void onCompleted(Object... results) {
+				@SuppressWarnings("unchecked")
+				ArrayList<News> topPhotos = (ArrayList<News>) results[0];
+				
+				Log.i("Debug TopPhoto", String.valueOf(topPhotos.size()));
 
-		placeView = inflater.inflate(R.layout.item_photo_fake_1, container, false);
-		container.addView(placeView);
+				for (int i = 0; i < topPhotos.size(); i++) {
+					View placeView = inflater.inflate(R.layout.item_photo, container, false);
 
-		dividerView = inflater.inflate(R.layout.item_divider, container, false);
-		container.addView(dividerView);
+					TextView userView = (TextView) placeView.findViewById(R.id.item_photo_user_name);
+					TextView descriptionView = (TextView) placeView.findViewById(R.id.item_photo_description);
+					TextView likeView = (TextView) placeView.findViewById(R.id.item_photo_like);
+					TextView commentView = (TextView) placeView.findViewById(R.id.item_photo_comment);
+					
+					ImageView userImage = (ImageView) placeView.findViewById(R.id.item_photo_user_image);
+					ImageView placeImage = (ImageView) placeView.findViewById(R.id.item_photo_image);
 
-//		placeView = inflater.inflate(R.layout.item_photo_fake_2, container, false);
-//		container.addView(placeView);
+					userView.setText(topPhotos.get(i).getOwner().getName());
+					descriptionView.setText(topPhotos.get(i).getContent());
+					likeView.setText(String.valueOf(topPhotos.get(i).getNumOfLikes()));
+					commentView.setText(String.valueOf(topPhotos.get(i).getNumOfComments()));
+					
+					final int width = (int) (getResources().getDisplayMetrics().widthPixels - 48 * getResources().getDisplayMetrics().density);
+					
+					Transformation transformation = new Transformation() {
+						
+						@Override
+						public Bitmap transform(Bitmap source) {
+	                        double aspectRatio = (double) source.getHeight() / (double) source.getWidth();
+	                        int targetHeight = (int) (width * aspectRatio);
+	                        
+	                        Bitmap result = Bitmap.createScaledBitmap(source, width, targetHeight, false);
+	                        if (result != source) {
+	                            source.recycle();
+	                        }
+	                        return result;
+						}
+						
+						@Override
+						public String key() {
+							return "transformation" + " desiredWidth";
+						}
+					};
+					
+					Picasso.with(context).load(topPhotos.get(i).getOwner().getImage()).into(userImage);
+					Picasso.with(context).load(topPhotos.get(i).getPhoto()).transform(transformation).into(placeImage);
+
+					container.addView(placeView);
+
+					if (i < topPhotos.size() - 1) {
+						View dividerView = inflater.inflate(R.layout.item_divider, container, false);
+						container.addView(dividerView);
+					}
+				}
+			}
+		}).executeAsync();
 	}
 }

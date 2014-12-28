@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class CommentDialog extends DialogFragment {
 
@@ -47,8 +48,16 @@ public class CommentDialog extends DialogFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.dialog_comment, container, false);
 
+		TextView numLikeView = (TextView) rootView.findViewById(R.id.dialog_comment_num_like);
 		ListView commentList = (ListView) rootView.findViewById(R.id.dialog_comment_list);
+
 		commentList.setAdapter(adapter);
+
+		if (adapter.getCount() > 1) {
+			numLikeView.setText(String.valueOf(adapter.getCount() + context.getResources().getString(R.string.dialog_comment_num_like_plural)));
+		} else {
+			numLikeView.setText(String.valueOf(adapter.getCount() + context.getResources().getString(R.string.dialog_comment_num_like_single)));
+		}
 
 		return rootView;
 	}
@@ -65,7 +74,7 @@ public class CommentDialog extends DialogFragment {
 
 		User user4 = new User();
 		user4.setName("SuperBo");
-		
+
 		Message message = new Message();
 		message.setSender(user2);
 		message.setContent("Present >:D<");
@@ -74,37 +83,35 @@ public class CommentDialog extends DialogFragment {
 		date.setHours(22);
 		date.setMinutes(2);
 		date.setSeconds(13);
-		
+
 		message.setTime(date);
-		
+
 		adapter.add(message);
-		
-		
-		
+
 		message = new Message();
 		message.setSender(user3);
 		message.setContent("I miss home :(");
-		 date = new Date();
+		date = new Date();
 		date.setDate(18);
 		date.setHours(22);
 		date.setMinutes(23);
 		date.setSeconds(18);
-		
+
 		message.setTime(date);
-		
+
 		adapter.add(message);
-		
+
 		message = new Message();
 		message.setSender(user4);
 		message.setContent("When are you coming back?");
-		 date = new Date();
+		date = new Date();
 		date.setDate(18);
 		date.setHours(22);
 		date.setMinutes(44);
 		date.setSeconds(53);
-		
+
 		message.setTime(date);
-		
+
 		adapter.add(message);
 	}
 }

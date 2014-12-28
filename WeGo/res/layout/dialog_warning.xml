@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_dialog_white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="@string/dialog_warning_title"
+            android:textAllCaps="true"
+            android:textColor="@color/green"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/dialog_warning_progress"
+            style="?android:attr/progressBarStyleSmallInverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="12dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/dialog_warning_sent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/dialog_warning_sent"
+            android:src="@drawable/ic_action_accept"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:alpha="0.5"
+        android:background="@color/gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp" >
+
+        <ImageButton
+            android:id="@+id/dialog_warning_wait"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_action"
+            android:contentDescription="@string/dialog_warning_wait"
+            android:src="@drawable/ic_action_wait" />
+
+        <ImageButton
+            android:id="@+id/dialog_warning_police"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_action"
+            android:contentDescription="@string/dialog_warning_police"
+            android:src="@drawable/ic_action_police" />
+
+        <ImageButton
+            android:id="@+id/dialog_warning_gather"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_action"
+            android:contentDescription="@string/dialog_warning_gather"
+            android:src="@drawable/ic_action_gather" />
+
+        <ImageButton
+            android:id="@+id/dialog_warning_accident"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_action"
+            android:contentDescription="@string/dialog_warning_accident"
+            android:src="@drawable/ic_action_accident" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dialog_warning_detail_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:alpha="0.5"
+            android:background="@color/gray" />
+
+        <RadioGroup
+            android:id="@+id/dialog_warning_wait_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp" >
+
+            <RadioButton
+                android:id="@+id/dialog_warning_wait_lost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Lost"
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/dialog_warning_wait_vehicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Broken vehicle"
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/dialog_warning_wait_gas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Getting gas"
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/dialog_warning_police_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp" >
+
+            <RadioButton
+                android:id="@+id/dialog_warning_police_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Alert!"
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/dialog_warning_police_capture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Got captured!"
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/dialog_warning_gather_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp" >
+
+            <RadioButton
+                android:id="@+id/dialog_warning_gather_regroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Regroup here!"
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/dialog_warning_accident_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp" >
+
+            <RadioButton
+                android:id="@+id/dialog_warning_accident_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Got accident! Help!"
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:alpha="0.5"
+        android:background="@color/gray" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_action_bottom"
+        android:minHeight="0dp"
+        android:padding="12dp"
+        android:text="Send"
+        android:textAllCaps="true"
+        android:textColor="@color/green"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

@@ -24,17 +24,12 @@ public class PlaceSearchAdapter extends ArrayAdapter<Place> {
 
 	private Context context;
 	private ArrayList<Place> places;
-
-	// private CommentListener listener;
-
-	// private DatabaseOpenHelper database;
-	private Place placeItem;
+	private Place place;
 
 	public PlaceSearchAdapter(Context context, ArrayList<Place> places) {
 		super(context, 0, places);
 		this.context = context;
 		this.places = places;
-		// database = new DatabaseOpenHelper(context);
 	}
 
 	@Override
@@ -45,19 +40,17 @@ public class PlaceSearchAdapter extends ArrayAdapter<Place> {
 			convertView = inflater.inflate(R.layout.item_search_place, parent, false);
 
 			ViewHolder holder = new ViewHolder();
-
-			holder.ownerNameView = (TextView) convertView.findViewById(R.id.item_search_place_name);
-	//		holder.ownerAddressView = (TextView) convertView.findViewById(R.id.item_search_place_address);
+			holder.nameView = (TextView) convertView.findViewById(R.id.item_search_place_name);
+			
 			convertView.setTag(holder);
 		}
 
 		// Get news item corresponding by postion
-		placeItem = places.get(position);
+		place = places.get(position);
 
 		// Get view holder from view tag
 		ViewHolder holder = (ViewHolder) convertView.getTag();
-		holder.ownerNameView.setText(placeItem.getName());
-	//	holder.ownerAddressView.setText(placeItem.getAddress());
+		holder.nameView.setText(place.getName());
 		return convertView;
 	}
 
@@ -65,11 +58,9 @@ public class PlaceSearchAdapter extends ArrayAdapter<Place> {
 	 * Hold view of news item
 	 */
 	private static class ViewHolder {
-
-		// Owner info
-		TextView ownerNameView;
-	//	TextView ownerAddressView;
-
+		ImageView imageView;
+		TextView nameView;
+		
 	}
 
 }

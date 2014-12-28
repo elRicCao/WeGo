@@ -9,13 +9,28 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.R;
+import vn.edu.hcmut.wego.activity.LoginActivity;
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.entity.News.NewsType;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.widget.RatingBar;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.model.LatLng;
 
 public class Utils {
 
@@ -176,5 +191,78 @@ public class Utils {
 			// No camera on this device
 			return false;
 		}
+	}
+
+	/**
+	 * Check the device to make sure it has the Google Play Services APK. If it doesn't, display a dialog that allows users to download the APK from the Google Play Store or enable it in the device's
+	 * system settings.
+	 */
+	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+	public static final String EXTRA_MESSAGE = "message";
+	public static final String PROPERTY_REG_ID = "registration_id";
+	private static final String PROPERTY_APP_VERSION = "appVersion";
+
+	public static boolean checkPlayServices(Activity activity) {
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
+		if (resultCode != ConnectionResult.SUCCESS) {
+			if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+				GooglePlayServicesUtil.getErrorDialog(resultCode, activity, PLAY_SERVICES_RESOLUTION_REQUEST).show();
+			} else {
+				activity.finish();
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Gets the current registration ID for application on GCM service.
+	 * <p>
+	 * If result is empty, the app needs to register.
+	 * 
+	 * @return registration ID, or empty string if there is no existing registration ID.
+	 */
+	public static String getRegistrationId(Context context) {
+		final SharedPreferences prefs = getGCMPreferences(context);
+		String registrationId = prefs.getString(PROPERTY_REG_ID, "");
+		if (registrationId.isEmpty()) {
+			return "";
+		}
+		// Check if app was updated; if so, it must clear the registration ID
+		// since the existing regID is not guaranteed to work with the new
+		// app version.
+		int registeredVersion = prefs.getInt(PROPERTY_APP_VERSION, Integer.MIN_VALUE);
+		int currentVersion = getAppVersion(context);
+		if (registeredVersion != currentVersion) {
+			return "";
+		}
+		return registrationId;
+	}
+
+	/**
+	 * @return Application's {@code SharedPreferences}.
+	 */
+	public static SharedPreferences getGCMPreferences(Context context) {
+		// This sample app persists the registration ID in shared preferences, but
+		// how you store the regID in your app is up to you.
+		return context.getSharedPreferences(LoginActivity.class.getSimpleName(), Context.MODE_PRIVATE);
+	}
+
+	/**
+	 * @return Application's version code from the {@code PackageManager}.
+	 */
+	public static int getAppVersion(Context context) {
+		try {
+			PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+			return packageInfo.versionCode;
+		} catch (NameNotFoundException e) {
+			// should never happen
+			throw new RuntimeException("Could not get package name: " + e);
+		}
+	}
+	
+	public static void setUpRatingBar(Context context, RatingBar ratingBar) {
+		LayerDrawable layerDrawable = (LayerDrawable) ratingBar.getProgressDrawable();
+		layerDrawable.getDrawable(2).setColorFilter(context.getResources().getColor(R.color.green), PorterDuff.Mode.SRC_ATOP);
 	}
 }

@@ -84,14 +84,14 @@ public class WishlistDialog extends DialogFragment {
 		View dividerView1 = inflater.inflate(R.layout.item_divider, container, false);
 		container.addView(dividerView1);
 
-		View placeView2 = inflater.inflate(R.layout.item_place_fake_1, container, false);
-		container.addView(placeView2);
+//		View placeView2 = inflater.inflate(R.layout.item_place_fake_1, container, false);
+//		container.addView(placeView2);
 
 		View dividerView2 = inflater.inflate(R.layout.item_divider, container, false);
 		container.addView(dividerView2);
 
-		View placeView3 = inflater.inflate(R.layout.item_place_fake_2, container, false);
-		container.addView(placeView3);
+//		View placeView3 = inflater.inflate(R.layout.item_place_fake_2, container, false);
+//		container.addView(placeView3);
 		
 		Log.i("Debug wishlist", String.valueOf(container.getChildCount()));
 	}

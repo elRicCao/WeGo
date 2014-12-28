@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.entity.Group;
 import vn.edu.hcmut.wego.entity.InviteRequest;
-import vn.edu.hcmut.wego.entity.News;
+import vn.edu.hcmut.wego.entity.Place;
 import vn.edu.hcmut.wego.entity.User;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -32,17 +32,11 @@ public class ServerRequest {
 		// Params: email, name, password, phone. Return: success or fail (duplicate email or phone)
 		SIGNUP,
 
-		// Params: user_id. Return: ArrayList<News> all activities of friends. To each news, check whether user has like it yet
-		FETCH_NEWS,
-
 		// Params: user_id. Return: ArrayList<User> as friend list, ArrayList<InviteRequest> as friend request list
 		FETCH_FRIEND_LIST, FETCH_FRIEND_REQUEST,
 
 		// Params: user_id. Return: ArrayList<Group> as group list, ArrayList<InviteRequest> as group invite list
 		FETCH_GROUP_LIST, FETCH_GROUP_INVITE,
-
-		// Params: user_id, target user_id. Return: ArrayList<News> ONLY public news of target
-		FETCH_FOLLOW_NEWS,
 
 		// Params: user_id. Return: ArrayList<Trip>
 		FETCH_TRIP_LIST,
@@ -135,7 +129,11 @@ public class ServerRequest {
 
 		SELECT,
 
-		SUGGEST
+		SUGGEST,
+
+		FETCH_TOP_PLACE, FETCH_TOP_PHOTO,
+		
+		PUSH_TO_SELECTED_USER
 	}
 
 	private ServerRequest(AsyncTask<JSONObject, Void, JSONObject> task, JSONObject params) {
@@ -182,7 +180,7 @@ public class ServerRequest {
 
 		@Override
 		protected JSONObject doInBackground(JSONObject... params) {
-			return Utils.makeHttpRequest(requestType, params[0]);
+			return ServerUtils.makeHttpRequest(requestType, params[0]);
 		}
 
 		@Override
@@ -190,67 +188,39 @@ public class ServerRequest {
 			ArrayList<Object> parseResult;
 			switch (requestType) {
 			case LOGIN:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				User user = (parseResult.isEmpty()) ? null : (User) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(user);
 				break;
 
 			case SIGNUP:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status);
 				break;
 
 			case FETCH_NEWS_FEED:
-				parseResult = Utils.parseResult(requestType, result);
-				// User user = (parseResult.isEmpty()) ? null : (User) parseResult.get(0);
+				parseResult = ServerResult.parse(requestType, result);
 				if (callback != null)
 					callback.onCompleted(parseResult);
 				break;
-			case FETCH_NEWS:
-				parseResult = Utils.parseResult(requestType, result);
-				ArrayList<News> news = new ArrayList<News>();
-				if (!parseResult.isEmpty()) {
-					for (int i = 0; i < parseResult.size(); i++) {
-						news.add((News) parseResult.get(i));
-					}
-				} else {
-					news = null;
-				}
-				if (callback != null)
-					callback.onCompleted(news);
-				break;
+
 			case FETCH_LAST_MESSAGE:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				if (callback != null)
 					callback.onCompleted(parseResult);
-				break;
-			case FETCH_FOLLOW_NEWS:
-				parseResult = Utils.parseResult(requestType, result);
-				ArrayList<News> follow_news = new ArrayList<News>();
-				if (!parseResult.isEmpty()) {
-					for (int i = 0; i < parseResult.size(); i++) {
-						follow_news.add((News) parseResult.get(i));
-					}
-				} else {
-					follow_news = null;
-				}
-				if (callback != null)
-					callback.onCompleted(follow_news);
 				break;
 
 			case FETCH_USER_INFO:
-				parseResult = Utils.parseResult(requestType, result);
-			
-		//		User userInfo = (parseResult.isEmpty()) ? null : (User) parseResult.get(0);
+				parseResult = ServerResult.parse(requestType, result);
 				if (callback != null)
 					callback.onCompleted(parseResult);
 				break;
 
 			case FETCH_FRIEND_LIST:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				ArrayList<User> users = new ArrayList<User>();
 				if (parseResult.isEmpty()) {
 					users = null;
@@ -264,7 +234,7 @@ public class ServerRequest {
 				break;
 
 			case FETCH_FRIEND_REQUEST:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				ArrayList<InviteRequest> offer = new ArrayList<InviteRequest>();
 				if (parseResult.isEmpty()) {
 					offer = null;
@@ -275,13 +245,10 @@ public class ServerRequest {
 				}
 				if (callback != null)
 					callback.onCompleted(offer);
-				// parseResult = Utils.parseResult(requestType, result);
-				// if (callback != null)
-				// callback.onCompleted(parseResult);
 				break;
 
 			case FETCH_GROUP_LIST:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				ArrayList<Group> group = new ArrayList<Group>();
 				if (parseResult.isEmpty()) {
 					group = null;
@@ -295,7 +262,7 @@ public class ServerRequest {
 				break;
 
 			case FETCH_GROUP_INVITE:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				ArrayList<InviteRequest> groupoffer = new ArrayList<InviteRequest>();
 				if (parseResult.isEmpty()) {
 					groupoffer = null;
@@ -308,156 +275,181 @@ public class ServerRequest {
 					callback.onCompleted(groupoffer);
 				break;
 			case FETCH_GROUP_INFO:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				Group groupInfo = (parseResult.isEmpty()) ? null : (Group) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(groupInfo);
 				break;
 
 			case ACTION_POST:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status1 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status1);
 				break;
 
 			case ACTION_COMMENT_POST:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status2 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status2);
 				break;
 
 			case ACTION_LIKE_POST:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status3 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status3);
 				break;
 
 			case ACTION_REVIEW:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status4 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status4);
 				break;
 
 			case ACTION_LIKE_REVIEW:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status5 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status5);
 				break;
 
 			case ACTION_PHOTO:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status6 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status6);
 				break;
 
 			case ACTION_COMMENT_PHOTO:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status7 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status7);
 				break;
 
 			case ACTION_LIKE_PHOTO:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status8 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status8);
 				break;
 
 			case ACTION_SEND_FRIEND_REQUEST:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status9 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status9);
 				break;
 
 			case ACTION_RESPOND_FRIEND_REQUEST:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status16 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status16);
 				break;
 
 			case ACTION_FOLLOW:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status10 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status10);
 				break;
 
 			case ACTION_CREATE_GROUP:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status11 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status11);
 				break;
 
 			case ACTION_SEND_GROUP_INVITE:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status12 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status12);
 				break;
 
 			case ACTION_CANCEL_GROUP_INVITE:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status13 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status13);
 				break;
 
 			case ACTION_SEND_GROUP_MESSAGE:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status14 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status14);
 				break;
 
 			case ACTION_UPDATE_GROUP_INFO:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				int status15 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
 				if (callback != null)
 					callback.onCompleted(status15);
 				break;
 
 			case SELECT:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				if (callback != null)
 					callback.onCompleted(parseResult);
 				break;
 			case SUGGEST:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				if (callback != null)
 					callback.onCompleted(parseResult);
 				break;
 			case SEARCH_PLACE:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				if (callback != null)
 					callback.onCompleted(parseResult);
 				break;
 			case SEARCH_GROUP:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				if (callback != null)
 					callback.onCompleted(parseResult);
 				break;
 			case SEARCH_USER:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				if (callback != null)
 					callback.onCompleted(parseResult);
 				break;
 			case SEARCH_TRIP:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
 				if (callback != null)
 					callback.onCompleted(parseResult);
 				break;
 			case FETCH_TRIP_LIST:
-				parseResult = Utils.parseResult(requestType, result);
+				parseResult = ServerResult.parse(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
+
+			case FETCH_TOP_PLACE:
+				parseResult = ServerResult.parse(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
+				
+			case FETCH_TOP_PHOTO:
+				parseResult = ServerResult.parse(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
+
+			case FETCH_PLACE_INFO:
+				parseResult = ServerResult.parse(requestType, result);
+				Place placeInfo = (parseResult.isEmpty()) ? null : (Place) parseResult.get(0);
+				if (callback != null)
+					callback.onCompleted(placeInfo);
+				break;
+				
+			case PUSH_TO_SELECTED_USER:
+				parseResult = ServerResult.parse(requestType, result);
 				if (callback != null)
 					callback.onCompleted(parseResult);
 				break;

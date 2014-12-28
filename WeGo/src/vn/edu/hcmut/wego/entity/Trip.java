@@ -30,6 +30,7 @@ public class Trip {
 
 	// Start place of trip. This place must be administrative place such as City or Province
 	private Place startPlace;
+	private Place endPlace;
 
 	// Route of trip. This byte array will be convert to collection of GPS location
 	private byte[] route;
@@ -109,6 +110,14 @@ public class Trip {
 		this.status = status;
 	}
 
+	public Place getEndPlace() {
+		return endPlace;
+	}
+
+	public void setEndPlace(Place endPlace) {
+		this.endPlace = endPlace;
+	}
+	
 	public Place getStartPlace() {
 		return startPlace;
 	}

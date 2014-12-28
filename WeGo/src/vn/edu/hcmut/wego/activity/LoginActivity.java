@@ -1,11 +1,14 @@
 package vn.edu.hcmut.wego.activity;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.entity.User;
+import vn.edu.hcmut.wego.gcm.RegisterApp;
 import vn.edu.hcmut.wego.server.ServerRequest;
 import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
 import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
@@ -18,7 +21,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -34,8 +36,15 @@ import com.facebook.Session;
 import com.facebook.Session.StatusCallback;
 import com.facebook.SessionState;
 import com.facebook.widget.LoginButton;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 public class LoginActivity extends ActionBarActivity {
+
+	
+	
+	GoogleCloudMessaging gcm;
+	AtomicInteger msgId = new AtomicInteger();
+	String registrationId;
 
 	// Dialog title and content
 	private static final String DIALOG_TITLE_LOGIN_FAILED = "Login Failed";
@@ -220,9 +229,23 @@ public class LoginActivity extends ActionBarActivity {
 					showActionViews();
 					return;
 				}
+				
 				// Save login info
 				User user = (User) results[0];
+				Utils.putValueToSharedPreferences(LoginActivity.this, Constant.PREFS_USER_ID, user.getId());
 
+				// Register App
+				if (Utils.checkPlayServices(LoginActivity.this)) {
+					gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
+					registrationId = Utils.getRegistrationId(getApplicationContext());
+					
+					if (registrationId.isEmpty()) {
+						new RegisterApp(getApplicationContext(), gcm, Utils.getAppVersion(LoginActivity.this)).execute();
+					}
+				} else {
+					Toast.makeText(LoginActivity.this, "Invalid Google Play Services APK", Toast.LENGTH_SHORT).show();
+				}
+				
 				// Proceed to main activity and finish this activity
 				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 				intent.putExtra(Constant.INTENT_USER_ID, user.getId());
@@ -239,6 +262,10 @@ public class LoginActivity extends ActionBarActivity {
 	 * @return true if there is preference logged in data, otherwise return false
 	 */
 	private boolean isLoggedIn() {
+		if (Utils.getUserId(this) != 0) {
+			return true;
+		}
+		
 		Session session = Session.getActiveSession();
 		if (session != null) {
 			if (!session.isClosed())
@@ -246,8 +273,6 @@ public class LoginActivity extends ActionBarActivity {
 					return true;
 		}
 		return false;
-		// TODO: Debug
-		// return false;
 	}
 
 	/**

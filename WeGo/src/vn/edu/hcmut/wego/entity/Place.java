@@ -51,6 +51,10 @@ public class Place {
 	private Place district;
 	private Place province;
 
+	private int numOfWishlist;
+	
+	private String avatar;
+	
 	public Place getDistrict() {
 		return district;
 	}
@@ -161,5 +165,23 @@ public class Place {
 
 	public void setSpecial(boolean isSpecial) {
 		this.isSpecial = isSpecial;
+	}
+	
+	public int getNumOfWishList()
+	{
+		return numOfWishlist;
+	}
+	
+	public void setNumOfWishList(int numOfWishList)
+	{
+		this.numOfWishlist = numOfWishList;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 }

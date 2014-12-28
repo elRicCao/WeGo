@@ -28,4 +28,16 @@ public class Constant {
 
 	// Server service params
 	public static final String PARAM_USER_ID = "user";
+	
+	public static final String GCM_SENDER_ID = "803536658867";
+	
+	public static final String GET_USER_LOCATION = "GetLocation";
+	public static final String RECEIVE_USER_LOCATION = "ReceiveLocation";
+	public static final String WARNNING = "Warnning";
+	public static final String FUEL = "Fuel";
+	public static final String VISIT = "Visit";
+	public static final String RELAX = "Relax";
+	public static final String GROUP = "Group";
+	public static final String TRIP = "Trip";
+	public static final String USER = "User";
 }

@@ -2,7 +2,6 @@ package vn.edu.hcmut.wego.dialog;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +11,6 @@ import vn.edu.hcmut.wego.adapter.FriendAdapter;
 import vn.edu.hcmut.wego.dialog.ChatDialog.ChatDialogType;
 import vn.edu.hcmut.wego.entity.Message;
 import vn.edu.hcmut.wego.entity.User;
-import vn.edu.hcmut.wego.entity.User.UserStatus;
 import vn.edu.hcmut.wego.server.ServerRequest;
 import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
 import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
@@ -22,7 +20,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

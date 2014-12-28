@@ -2,18 +2,13 @@ package vn.edu.hcmut.wego.entity;
 
 import java.util.ArrayList;
 
-public class User{
-
-	public enum UserStatus {
-		OFFLINE, ONLINE
-	}
+public class User {
 
 	private int id;
 	private String name;
 	private String image;
 	private String email;
 	private String phone;
-	private UserStatus status;
 	private Place location;
 	private int numOfVote;
 	private int numOfFriend;
@@ -69,7 +64,7 @@ public class User{
 	public void setNumOfFriend(int numOfFriend) {
 		this.numOfFriend = numOfFriend;
 	}
-	
+
 	public int getNumOfFollow() {
 		return numOfFollow;
 	}
@@ -77,7 +72,7 @@ public class User{
 	public void setNumOfFollow(int numOfFollow) {
 		this.numOfFollow = numOfFollow;
 	}
-	
+
 	public int getNumOfTrip() {
 		return numOfTrip;
 	}
@@ -85,7 +80,7 @@ public class User{
 	public void setNumOfTrip(int numOfTrip) {
 		this.numOfTrip = numOfTrip;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -118,14 +113,6 @@ public class User{
 		this.phone = phone;
 	}
 
-//	public UserStatus getStatus() {
-//		return status;
-//	}
-//
-//	public void setStatus(UserStatus status) {
-//		this.status = status;
-//	}
-
 	public Place getLocation() {
 		return location;
 	}
@@ -145,11 +132,11 @@ public class User{
 	public void addRecentMessage(Message message) {
 		this.recentMessages.add(message);
 	}
-	
+
 	public ArrayList<String> getRecentActivities() {
 		return recentActivities;
 	}
-	
+
 	public void setRecentActivities(ArrayList<String> recentActivities) {
 		this.recentActivities = recentActivities;
 	}

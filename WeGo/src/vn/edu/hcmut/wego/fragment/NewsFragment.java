@@ -6,21 +6,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.activity.MainActivity;
 //import vn.edu.hcmut.wego.activity.MainActivity.ShowHideButtonBarOnTouchListener;
 import vn.edu.hcmut.wego.adapter.NewsAdapter;
 import vn.edu.hcmut.wego.adapter.NewsAdapter.CommentListener;
 import vn.edu.hcmut.wego.dialog.CommentDialog;
-import vn.edu.hcmut.wego.dialog.PhotoDialog;
-import vn.edu.hcmut.wego.dialog.StatusDialog;
+import vn.edu.hcmut.wego.dialog.PostPhotoDialog;
+import vn.edu.hcmut.wego.dialog.PostStatusDialog;
 import vn.edu.hcmut.wego.entity.News;
 import vn.edu.hcmut.wego.entity.News.NewsType;
 import vn.edu.hcmut.wego.entity.User;
+import vn.edu.hcmut.wego.server.ServerRequest;
+import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
+import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
 import vn.edu.hcmut.wego.utility.Utils;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -71,9 +76,8 @@ public class NewsFragment extends TabFragment {
 		super.onCreate(savedInstanceState);
 		newsAdapter = new NewsAdapter(context, new ArrayList<News>());
 		newsAdapter.setCommentListener(commentListener);
-
-		// TODO: Debug entry
-		addFakeData();
+		
+//		addFakeData();
 	}
 
 	@Override
@@ -93,11 +97,28 @@ public class NewsFragment extends TabFragment {
 		newsList.setAdapter(newsAdapter);
 
 		// Set up action for status button
-		statusButton.setOnClickListener(new StatusDialog.CreateStatusDialogListener(context, getFragmentManager(), userId));
+		statusButton.setOnClickListener(new PostStatusDialog.CreateStatusDialogListener(context, getFragmentManager(), userId));
 
 		// Set up action for photo button
 		photoButton.setOnClickListener(photoButtonListener);
 
+		JSONObject params = new JSONObject();
+		try {
+			params.put("user",userId);
+			// params.put("placeId", s.toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		ServerRequest.newServerRequest(RequestType.FETCH_NEWS_FEED, params, new ServerRequestCallback() {
+
+			@Override
+			public void onCompleted(Object... results) {
+				@SuppressWarnings("unchecked")
+				ArrayList<News> news = (ArrayList<News>) results[0];
+				newsAdapter.addAll(news);
+			}
+		}).executeAsync();
+		
 		return rootView;
 	}
 
@@ -182,7 +203,7 @@ public class NewsFragment extends TabFragment {
 
 			final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
 
-			PhotoDialog.CreatePhotoDialog(context, getFragmentManager(), bitmap);
+			PostPhotoDialog.CreatePhotoDialog(context, getFragmentManager(), bitmap);
 			
 		} catch (NullPointerException e) {
 			e.printStackTrace();

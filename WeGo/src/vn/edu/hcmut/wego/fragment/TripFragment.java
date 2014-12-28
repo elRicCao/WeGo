@@ -143,9 +143,6 @@ public class TripFragment extends TabFragment {
 	    case R.id.action_settings:
 	        // Do Fragment menu item stuff here
 	        return true;
-	    case R.id.action_invite_user:
-	        // Do Fragment menu item stuff here
-	        return true;
 	    default:
 	        break;
 	    }

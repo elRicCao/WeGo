@@ -3,13 +3,10 @@ package vn.edu.hcmut.wego.adapter;
 import java.util.ArrayList;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.activity.GroupInfoActivity;
 import vn.edu.hcmut.wego.activity.UserInfoActivity;
 import vn.edu.hcmut.wego.entity.User;
-import vn.edu.hcmut.wego.entity.User.UserStatus;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

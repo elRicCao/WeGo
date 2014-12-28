@@ -14,10 +14,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class NewsAdapter extends ArrayAdapter<News> {
 
@@ -49,8 +50,11 @@ public class NewsAdapter extends ArrayAdapter<News> {
 			holder.otherActorView = (TextView) convertView.findViewById(R.id.item_news_actor_others);
 			holder.connectorView = (TextView) convertView.findViewById(R.id.item_news_actor_connector);
 			holder.actionView = (TextView) convertView.findViewById(R.id.item_news_actor_action);
+
 			holder.ownerNameView = (TextView) convertView.findViewById(R.id.item_news_user_name);
 			holder.ownerActionView = (TextView) convertView.findViewById(R.id.item_news_user_action);
+			holder.ownerImageView = (ImageView) convertView.findViewById(R.id.item_news_user_image);
+
 			holder.timeView = (TextView) convertView.findViewById(R.id.item_news_time);
 			holder.contentView = (TextView) convertView.findViewById(R.id.item_news_content);
 			holder.likeView = (TextView) convertView.findViewById(R.id.item_news_like);
@@ -74,46 +78,29 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		} else {
 			holder.actorView.setText(newsItem.getActors().get(0).getName());
 			holder.actionView.setText(Utils.getActionText(context, newsItem.getType()));
+		}
 
-			int numOfActors = newsItem.getActors().size();
-//			if (numOfActors > 1) {
-//				holder.connectorView.setVisibility(View.VISIBLE);
-//				if (numOfActors == 2) {
-//					holder.otherActorView.setText(newsItem.getActors().get(1).getName());
-//				} else {
-//					holder.otherActorView.setText(String.valueOf(numOfActors - 1) + Utils.getString(context, R.string.item_news_actor_others));
-//				}
-//			}
-		}
-		if(position == 1)
-		{
-			holder.imageView.setVisibility(View.VISIBLE);
-			holder.likeText.setText(String.valueOf(8));
-			holder.commentText.setText(String.valueOf(12));
-		}
-		if(position == 2)
-		{
-		//	holder.imageView.setVisibility(View.VISIBLE);
-			holder.likeText.setText(String.valueOf(13));
-			holder.commentText.setText(String.valueOf(7));
-		}
 		// Set up owner's name. If this view is clicked, jump to user info screen
 		holder.ownerNameView.setText(owner.getName());
-		holder.ownerNameView.setOnClickListener(new UserInfoActivity.UserInfoListener(context, owner.getId(),1));
+		holder.ownerNameView.setOnClickListener(new UserInfoActivity.UserInfoListener(context, owner.getId(), 1));
+		
+		Picasso.with(context).load(owner.getImage()).into(holder.ownerImageView);
 
 		// Set up owner action
 		holder.ownerActionView.setText(Utils.getOwnerActionText(context, newsItem.getType()));
 
 		// Set up time view
-		holder.timeView.setText(Utils.formatDate(newsItem.getTime()));
+		// holder.timeView.setText(Utils.formatDate(newsItem.getTime()));
 
 		// Set up content view
 		holder.contentView.setText(newsItem.getContent());
 
 		// Set up like view
 		holder.likeView.setOnClickListener(likeListener);
-		
+		holder.likeText.setText(String.valueOf(newsItem.getNumOfLikes()));
+
 		holder.commentView.setOnClickListener(commentClickListener);
+		holder.commentView.setText(String.valueOf(newsItem.getNumOfComments()));
 
 		return convertView;
 	}
@@ -133,6 +120,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		// Owner info
 		TextView ownerNameView;
 		TextView ownerActionView;
+		ImageView ownerImageView;
 
 		// Time
 		TextView timeView;
@@ -143,12 +131,10 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		// Like and comment
 		TextView likeView;
 		TextView commentView;
-		
+
 		ImageView imageView;
 		TextView likeText;
 		TextView commentText;
-		
-		
 	}
 
 	private OnClickListener commentClickListener = new OnClickListener() {

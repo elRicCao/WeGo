@@ -11,6 +11,7 @@ import vn.edu.hcmut.wego.fragment.NewsFragment;
 import vn.edu.hcmut.wego.fragment.SocialFragment;
 import vn.edu.hcmut.wego.fragment.TabFragment;
 import vn.edu.hcmut.wego.fragment.TripFragment;
+import vn.edu.hcmut.wego.utility.Utils;
 import vn.edu.hcmut.wego.view.SlidingTabLayout;
 import android.content.Context;
 import android.content.Intent;
@@ -44,7 +45,8 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		userId = getIntent().getExtras().getInt(Constant.INTENT_USER_ID);
+//		userId = getIntent().getExtras().getInt(Constant.INTENT_USER_ID);
+		userId = Utils.getUserId(this);
 
 		fragments = new ArrayList<TabFragment>();
 		fragments.add(new TripFragment(this, userId));
@@ -127,12 +129,12 @@ public class MainActivity extends ActionBarActivity {
 			startActivity(intent);
 			break;
 
-		case R.id.action_invite_user:
-			TripFragment fragment = (TripFragment) fragments.get(0);
-			Context context = fragment.getContext();
-			int tripId = fragment.getTripId();
-			TripInviteDialog dialog = new TripInviteDialog(context, tripId);
-			dialog.show(fragment.getFragmentManager(), "trip_invite_fragment");
+		// case R.id.action_invite_user:
+		// TripFragment fragment = (TripFragment) fragments.get(0);
+		// Context context = fragment.getContext();
+		// int tripId = fragment.getTripId();
+		// TripInviteDialog dialog = new TripInviteDialog(context, tripId);
+		// dialog.show(fragment.getFragmentManager(), "trip_invite_fragment");
 		}
 		return super.onOptionsItemSelected(item);
 	}

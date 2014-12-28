@@ -71,8 +71,8 @@
     <string name="item_news_like">Like</string>
     <string name="item_news_comment">Comment</string>
     <string name="item_news_user_action_write_status"></string>
-    <string name="item_news_user_action_post_photo">" - posted a photo"</string>
-    <string name="item_news_user_action_write_review">" - write a review about "</string>
+    <string name="item_news_user_action_post_photo">" post a photo"</string>
+    <string name="item_news_user_action_write_review">" write a review about "</string>
 
     <!-- Fragment trip -->
     <string name="title_fragment_trip">Trip</string>
@@ -127,6 +127,8 @@
     <!-- Dialog comment -->
     <string name="dialog_comment_input">Write a comment...</string>
     <string name="dialog_comment_send">Send</string>
+    <string name="dialog_comment_num_like_plural">" people like this"</string>
+    <string name="dialog_comment_num_like_single">" person like this"</string>
 
     <!-- Dialog friend -->
     <string name="dialog_friend_sort">Sort</string>
@@ -161,7 +163,7 @@
     <string name="dialog_create_group_hint_description">What\'s your group do?</string>
     <string name="dialog_create_group_button_create">Create</string>
 
-    <!-- Somethine -->
+    <!-- Something -->
     <string name="space">" "</string>
     <string name="title_fragment_map">Map</string>
     <string name="title_fragment_more">More</string>
@@ -178,22 +180,52 @@
     <string name="title_activity_user_photo">User Photo</string>
     <string name="title_activity_place_info">PlaceInfoActivity</string>
     <string name="activity_current_trip_member">Member</string>
-    <string name="activity_current_trip_search">Search around</string>
+    <string name="activity_current_trip_search">Search</string>
+    <string name="activity_current_trip_places">Places</string>
     <string name="activity_current_trip_warn">Warning</string>
     <string name="departure_text_hint">Departure</string>
     <string name="destination_text_hint">Destination</string>
     <string name="next_step">Next Step</string>
     <string name="action_invite_user">Invite</string>
-	<string name="title_activity_create_trip">Create Trip</string>
-	<string name="title_activity_search">Search</string>
+    <string name="title_activity_create_trip">Create Trip</string>
+    <string name="title_activity_search">Search</string>
+
+    <string-array name="destinations">
+        <item>Nha Trang</item>
+    </string-array>
+
+    <!-- Dialog Photo -->
+    <string name="dialog_photo_image">Image</string>
+    <string name="dialog_photo_public">Pubic</string>
+    <string name="dialog_photo_description">Describe your photo</string>
+    <string name="dialog_photo_location">Location</string>
+    <string name="dialog_photo_post">Post</string>
+    
+    <!-- Dialog Status -->
+    <string name="dialog_status_location">Location</string>
+    <string name="dialog_status_public">Public</string>
+    <string name="dialog_status_content">What\'s on your mind?</string>
+    <string name="dialog_status_post">Post</string>
+    
+    <!-- Item current place -->
+    <string name="item_current_place_route">Search route</string>
+    <string name="dialog_search_restaurant">Restaurant</string>
+    <string name="dialog_search_hotel">Hotel</string>
+    <string name="dialog_search_gas_station">Gas station</string>
+    <string name="dialog_search_repair">Repair</string>
+	<string name="dialog_search_custom_hint">Place name...</string>
+	<string name="dialog_search_custom">Custom search</string>
+	<string name="dialog_search_quick">Quick Search</string>
 	
-	<string-array name="destinations">
-	    <item>Nha Trang</item>
-	</string-array>
+	<string name="item_search_place_route">Route</string>
 	
-	<string name="dialog_photo_image">Image</string>
-	<string name="dialog_photo_public">Make this photo public</string>
-	<string name="dialog_photo_description">Describe your photo</string>
-	<string name="dialog_photo_location">Location</string>
-	<string name="dialog_photo_post">Post Photo</string>
+	<string name="dialog_warning_title">Warning</string>
+	<string name="dialog_warning_wait">Wait</string>
+	<string name="dialog_warning_police">Police</string>
+	<string name="dialog_warning_gather">Gather</string>
+	<string name="dialog_warning_accident">Accident</string>
+	<string name="dialog_warning_sent">Sent</string>
+	<string name="dialog_warning_repair">Repair</string>
+	<string name="dialog_warning_wait_message">Wait for me!</string>
+	<string name="dialog_warning_police_message"></string>
 </resources>

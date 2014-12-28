@@ -60,6 +60,7 @@
                     android:src="@drawable/ho_chi_minh" />
 
                 <TextView
+                    android:id="@+id/activity_place_info_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ho Chi Minh City"
@@ -118,6 +119,7 @@
                         android:orientation="vertical" >
 
                         <TextView
+                            android:id="@+id/activity_place_info_wishlist"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -169,7 +171,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/activity_user_info_rating"
+                    android:id="@+id/activity_place_info_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3.5"

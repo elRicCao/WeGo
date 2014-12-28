@@ -5,14 +5,10 @@ import java.util.Comparator;
 import java.util.Date;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.activity.UserMessageActivity;
 import vn.edu.hcmut.wego.adapter.FriendAdapter;
 import vn.edu.hcmut.wego.entity.Message;
 import vn.edu.hcmut.wego.entity.User;
-import vn.edu.hcmut.wego.entity.User.UserStatus;
-import vn.edu.hcmut.wego.fragment.NewsFragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;

@@ -1,70 +1,95 @@
 package vn.edu.hcmut.wego.activity;
 
-import java.util.zip.Inflater;
-
-import com.google.android.gms.internal.fi;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.R.id;
-import vn.edu.hcmut.wego.R.layout;
-import vn.edu.hcmut.wego.R.menu;
-import vn.edu.hcmut.wego.dialog.ReviewDialog;
-import android.app.Activity;
+import vn.edu.hcmut.wego.entity.Place;
+import vn.edu.hcmut.wego.server.ServerRequest;
+import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
+import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class PlaceInfoActivity extends ActionBarActivity {
 	private ActionBar actionBar;
+	private TextView placeName;
+	private TextView placeWishList;
+	private TextView placeRate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_place_info);
 		actionBar = getSupportActionBar();
-		actionBar.setTitle("Ho Chi Minh");
-		LinearLayout listRequest = (LinearLayout) findViewById(R.id.activity_user_info_recent_list);
-		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View child = inflater.inflate(R.layout.item_photo_place, null);
-		listRequest.addView(child);
 
-		LinearLayout btn = (LinearLayout) findViewById(R.id.activity_user_info_message);
-		btn.setOnClickListener(new OnClickListener() {
+		placeName = (TextView) findViewById(R.id.activity_place_info_name);
+		placeWishList = (TextView) findViewById(R.id.activity_place_info_wishlist);
+		placeRate = (TextView) findViewById(R.id.activity_place_info_rating);
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				ReviewDialog dialog = new ReviewDialog(getBaseContext(), 1);
-				dialog.show(getSupportFragmentManager(), "dialog_review");
-			}
-		});
-
+		populateInfo();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.place_info, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void populateInfo() {
+		try {
+			int placeId = getIntent().getExtras().getInt("placeId");
+			JSONObject params = new JSONObject().put("placeId", placeId);
+			ServerRequest.newServerRequest(RequestType.FETCH_PLACE_INFO, params, new ServerRequestCallback() {
+
+				@Override
+				public void onCompleted(Object... results) {
+					Place place = (Place) results[0];
+
+					actionBar.setTitle(place.getName());
+					placeName.setText(place.getName());
+					placeWishList.setText(String.valueOf(place.getNumOfWishList()));
+					placeRate.setText(String.valueOf(place.getAverageRate()));
+				}
+			}).executeAsync();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static class PlaceInfoListener implements OnClickListener {
+
+		private Context context;
+		private int placeId;
+
+		public PlaceInfoListener(Context context, int placeId) {
+			this.context = context;
+			this.placeId = placeId;
+		}
+
+		@Override
+		public void onClick(View view) {
+			Intent intent = new Intent(context, PlaceInfoActivity.class);
+			intent.putExtra("placeId", placeId);
+			context.startActivity(intent);
+		}
+
 	}
 }

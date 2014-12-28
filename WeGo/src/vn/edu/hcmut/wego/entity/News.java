@@ -20,7 +20,11 @@ public class News {
 	private int numOfLikes;
 	private int numOfComments;
 	private int rate;
-
+	
+	public News() {
+		// TODO Auto-generated constructor stub
+		actors = new ArrayList<User>();
+	}
 	public int getId() {
 		return id;
 	}
@@ -107,6 +111,10 @@ public class News {
 
 	public void setRate(int rate) {
 		this.rate = rate;
+	}
+	public void addActor(User user)
+	{
+		actors.add(user);
 	}
 
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_action"
+    android:clickable="true"
+    android:padding="12dp" >
+
+    <ImageView
+        android:id="@+id/item_current_place_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ho_chi_minh" />
+
+    <TextView
+        android:id="@+id/item_current_place_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_toEndOf="@id/item_current_place_image"
+        android:layout_toRightOf="@id/item_current_place_image"
+        android:text="Ho Chi Minh City"
+        android:textColor="@color/green"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true" >
+
+        <ImageButton 
+            android:id="@+id/item_current_place_route"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_route"
+            android:background="@drawable/background_action"
+            android:contentDescription="@string/item_current_place_route"/>
+    </LinearLayout>
+
+</RelativeLayout>

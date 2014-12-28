@@ -34,6 +34,7 @@
         android:layout_centerVertical="true" >
 
         <TextView
+            android:id="@+id/item_place_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_tag_rate"
@@ -44,6 +45,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/item_place_wishlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_tag_wishlist"
