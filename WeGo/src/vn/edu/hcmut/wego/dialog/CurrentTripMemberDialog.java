@@ -6,7 +6,6 @@ import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.activity.CurrentTripActivity.FindLocationCallback;
 import vn.edu.hcmut.wego.adapter.CurrentMemberAdapter;
 import vn.edu.hcmut.wego.adapter.CurrentMemberAdapter.MemberDialogCallback;
-import vn.edu.hcmut.wego.dialog.ChatDialog.ChatDialogType;
 import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.utility.Utils;
 import android.content.Context;
@@ -17,13 +16,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class CurrentTripMemberDialog extends DialogFragment {
@@ -33,11 +30,11 @@ public class CurrentTripMemberDialog extends DialogFragment {
 	private FindLocationCallback callback;
 	private int userId;
 
-	public CurrentTripMemberDialog(Context context, FindLocationCallback _callback) {
+	public CurrentTripMemberDialog(Context context, FindLocationCallback _callback, ArrayList<User> users) {
 		this.context = context;
 		this.userId = Utils.getUserId(context);
 		this.callback = _callback;
-		this.adapter = new CurrentMemberAdapter(context, new ArrayList<User>(), new MemberDialogCallback() {
+		this.adapter = new CurrentMemberAdapter(context, users, new MemberDialogCallback() {
 
 			@Override
 			public void onCallback(User user) {
@@ -53,8 +50,6 @@ public class CurrentTripMemberDialog extends DialogFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setStyle(STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
-
-		addFakeData();
 	}
 
 	@Override
@@ -69,9 +64,7 @@ public class CurrentTripMemberDialog extends DialogFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.dialog_member, container, false);
 
-		RelativeLayout headerView = (RelativeLayout) rootView.findViewById(R.id.dialog_member_header);
 		TextView numView = (TextView) rootView.findViewById(R.id.dialog_member_num);
-		View dividerView = (View) rootView.findViewById(R.id.dialog_member_divider);
 		ListView memberList = (ListView) rootView.findViewById(R.id.dialog_member_list);
 
 		if (adapter.getCount() > 0) {
@@ -89,27 +82,13 @@ public class CurrentTripMemberDialog extends DialogFragment {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			User friend = adapter.getItem(position);
 			FragmentManager fragmentManager = CurrentTripMemberDialog.this.getFragmentManager();
-			ChatDialog chatDialog = new ChatDialog(context, ChatDialogType.FRIEND_MESSAGE, userId, friend.getId());
+			ChatDialog chatDialog = new ChatDialog(context, userId, friend.getId());
 			chatDialog.show(fragmentManager, "chat_dialog");
 		}
 	};
 
-	public static void create(Context context, FragmentManager fragmentManager, FindLocationCallback callback) {
-		CurrentTripMemberDialog memberDialog = new CurrentTripMemberDialog(context, callback);
+	public static void create(Context context, FragmentManager fragmentManager, FindLocationCallback callback, ArrayList<User> users) {
+		CurrentTripMemberDialog memberDialog = new CurrentTripMemberDialog(context, callback, users);
 		memberDialog.show(fragmentManager, "member_dialog");
-	}
-
-	private void addFakeData() {
-
-		User user2 = new User();
-		user2.setId(2);
-		user2.setName("Mai Huu Nhan");
-
-		User user3 = new User();
-		user3.setId(3);
-		user3.setName("Phan Tran Viet");
-
-		adapter.add(user2);
-		adapter.add(user3);
 	}
 }

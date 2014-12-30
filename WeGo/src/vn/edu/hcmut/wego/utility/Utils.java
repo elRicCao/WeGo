@@ -108,6 +108,10 @@ public class Utils {
 	public static int getUserId(Context context) {
 		return (Integer) getValueFromSharedPreferences(context, Constant.PREFS_USER_ID, Integer.class);
 	}
+	
+	public static String getUserName(Context context) {
+		return (String) getValueFromSharedPreferences(context, Constant.PREFS_USER_NAME, String.class);
+	}
 
 	public static String makeHtmlTextBold(String text) {
 		return "<b>" + text + "</b>";
@@ -264,5 +268,6 @@ public class Utils {
 	public static void setUpRatingBar(Context context, RatingBar ratingBar) {
 		LayerDrawable layerDrawable = (LayerDrawable) ratingBar.getProgressDrawable();
 		layerDrawable.getDrawable(2).setColorFilter(context.getResources().getColor(R.color.green), PorterDuff.Mode.SRC_ATOP);
+		layerDrawable.getDrawable(1).setColorFilter(context.getResources().getColor(R.color.green), PorterDuff.Mode.SRC_ATOP);
 	}
 }

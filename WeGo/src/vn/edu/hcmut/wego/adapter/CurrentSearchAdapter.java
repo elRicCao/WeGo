@@ -36,7 +36,7 @@ public class CurrentSearchAdapter extends ArrayAdapter<Place> {
 
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(context);
-			convertView = inflater.inflate(R.layout.item_search_place, parent, false);
+			convertView = inflater.inflate(R.layout.item_quick_search_place, parent, false);
 
 			ViewHolder holder = new ViewHolder();
 			holder.nameView = (TextView) convertView.findViewById(R.id.item_search_place_name);

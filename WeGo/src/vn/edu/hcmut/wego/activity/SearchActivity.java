@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.adapter.GroupSearchAdapter;
 import vn.edu.hcmut.wego.adapter.PlaceSearchAdapter;
+import vn.edu.hcmut.wego.adapter.TripSearchAdapter;
 import vn.edu.hcmut.wego.adapter.UserSearchAdapter;
 import vn.edu.hcmut.wego.entity.Group;
 import vn.edu.hcmut.wego.entity.Place;
@@ -18,94 +19,108 @@ import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
 import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class SearchActivity extends ActionBarActivity {
+
+	private enum Search {
+		USER, GROUP, PLACE, TRIP
+	};
+
+	private String[] placeDBName;
+	private ArrayList<Place> placeDB;
 	private ArrayList<Place> places;
 	private ArrayList<Group> groups;
 	private ArrayList<Trip> trips;
 	private ArrayList<User> users;
-	private ListView lv;
 	private PlaceSearchAdapter adapterPlace;
 	private GroupSearchAdapter adapterGroup;
 	private UserSearchAdapter adapterUser;
-	private PlaceSearchAdapter adapterTrip;
-	private EditText tx;
+	private TripSearchAdapter adapterTrip;
+	private ArrayAdapter<String> adapterPlaceDB;
+
+	private ListView resultList;
+
+	private EditText searchField;
+
+	private LinearLayout searchTripGroup;
+	private AutoCompleteTextView departureField;
+	private AutoCompleteTextView destinationField;
+
+	private View lastSelected;
+	private Search type;
+
+	private boolean empty;
 	private int index;
-	private int chosen;
-	private Spinner spinner;
-	private boolean empty = false;
+	private int start_id = 0;
+	private int end_id = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
-		spinner = (Spinner) findViewById(R.id.spinner1);
-		String[] myString = new String[] { "Group", "User", "Trip", "Place" };
-		ArrayAdapter<String> adap = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, myString);
-		spinner.setAdapter(adap);
-		tx = (EditText) findViewById(R.id.autoCompleteTextView1);
-		lv = (ListView) findViewById(R.id.listView1);
-		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				// TODO Auto-generated method stub
-				chosen = arg2;
-				tx.setText("");
-			}
+		ImageButton userButton = (ImageButton) findViewById(R.id.activity_search_user);
+		ImageButton groupButton = (ImageButton) findViewById(R.id.activity_search_group);
+		ImageButton tripButton = (ImageButton) findViewById(R.id.activity_search_trip);
+		ImageButton placeButton = (ImageButton) findViewById(R.id.activity_search_place);
 
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
+		searchField = (EditText) findViewById(R.id.activity_search_field);
 
-			}
-		});
-		tx.addTextChangedListener(new TextWatcher() {
+		searchTripGroup = (LinearLayout) findViewById(R.id.activity_search_trip_group);
+		departureField = (AutoCompleteTextView) findViewById(R.id.activity_search_departure);
+		destinationField = (AutoCompleteTextView) findViewById(R.id.activity_search_destination);
 
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+		resultList = (ListView) findViewById(R.id.activity_search_list);
+
+		setType(Search.USER, userButton);
+
+		userButton.setOnClickListener(chooseListener);
+		groupButton.setOnClickListener(chooseListener);
+		tripButton.setOnClickListener(chooseListener);
+		placeButton.setOnClickListener(chooseListener);
+
+		searchField.setOnEditorActionListener(searchListener);
+		destinationField.setOnEditorActionListener(searchListener);
+		resultList.setOnScrollListener(resultListener);
+	}
+
+	private OnEditorActionListener searchListener = new OnEditorActionListener() {
+
+		@Override
+		public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+			if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 				index = 0;
-				if (s.length() != 0) {
-					empty = false;
-					JSONObject params = new JSONObject();
-					try {
-						params.put("index", index);
-						params.put("input", s.toString());
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					switch (chosen) {
-					case 0:
+				empty = false;
+				JSONObject params = new JSONObject();
 
-						ServerRequest.newServerRequest(RequestType.SEARCH_GROUP, params, new ServerRequestCallback() {
-
-							@Override
-							public void onCompleted(Object... results) {
-
-								// Hide progress bar
-								groups = (ArrayList<Group>) results[0];
-
-								adapterGroup = new GroupSearchAdapter(getBaseContext(), groups);
-								lv.setAdapter(adapterGroup);
-							}
-						}).executeAsync();
-						break;
-					case 1:
+				switch (type) {
+				case USER:
+					String userName = searchField.getText().toString().trim();
+					if (!userName.isEmpty()) {
+						// TODO: search user base on userName
+						try {
+							params.put("input", userName);
+							params.put("index", index);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						ServerRequest.newServerRequest(RequestType.SEARCH_USER, params, new ServerRequestCallback() {
 
 							@Override
@@ -115,14 +130,50 @@ public class SearchActivity extends ActionBarActivity {
 								users = (ArrayList<User>) results[0];
 
 								adapterUser = new UserSearchAdapter(getBaseContext(), users);
-								lv.setAdapter(adapterUser);
+								resultList.setAdapter(adapterUser);
 							}
 						}).executeAsync();
-						break;
-					case 2:
+					}
 
-						break;
-					case 3:
+					break;
+
+				case GROUP:
+					String groupName = searchField.getText().toString().trim();
+					if (!groupName.isEmpty()) {
+						// TODO: search user base on groupName
+						try {
+							params.put("input", groupName);
+							params.put("index", index);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						ServerRequest.newServerRequest(RequestType.SEARCH_GROUP, params, new ServerRequestCallback() {
+
+							@Override
+							public void onCompleted(Object... results) {
+
+								// Hide progress bar
+								groups = (ArrayList<Group>) results[0];
+
+								adapterGroup = new GroupSearchAdapter(getBaseContext(), groups);
+								resultList.setAdapter(adapterGroup);
+							}
+						}).executeAsync();
+					}
+					break;
+
+				case PLACE:
+					String placeName = searchField.getText().toString().trim();
+					if (!placeName.isEmpty()) {
+						// TODO: search user base on userName
+						try {
+							params.put("input", placeName);
+							params.put("index", index);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						ServerRequest.newServerRequest(RequestType.SEARCH_PLACE, params, new ServerRequestCallback() {
 
 							@Override
@@ -132,50 +183,163 @@ public class SearchActivity extends ActionBarActivity {
 								places = (ArrayList<Place>) results[0];
 
 								adapterPlace = new PlaceSearchAdapter(getBaseContext(), places);
-								lv.setAdapter(adapterPlace);
+								resultList.setAdapter(adapterPlace);
 							}
 						}).executeAsync();
-						break;
+					}
+					break;
+				case TRIP:
+					// TODO: search trip base on departure and destination
+					// TODO: check 2 field not null first
+					if (start_id > 0 && end_id > 0) {
+						try {
+							params.put("start_id", start_id);
+							params.put("end_id", end_id);
+							params.put("index", index);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						ServerRequest.newServerRequest(RequestType.SEARCH_TRIP, params, new ServerRequestCallback() {
+
+							@Override
+							public void onCompleted(Object... results) {
+								trips = (ArrayList<Trip>) results[0];
+								adapterTrip = new TripSearchAdapter(getBaseContext(), trips);
+								resultList.setAdapter(adapterTrip);
+
+							}
+						}).executeAsync();
 					}
 
+					break;
 				}
+				return true;
 			}
+			return false;
+		}
+	};
 
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				// TODO Auto-generated method stub
+	private OnClickListener chooseListener = new OnClickListener() {
 
-			}
+		@Override
+		public void onClick(View view) {
+			switch (view.getId()) {
+			case R.id.activity_search_user:
+				setType(Search.USER, view);
+				if (adapterGroup != null)
+					adapterGroup.clear();
+				if (adapterPlace != null)
+					adapterPlace.clear();
+				if (adapterTrip != null)
+					adapterTrip.clear();
+				break;
 
-			@Override
-			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
+			case R.id.activity_search_group:
+				setType(Search.GROUP, view);
+				if (adapterPlace != null)
+					adapterPlace.clear();
+				if (adapterTrip != null)
+					adapterTrip.clear();
+				if (adapterUser != null)
+					adapterUser.clear();
+				break;
 
-			}
-		});
+			case R.id.activity_search_place:
+				setType(Search.PLACE, view);
+				if (adapterGroup != null)
+					adapterGroup.clear();
+				if (adapterTrip != null)
+					adapterTrip.clear();
+				if (adapterUser != null)
+					adapterUser.clear();
+				break;
 
-		lv.setOnScrollListener(new OnScrollListener() {
+			case R.id.activity_search_trip:
+				setType(Search.TRIP, view);
+				if (adapterGroup != null)
+					adapterGroup.clear();
+				if (adapterPlace != null)
+					adapterPlace.clear();
+				if (adapterUser != null)
+					adapterUser.clear();
+				ServerRequest.newServerRequest(RequestType.SELECT, new JSONObject(), new ServerRequestCallback() {
 
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				// TODO Auto-generated method stub
+					@Override
+					public void onCompleted(Object... results) {
+						// Hide progress bar
+						placeDB = (ArrayList<Place>) results[0];
+						placeDBName = new String[placeDB.size()];
+						for (int i = 0; i < placeDB.size(); i++) {
+							placeDBName[i] = placeDB.get(i).getName();
+						}
+						adapterPlaceDB = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, placeDBName);
+						departureField.setAdapter(adapterPlaceDB);
+						destinationField.setAdapter(adapterPlaceDB);
 
-			}
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-				if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount > 0 && !empty) {
-					index += 7;
-					JSONObject params = new JSONObject();
-					try {
-						params.put("index", index);
-						params.put("input", tx.getText().toString());
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						departureField.setOnItemClickListener(new PlaceListener(true));
+						destinationField.setOnItemClickListener(new PlaceListener(false));
 					}
-					switch (chosen) {
-					case 0:
+				}).executeAsync();
+				break;
+			}
+		}
+	};
+
+	private OnScrollListener resultListener = new OnScrollListener() {
+
+		@Override
+		public void onScrollStateChanged(AbsListView view, int scrollState) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+			// TODO Auto-generated method stub
+			if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount > 0 && !empty) {
+				index += 15;
+				JSONObject params = new JSONObject();
+				switch (type) {
+				case USER:
+					String userName = searchField.getText().toString().trim();
+					if (!userName.isEmpty()) {
+						// TODO: search user base on userName
+						try {
+							params.put("input", userName);
+							params.put("index", index);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						ServerRequest.newServerRequest(RequestType.SEARCH_USER, params, new ServerRequestCallback() {
+
+							@Override
+							public void onCompleted(Object... results) {
+
+								// Hide progress bar
+								users = (ArrayList<User>) results[0];
+								if (users.isEmpty())
+									empty = true;
+								for (int i = 0; i < users.size(); i++)
+									adapterUser.add(users.get(i));
+							}
+						}).executeAsync();
+					}
+
+					break;
+
+				case GROUP:
+					String groupName = searchField.getText().toString().trim();
+					if (!groupName.isEmpty()) {
+						// TODO: search user base on groupName
+						try {
+							params.put("input", groupName);
+							params.put("index", index);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						ServerRequest.newServerRequest(RequestType.SEARCH_GROUP, params, new ServerRequestCallback() {
 
 							@Override
@@ -190,26 +354,20 @@ public class SearchActivity extends ActionBarActivity {
 									adapterGroup.add(groups.get(i));
 							}
 						}).executeAsync();
-						break;
-					case 1:
-						ServerRequest.newServerRequest(RequestType.SEARCH_USER, params, new ServerRequestCallback() {
+					}
+					break;
 
-							@Override
-							public void onCompleted(Object... results) {
-
-								// Hide progress bar
-								users = (ArrayList<User>) results[0];
-								if (users.isEmpty())
-									empty = true;
-								for (int i = 0; i < users.size(); i++)
-									adapterUser.add(users.get(i));
-							}
-						}).executeAsync();
-						break;
-					case 2:
-
-						break;
-					case 3:
+				case PLACE:
+					String placeName = searchField.getText().toString().trim();
+					if (!placeName.isEmpty()) {
+						// TODO: search user base on userName
+						try {
+							params.put("input", placeName);
+							params.put("index", index);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						ServerRequest.newServerRequest(RequestType.SEARCH_PLACE, params, new ServerRequestCallback() {
 
 							@Override
@@ -223,38 +381,82 @@ public class SearchActivity extends ActionBarActivity {
 									adapterPlace.add(places.get(i));
 							}
 						}).executeAsync();
-						break;
 					}
+					break;
+				case TRIP:
+					// TODO: search trip base on departure and destination
+					// TODO: check 2 field not null first
+					if (start_id > 0 && end_id > 0) {
+						try {
+							params.put("start_id", start_id);
+							params.put("index", index);
+							params.put("end_id", end_id);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						ServerRequest.newServerRequest(RequestType.SEARCH_TRIP, params, new ServerRequestCallback() {
 
+							@Override
+							public void onCompleted(Object... results) {
+								trips = (ArrayList<Trip>) results[0];
+								if (trips.isEmpty())
+									empty = true;
+								for (int i = 0; i < trips.size(); i++)
+									adapterTrip.add(trips.get(i));
+								;
+
+							}
+						}).executeAsync();
+					}
+					break;
 				}
-				// TODO Auto-generated method stub
 
 			}
-		});
+		}
+	};
+
+	private void setType(Search type, View view) {
+		if (lastSelected != null) {
+			lastSelected.setSelected(false);
+		}
+		view.setSelected(true);
+		lastSelected = view;
+		this.type = type;
+		if (type == Search.USER || type == Search.GROUP || type == Search.PLACE) {
+			searchField.setText("");
+			searchField.setVisibility(View.VISIBLE);
+			searchTripGroup.setVisibility(View.GONE);
+		} else {
+			departureField.setText("");
+			destinationField.setText("");
+			searchField.setVisibility(View.GONE);
+			searchTripGroup.setVisibility(View.VISIBLE);
+		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+	private class PlaceListener implements OnItemClickListener {
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		switch (id) {
-		case R.id.action_settings:
+		private boolean isDeparture;
 
-			break;
-		case R.id.action_search:
-			onSearchRequested();
-			break;
+		public PlaceListener(boolean isDeparture) {
+			// TODO Auto-generated constructor stub
+			this.isDeparture = isDeparture;
 		}
 
-		return super.onOptionsItemSelected(item);
-	}
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			int i;
+			for (i = 0; i < placeDBName.length; i++) {
+				if (placeDBName[i].equals(arg0.getItemAtPosition(arg2))) {
+					if (isDeparture)
+						start_id = placeDB.get(i).getId();
+					else
+						end_id = placeDB.get(i).getId();
+					break;
+				}
+			}
+
+		}
+
+	};
 }

@@ -7,6 +7,8 @@ import com.squareup.picasso.Picasso;
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.entity.User;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,13 +50,21 @@ public class CurrentMemberAdapter extends ArrayAdapter<User> {
 		ViewHolder holder = (ViewHolder) convertView.getTag();
 
 		holder.nameView.setText(member.getName());
-		Picasso.with(context).load(R.drawable.ic_user_default).into(holder.imageView);
-
+		
+		if (member.getImage() == null || member.getImage().isEmpty()) {
+			Picasso.with(context).load(R.drawable.default_user).into(holder.imageView);
+		}
+		else {
+			Picasso.with(context).load(member.getImage()).into(holder.imageView);
+		}
+		
 		holder.callButton.setFocusable(false);
 		holder.callButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				String url = "tel:" + member.getPhone();
+				Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));
+				context.startActivity(intent);
 			}
 		});
 

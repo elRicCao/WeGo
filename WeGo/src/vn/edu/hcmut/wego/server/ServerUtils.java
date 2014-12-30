@@ -39,6 +39,10 @@ class ServerUtils {
 	private static final String FETCH_TOP_PLACE_FUNCTION = "getTopPlace";
 	private static final String FETCH_TOP_PHOTO_FUNCTION = "getTopPhoto";
 	private static final String FETCH_PLACE_INFO_FUNCTION = "getPlaceInfo";
+	private static final String FETCH_TRIP_INFO_FUNCTION = "getTripInfo";
+	private static final String FETCH_HISTORY_TRIP_FUNCTION = "getHistoryTrip";
+	private static final String FETCH_FRIEND_MESSAGE_FUNCTION = "getFriendMessage";
+	private static final String FETCH_COMMENT_POST_FUNCTION = "getCommentPost";
 
 	private static final String ACTION_POST_FUNCTION = "insertPost";
 	private static final String ACTION_COMMENT_POST_FUNCTION = "commentPost";
@@ -56,6 +60,9 @@ class ServerUtils {
 	private static final String ACTION_CANCEL_GROUP_INVITE_FUNCTION = "cancelGroupInvite";
 	private static final String ACTION_SEND_GROUP_MESSAGE_FUNCTION = "sendGroupMessage";
 	private static final String ACTION_UPDATE_GROUP_INFO_FUNCTION = "updateGroup";
+	private static final String ACTION_CREATE_TRIP_FUNCTION = "createTrip";
+	private static final String ACTION_SEND_MESSAGE_FUNCTION = "sendMessage";
+
 
 	private static final String PHP_SELECT = "Select";
 
@@ -72,8 +79,10 @@ class ServerUtils {
 	private static final String SEARCH_USER_FUNCTION = "searchUser";
 
 	private static final String SEARCH_TRIP_FUNCTION = "searchTrip";
-	
+
 	private static final String PUSH_TO_SELECTED_FUCTION = "pushNotification";
+	
+	private static final String SEARCH_PLACE_AROUND_FUNCTION = "getPlaceAround";
 
 	/**
 	 * Make HTTP request to server
@@ -168,32 +177,35 @@ class ServerUtils {
 		case FETCH_GROUP_LIST:
 		case FETCH_GROUP_INFO:
 		case FETCH_GROUP_INVITE:
-			
+
 		case ACTION_POST:
 		case ACTION_COMMENT_POST:
 		case ACTION_LIKE_POST:
-			
+
 		case ACTION_REVIEW:
 		case ACTION_LIKE_REVIEW:
-			
+
 		case ACTION_PHOTO:
 		case ACTION_COMMENT_PHOTO:
 		case ACTION_LIKE_PHOTO:
-			
+
 		case ACTION_SEND_FRIEND_REQUEST:
 		case ACTION_RESPOND_FRIEND_REQUEST:
-			
+
 		case ACTION_FOLLOW:
-			
+
 		case ACTION_CREATE_GROUP:
 		case ACTION_SEND_GROUP_INVITE:
 		case ACTION_CANCEL_GROUP_INVITE:
 		case ACTION_SEND_GROUP_MESSAGE:
 		case ACTION_UPDATE_GROUP_INFO:
+			
+		case ACTION_SEND_MESSAGE:
 			return PHP_SOCIAL;
 
 		case FETCH_USER_INFO:
 		case FETCH_TRIP_LIST:
+			return PHP_SELECT;
 		case FETCH_PLACE_INFO:
 		case FETCH_TOP_PLACE:
 		case FETCH_TOP_PHOTO:
@@ -211,10 +223,21 @@ class ServerUtils {
 			return PHP_SEARCH;
 		case SEARCH_TRIP:
 			return PHP_SEARCH;
-			
+
 		case PUSH_TO_SELECTED_USER:
 			return PHP_SOCIAL;
-			
+		case FETCH_TRIP_INFO:
+			return PHP_SELECT;
+		case SEARCH_PLACE_AROUND:
+			return PHP_SELECT;
+		case FETCH_HISTORY_TRIP:
+			return PHP_SELECT;
+		case FETCH_FRIEND_MESSAGE:
+			return PHP_SELECT;
+		case FETCH_COMMENT_POST:
+			return PHP_SELECT;
+		case ACTION_CREATE_TRIP:
+			return PHP_SELECT;
 		default:
 			return null;
 		}
@@ -301,9 +324,24 @@ class ServerUtils {
 			return FETCH_TOP_PHOTO_FUNCTION;
 		case FETCH_PLACE_INFO:
 			return FETCH_PLACE_INFO_FUNCTION;
-			
+
 		case PUSH_TO_SELECTED_USER:
 			return PUSH_TO_SELECTED_FUCTION;
+		case FETCH_TRIP_INFO:
+			return FETCH_TRIP_INFO_FUNCTION;
+		case SEARCH_PLACE_AROUND:
+			return SEARCH_PLACE_AROUND_FUNCTION;
+		case FETCH_HISTORY_TRIP:
+			return FETCH_HISTORY_TRIP_FUNCTION;
+		case FETCH_FRIEND_MESSAGE:
+			return FETCH_FRIEND_MESSAGE_FUNCTION;
+		case FETCH_COMMENT_POST:
+			return FETCH_COMMENT_POST_FUNCTION;
+		case ACTION_CREATE_TRIP:
+			return ACTION_CREATE_TRIP_FUNCTION;
+		case ACTION_SEND_MESSAGE:
+			return ACTION_SEND_MESSAGE_FUNCTION;
+
 		default:
 			return null;
 		}

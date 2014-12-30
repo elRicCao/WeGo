@@ -16,16 +16,12 @@ public class GroupSearchAdapter extends ArrayAdapter<Group> {
 	private Context context;
 	private ArrayList<Group> groups;
 
-	// private CommentListener listener;
-
-	// private DatabaseOpenHelper database;
 	private Group groupItem;
 
 	public GroupSearchAdapter(Context context, ArrayList<Group> groups) {
 		super(context, 0, groups);
 		this.context = context;
 		this.groups = groups;
-		// database = new DatabaseOpenHelper(context);
 	}
 
 	@Override
@@ -37,8 +33,8 @@ public class GroupSearchAdapter extends ArrayAdapter<Group> {
 
 			ViewHolder holder = new ViewHolder();
 
-			holder.ownerNameView = (TextView) convertView.findViewById(R.id.item_search_group_name);
-			holder.ownerDescriptionView = (TextView) convertView.findViewById(R.id.item_search_group_description);
+			holder.nameView = (TextView) convertView.findViewById(R.id.item_search_group_name);
+			holder.descriptionView = (TextView) convertView.findViewById(R.id.item_search_group_description);
 			convertView.setTag(holder);
 		}
 
@@ -47,8 +43,9 @@ public class GroupSearchAdapter extends ArrayAdapter<Group> {
 
 		// Get view holder from view tag
 		ViewHolder holder = (ViewHolder) convertView.getTag();
-		holder.ownerNameView.setText(groupItem.getName());
-		holder.ownerDescriptionView.setText(groupItem.getDescription());
+		holder.nameView.setText(groupItem.getName());
+		holder.descriptionView.setText(groupItem.getDescription());
+		
 		return convertView;
 	}
 
@@ -58,8 +55,8 @@ public class GroupSearchAdapter extends ArrayAdapter<Group> {
 	private static class ViewHolder {
 
 		// Owner info
-		TextView ownerNameView;
-		TextView ownerDescriptionView;
+		TextView nameView;
+		TextView descriptionView;
 
 	}
 

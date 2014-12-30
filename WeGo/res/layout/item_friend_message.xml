@@ -3,17 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background_action"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:padding="12dp" >
 
     <ImageView
         android:id="@+id/item_friend_message_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_centerVertical="true"
         android:contentDescription="@string/item_friend_message_image"
-        android:padding="@dimen/spacing_normal"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_user_default" />
+        android:src="@drawable/default_user" />
 
     <LinearLayout
         android:id="@+id/item_friend_message_time"
@@ -22,8 +21,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/spacing_normal"
-        android:layout_marginRight="@dimen/spacing_normal"
         android:gravity="end"
         android:orientation="vertical" >
 
@@ -46,8 +43,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/spacing_normal"
-        android:layout_marginRight="@dimen/spacing_normal"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_toEndOf="@id/item_friend_message_image"
         android:layout_toLeftOf="@id/item_friend_message_time"
         android:layout_toRightOf="@id/item_friend_message_image"

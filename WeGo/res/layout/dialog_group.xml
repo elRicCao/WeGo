@@ -22,7 +22,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:orientation="horizontal" >
-            
+
             <ImageButton
                 android:id="@+id/dialog_group_create"
                 android:layout_width="wrap_content"
@@ -37,7 +37,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_action"
                 android:contentDescription="@string/dialog_group_sort"
-                android:src="@drawable/ic_action_sort" />
+                android:src="@drawable/ic_action_sort"
+                android:visibility="gone" />
         </LinearLayout>
 
         <TextView
@@ -45,7 +46,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="177 groups"
             android:textAllCaps="true"
             android:textColor="@color/green"
             android:textStyle="bold" />

@@ -20,13 +20,12 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -137,7 +136,7 @@ public class PostStatusDialog extends DialogFragment {
 					@SuppressWarnings("unchecked")
 					@Override
 					public void onCompleted(Object... results) {
-						ArrayList<Place> places = (ArrayList<Place>) results[0];
+						places = (ArrayList<Place>) results[0];
 						String[] placeName = new String[places.size()];
 
 						for (int i = 0; i < places.size(); i++) {
@@ -177,6 +176,7 @@ public class PostStatusDialog extends DialogFragment {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+			Log.i("Debug", params.toString());
 			ServerRequest.newServerRequest(RequestType.ACTION_POST, params, new ServerRequestCallback() {
 
 				@Override

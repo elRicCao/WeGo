@@ -125,7 +125,8 @@
                 android:layout_marginRight="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_normal"
                 android:background="@drawable/background_card"
-                android:orientation="vertical" >
+                android:orientation="vertical" 
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"

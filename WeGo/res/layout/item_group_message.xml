@@ -2,16 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_action" >
+    android:background="@drawable/background_action"
+    android:padding="12dp" >
 
     <ImageView
         android:id="@+id/item_group_message_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:contentDescription="@string/item_group_message_image"
-        android:padding="@dimen/spacing_normal"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_user_default" />
+        android:src="@drawable/default_group" />
 
     <TextView
         android:id="@+id/item_group_message_group"
@@ -21,8 +20,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/spacing_normal"
-        android:layout_marginRight="@dimen/spacing_normal"
         android:background="@drawable/background_round_corner_red"
         android:text="SaiGon Traveler"
         android:textColor="@color/white"
@@ -32,9 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="@dimen/spacing_normal"
-        android:layout_marginEnd="@dimen/spacing_normal"
-        android:layout_marginRight="@dimen/spacing_normal"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_toEndOf="@id/item_group_message_image"
         android:layout_toLeftOf="@id/item_group_message_group"
         android:layout_toRightOf="@id/item_group_message_image"

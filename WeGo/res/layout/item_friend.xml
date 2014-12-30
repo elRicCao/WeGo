@@ -9,12 +9,12 @@
 
     <ImageView
         android:id="@+id/item_friend_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_centerVertical="true"
         android:contentDescription="@string/item_friend_image"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_user_default" />
+        android:src="@drawable/default_user" />
 
     <ImageButton
         android:id="@+id/item_friend_info"
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_friend_name"
-            android:text="online"
+            android:text="Hello"
             android:textColor="@color/gray"
             android:textSize="14sp" />
     </RelativeLayout>

@@ -73,8 +73,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/dialog_photo_image"
             android:padding="12dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ho_chi_minh_full" />
+            android:scaleType="fitCenter" />
     </LinearLayout>
 
     <View

@@ -17,28 +17,6 @@
             android:textAllCaps="true"
             android:textColor="@color/green"
             android:textStyle="bold" />
-
-        <ProgressBar
-            android:id="@+id/dialog_warning_progress"
-            style="?android:attr/progressBarStyleSmallInverse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="12dp"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/dialog_warning_sent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:contentDescription="@string/dialog_warning_sent"
-            android:src="@drawable/ic_action_accept"
-            android:visibility="gone" />
     </RelativeLayout>
 
     <View
@@ -209,6 +187,7 @@
         android:background="@color/gray" />
 
     <Button
+        android:id="@+id/dialog_warning_send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_action_bottom"

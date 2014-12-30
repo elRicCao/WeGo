@@ -2,6 +2,8 @@ package vn.edu.hcmut.wego.adapter;
 
 import java.util.ArrayList;
 
+import com.squareup.picasso.Picasso;
+
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.activity.UserInfoActivity;
 import vn.edu.hcmut.wego.entity.Message;
@@ -33,7 +35,7 @@ public class CommentAdapter extends ArrayAdapter<Message> {
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(context);
 			convertView = inflater.inflate(R.layout.item_comment, parent, false);
-			
+
 			ViewHolder holder = new ViewHolder();
 			holder.image = (ImageView) convertView.findViewById(R.id.item_comment_image);
 			holder.name = (TextView) convertView.findViewById(R.id.item_comment_name);
@@ -41,15 +43,12 @@ public class CommentAdapter extends ArrayAdapter<Message> {
 			holder.time = (TextView) convertView.findViewById(R.id.item_comment_time);
 			convertView.setTag(holder);
 		}
-		
+
 		ViewHolder holder = (ViewHolder) convertView.getTag();
 		Message item = messages.get(position);
-		
-		//TODO: Load avatar
-		
+
 		holder.name.setText(item.getSender().getName());
 		holder.name.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(context, UserInfoActivity.class);
@@ -57,8 +56,15 @@ public class CommentAdapter extends ArrayAdapter<Message> {
 			}
 		});
 		
+		if (item.getSender().getImage() == null || item.getSender().getImage().isEmpty()) {
+			Picasso.with(context).load(R.drawable.default_user).into(holder.image);
+		}
+		else {
+			Picasso.with(context).load(item.getSender().getImage()).into(holder.image);
+		}
+
 		holder.content.setText(item.getContent());
-		
+
 		holder.time.setText(Utils.formatDate(item.getTime()));
 
 		return convertView;

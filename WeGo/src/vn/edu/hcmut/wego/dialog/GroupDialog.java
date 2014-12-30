@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.adapter.GroupAdapter;
-import vn.edu.hcmut.wego.dialog.ChatDialog.ChatDialogType;
 import vn.edu.hcmut.wego.entity.Group;
 import vn.edu.hcmut.wego.entity.Message;
 import vn.edu.hcmut.wego.entity.User;
@@ -112,8 +111,8 @@ public class GroupDialog extends DialogFragment {
 			final Group group = adapter.getItem(position);
 
 			FragmentManager fragmentManager = GroupDialog.this.getFragmentManager();
-			ChatDialog chatDialog = new ChatDialog(context, ChatDialogType.GROUP_MESSAGE, userId, group.getId());
-			chatDialog.show(fragmentManager, "chat_dialog");
+//			ChatDialog chatDialog = new ChatDialog(context, ChatDialogType.GROUP_MESSAGE, userId, group.getId());
+//			chatDialog.show(fragmentManager, "chat_dialog");
 		}
 	};
 

@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import vn.edu.hcmut.wego.entity.Group;
 import vn.edu.hcmut.wego.entity.InviteRequest;
 import vn.edu.hcmut.wego.entity.Place;
+import vn.edu.hcmut.wego.entity.Trip;
 import vn.edu.hcmut.wego.entity.User;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -133,7 +134,17 @@ public class ServerRequest {
 
 		FETCH_TOP_PLACE, FETCH_TOP_PHOTO,
 		
-		PUSH_TO_SELECTED_USER
+		PUSH_TO_SELECTED_USER,
+		
+		SEARCH_PLACE_AROUND,
+		
+		FETCH_HISTORY_TRIP,
+		
+		FETCH_FRIEND_MESSAGE,
+				
+		FETCH_COMMENT_POST,
+		ACTION_SEND_MESSAGE
+		
 	}
 
 	private ServerRequest(AsyncTask<JSONObject, Void, JSONObject> task, JSONObject params) {
@@ -297,7 +308,7 @@ public class ServerRequest {
 
 			case ACTION_LIKE_POST:
 				parseResult = ServerResult.parse(requestType, result);
-				int status3 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
+				int status3 = (parseResult.isEmpty()) ? 0: (Integer) parseResult.get(1);
 				if (callback != null)
 					callback.onCompleted(status3);
 				break;
@@ -453,7 +464,39 @@ public class ServerRequest {
 				if (callback != null)
 					callback.onCompleted(parseResult);
 				break;
-
+			case FETCH_TRIP_INFO:
+				parseResult = ServerResult.parse(requestType, result);
+				Trip trip = (parseResult.isEmpty()) ? null : (Trip) parseResult.get(0);
+				if (callback != null)
+					callback.onCompleted(trip);
+				break;
+			case SEARCH_PLACE_AROUND:
+				parseResult = ServerResult.parse(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
+			case FETCH_HISTORY_TRIP:
+				parseResult = ServerResult.parse(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
+			case FETCH_COMMENT_POST:
+				parseResult = ServerResult.parse(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				break;
+			case ACTION_SEND_MESSAGE:
+				parseResult = ServerResult.parse(requestType, result);
+				int status99 = (parseResult.isEmpty()) ? 0 : (Integer) parseResult.get(0);
+				if (callback != null)
+					callback.onCompleted(status99);
+				break;
+				
+			case FETCH_FRIEND_MESSAGE:
+				parseResult = ServerResult.parse(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
+				
 			default:
 				break;
 			}

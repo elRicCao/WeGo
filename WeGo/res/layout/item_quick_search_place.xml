@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp" >
+
+    <!-- User image -->
+
+    <ImageView
+        android:id="@+id/item_search_place_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/item_friend_image"
+        android:scaleType="fitXY"/>
+
+    <LinearLayout
+        android:id="@+id/item_search_place_rate_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/item_search_place_route"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_action"
+            android:contentDescription="@string/item_search_place_route"
+            android:src="@drawable/ic_action_route" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/item_search_place_image"
+        android:layout_toLeftOf="@id/item_search_place_rate_group"
+        android:layout_toRightOf="@id/item_search_place_image"
+        android:layout_toStartOf="@id/item_search_place_rate_group"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingBottom="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="6dp" >
+
+        <TextView
+            android:id="@+id/item_search_place_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_action"
+            android:textColor="@color/green"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RatingBar
+            android:id="@+id/item_search_place_rate"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5" />
+    </LinearLayout>
+
+</RelativeLayout>

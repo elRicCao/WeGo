@@ -233,6 +233,7 @@ public class LoginActivity extends ActionBarActivity {
 				// Save login info
 				User user = (User) results[0];
 				Utils.putValueToSharedPreferences(LoginActivity.this, Constant.PREFS_USER_ID, user.getId());
+				Utils.putValueToSharedPreferences(LoginActivity.this, Constant.PREFS_USER_NAME, user.getName());
 
 				// Register App
 				if (Utils.checkPlayServices(LoginActivity.this)) {

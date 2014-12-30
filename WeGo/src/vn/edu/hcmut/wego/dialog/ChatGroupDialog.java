@@ -94,9 +94,9 @@ public class ChatGroupDialog extends DialogFragment {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 //				Intent intent = new Intent(context, UserMessageActivity.class);
 //				context.startActivity(intent);
-				FragmentManager fragmentManager = ChatGroupDialog.this.getFragmentManager();
-				CommentDialog commentDialog = new CommentDialog(context);
-				commentDialog.show(fragmentManager, "comment_dialog");
+//				FragmentManager fragmentManager = ChatGroupDialog.this.getFragmentManager();
+//				ChatDialog chatDialog = new ChatDialog(context, );
+//				chatDialog.show(fragmentManager, "chat_dialog");
 			}
 
 		});

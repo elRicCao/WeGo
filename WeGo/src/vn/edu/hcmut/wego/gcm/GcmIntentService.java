@@ -4,20 +4,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.R;
+import vn.edu.hcmut.wego.activity.CurrentTripActivity;
 import vn.edu.hcmut.wego.activity.MainActivity;
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.server.ServerRequest;
 import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
-import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
 import vn.edu.hcmut.wego.utility.GPSTracker;
 import vn.edu.hcmut.wego.utility.Utils;
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -50,10 +50,10 @@ public class GcmIntentService extends IntentService {
 
 				// Get user location and convert to string
 				GPSTracker gpsTracker = new GPSTracker(this);
-				String location = gpsTracker.getLongitude() + "," + gpsTracker.getLatitude();
+				String location = gpsTracker.getLatitude() + "," + gpsTracker.getLongitude();
 
 				// Prepare the response message
-				String response = Constant.RECEIVE_USER_LOCATION + "|" + location + "|" + String.valueOf(userId);
+				String response = Constant.RECEIVE_USER_LOCATION + "|" + String.valueOf(userId) + "|" + location;
 
 				// Prepair the condition
 				String senderId = contents[1];
@@ -79,13 +79,33 @@ public class GcmIntentService extends IntentService {
 
 			// RECEIVE_USER_LOCATION format: header | location | senderId
 			else if (contents[0].equalsIgnoreCase(Constant.RECEIVE_USER_LOCATION)) {
+				Log.i("Debug receive reply", message);
+				Intent broadcastIntent = new Intent(Constant.BROADCAST_LOCATION_ACTION);
+				broadcastIntent.putExtra("message", message);
+				sendOrderedBroadcast(broadcastIntent, null);
+			}
 
-				// Get user location and user id
-				String location = contents[1];
-				String sender = contents[2];
-
-				// TODO: receive message
-				Log.i("Debug receiver reply GCM", message);
+			else {
+				Log.i("Debug receive", message);
+				String header = contents[0];
+				String sender = contents[3];
+				String notification = new String();
+				if (header.equalsIgnoreCase(Constant.WARNING_WAIT_LOST)) {
+					notification = sender + " gets lost! Slow down!";
+				} else if (header.equalsIgnoreCase(Constant.WARNING_WAIT_VEHICLE)) {
+					notification = sender + "'s vehicle is broken! Slow down!";
+				} else if (header.equalsIgnoreCase(Constant.WARNING_WAIT_GAS)) {
+					notification = sender + " needs to refuel! Slow down!";
+				} else if (header.equalsIgnoreCase(Constant.WARNING_POLICE_ALERT)) {
+					notification = sender + " warns police ahead! Be careful!";
+				} else if (header.equalsIgnoreCase(Constant.WARNING_POLICE_CAPTURE)) {
+					notification = sender + " is captured at police checkpoint!";
+				} else if (header.equalsIgnoreCase(Constant.WARNING_REGROUP)) {
+					notification = sender + " wants everyone to regroup at his/her location!";
+				} else if (header.equalsIgnoreCase(Constant.WARNING_ACCIDENT)) {
+					notification = sender + " gets involved in an accident! Turn back!";
+				}
+				sendNotification(notification, message);
 			}
 		}
 		// Release the wake lock provided by the WakefulBroadcastReceiver.
@@ -95,18 +115,29 @@ public class GcmIntentService extends IntentService {
 	// Put the message into a notification and post it.
 	// This is just one simple example of what you might choose to do with
 	// a GCM message.
-	private void sendNotification(String msg) {
+	private void sendNotification(String notiContent, String message) {
 		NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
+		String[] contents = message.split("\\|");
+		
+		Intent intent = new Intent(this, CurrentTripActivity.class);
+		intent.putExtra("isWarning", true);
+		intent.putExtra("tripId", Integer.parseInt(contents[1]));
+		intent.putExtra("message", message);
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, Intent.FLAG_ACTIVITY_NEW_TASK);
 
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
-		mBuilder.setContentTitle("WeGo");
+		mBuilder.setContentTitle("WeGo Warning");
 		mBuilder.setSmallIcon(R.drawable.ic_launcher);
-		mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(msg));
-		mBuilder.setContentText(msg);
-
+		mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(notiContent));
+		mBuilder.setContentText(notiContent);
 		mBuilder.setContentIntent(contentIntent);
-		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+		mBuilder.setAutoCancel(true);
+
+		Notification notification = mBuilder.build();
+		notification.defaults |= Notification.DEFAULT_SOUND;
+		notification.defaults |= Notification.DEFAULT_VIBRATE;
+
+		mNotificationManager.notify(NOTIFICATION_ID, notification);
 	}
 }

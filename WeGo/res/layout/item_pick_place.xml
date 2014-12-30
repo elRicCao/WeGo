@@ -8,10 +8,10 @@
     android:clickable="true" >
 
     <ImageView
-        android:id="@+id/item_place_image"
+        android:id="@+id/item_pick_place_image"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/po_nagar" />
+        android:src="@drawable/default_place" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -19,12 +19,12 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:layout_toEndOf="@id/item_place_image"
-        android:layout_toRightOf="@id/item_place_image"
+        android:layout_toEndOf="@id/item_pick_place_image"
+        android:layout_toRightOf="@id/item_pick_place_image"
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/item_place_info_name"
+            android:id="@+id/item_pick_place_info_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Po Nagar"
@@ -32,6 +32,7 @@
             android:textStyle="bold" />
 
         <RatingBar
+            android:id="@+id/item_pick_place_rate"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,12 +41,13 @@
     </LinearLayout>
 
     <ImageButton
+        android:id="@+id/item_pick_place_button_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/background_action"
+        android:background="@drawable/background_action_keep"
         android:src="@drawable/ic_action_add" />
 
 </RelativeLayout>

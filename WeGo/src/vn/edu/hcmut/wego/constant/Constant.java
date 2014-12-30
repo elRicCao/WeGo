@@ -40,4 +40,14 @@ public class Constant {
 	public static final String GROUP = "Group";
 	public static final String TRIP = "Trip";
 	public static final String USER = "User";
+	
+	public static final String WARNING_WAIT_LOST = "Lost";
+	public static final String WARNING_WAIT_VEHICLE = "Vehicle";
+	public static final String WARNING_WAIT_GAS = "Gas";
+	public static final String WARNING_POLICE_ALERT = "Alert";
+	public static final String WARNING_POLICE_CAPTURE = "Capture";
+	public static final String WARNING_REGROUP = "Regroup";
+	public static final String WARNING_ACCIDENT = "Accident";
+	
+	public static final String BROADCAST_LOCATION_ACTION = "vn.edu.hcmut.wego.RECEIVE_USER_LOCATION";
 }

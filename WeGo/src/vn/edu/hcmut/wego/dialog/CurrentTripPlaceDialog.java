@@ -6,7 +6,6 @@ import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.activity.CurrentTripActivity.FindRouteCallback;
 import vn.edu.hcmut.wego.adapter.CurrentPlaceAdapter;
 import vn.edu.hcmut.wego.entity.Place;
-import vn.edu.hcmut.wego.utility.Utils;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -22,16 +21,12 @@ import android.widget.TextView;
 
 public class CurrentTripPlaceDialog extends DialogFragment {
 
-	private Context context;
 	private CurrentPlaceAdapter adapter;
-	private int userId;
 	private FindRouteCallback callback;
 
-	public CurrentTripPlaceDialog(Context context, FindRouteCallback _callback) {
-		this.context = context;
-		this.userId = Utils.getUserId(context);
+	public CurrentTripPlaceDialog(Context context, FindRouteCallback _callback, ArrayList<Place> places) {
 		this.callback = _callback;
-		this.adapter = new CurrentPlaceAdapter(context, new ArrayList<Place>(), new PlaceDialogCallback() {
+		this.adapter = new CurrentPlaceAdapter(context, places, new PlaceDialogCallback() {
 			@Override
 			public void onCallback(Place place) {
 				if (callback != null) {
@@ -46,8 +41,6 @@ public class CurrentTripPlaceDialog extends DialogFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setStyle(STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
-		
-		addFakeData();
 	}
 
 	@Override
@@ -71,20 +64,9 @@ public class CurrentTripPlaceDialog extends DialogFragment {
 		return rootView;
 	}
 	
-	public static void create(Context context, FragmentManager fragmentManager, FindRouteCallback callback) {
-		CurrentTripPlaceDialog currentPlacesDialog = new CurrentTripPlaceDialog(context, callback);
+	public static void create(Context context, FragmentManager fragmentManager, FindRouteCallback callback, ArrayList<Place> places) {
+		CurrentTripPlaceDialog currentPlacesDialog = new CurrentTripPlaceDialog(context, callback, places);
 		currentPlacesDialog.show(fragmentManager, "current_place_dialog");
-	}
-
-	private void addFakeData() {
-		Place place = new Place();
-		place.setName("Opera House");
-
-		Place place2 = new Place();
-		place2.setName("Museum");
-
-		adapter.add(place);
-		adapter.add(place2);
 	}
 
 	public interface PlaceDialogCallback {

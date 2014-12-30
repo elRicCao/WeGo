@@ -39,7 +39,7 @@ public class Trip {
 	private byte[] plan;
 
 	// Cost of this trip. This byte array will be convert to Cost object
-	private byte[] cost;
+	private int cost;
 
 	// Privacy mode of trip. If this trip is public, everyone will be able to see and ask for permission to join trip.
 	// Otherwise, the leader must manually invite members
@@ -59,6 +59,8 @@ public class Trip {
 
 	// Trip invite
 	private ArrayList<InviteRequest> invites;
+	
+	private ArrayList<Place> minorDestination;
 	
 	private String announcement;
 
@@ -142,11 +144,11 @@ public class Trip {
 		this.plan = plan;
 	}
 
-	public byte[] getCost() {
+	public int getCost() {
 		return cost;
 	}
 
-	public void setCost(byte[] cost) {
+	public void setCost(int cost) {
 		this.cost = cost;
 	}
 
@@ -172,6 +174,14 @@ public class Trip {
 
 	public void setPlaces(ArrayList<Place> places) {
 		this.places = places;
+	}
+	
+	public ArrayList<Place> getMinorDestination() {
+		return minorDestination;
+	}
+
+	public void setMinorDestination(ArrayList<Place> minorDestination) {
+		this.minorDestination = minorDestination;
 	}
 
 	public ArrayList<Message> getMessages() {

@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.adapter.FriendAdapter;
-import vn.edu.hcmut.wego.dialog.ChatDialog.ChatDialogType;
 import vn.edu.hcmut.wego.entity.Message;
 import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.server.ServerRequest;
@@ -103,7 +102,7 @@ public class FriendDialog extends DialogFragment {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			User friend = adapter.getItem(position);
 			FragmentManager fragmentManager = FriendDialog.this.getFragmentManager();
-			ChatDialog chatDialog = new ChatDialog(context, ChatDialogType.FRIEND_MESSAGE, userId, friend.getId());
+			ChatDialog chatDialog = new ChatDialog(context, userId, friend.getId());
 			chatDialog.show(fragmentManager, "chat_dialog");
 		}
 	};

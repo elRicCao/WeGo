@@ -6,16 +6,20 @@
     android:padding="12dp" >
 
     <TextView
-        android:id="@+id/dialog_comment_num_like"
+        android:id="@+id/dialog_comment_num_comment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" 
+        android:textSize="14sp"
+        android:textColor="@color/green"
+        android:textAllCaps="true"
+        android:textStyle="bold"/>
 
     <ListView
         android:id="@+id/dialog_comment_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/dialog_comment_input_group"
-        android:layout_below="@id/dialog_comment_num_like"
+        android:layout_below="@id/dialog_comment_num_comment"
         android:layout_marginTop="12dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="12dp" />
@@ -48,7 +52,9 @@
             android:background="@drawable/background_dialog_input"
             android:hint="@string/dialog_comment_input"
             android:inputType="text|textMultiLine|textCapSentences"
-            android:textSize="14sp" />
+            android:textSize="14sp" >
+            <requestFocus />
+        </EditText>
     </RelativeLayout>
 
     <View

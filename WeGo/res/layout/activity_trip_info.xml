@@ -80,6 +80,7 @@
                             android:padding="5dp" >
 
                             <ImageView
+                                android:id="@+id/activity_trip_info_start_image"
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
                                 android:layout_margin="5dp"
@@ -89,7 +90,7 @@
                                 android:src="@drawable/ho_chi_minh" />
 
                             <TextView
-                                android:id="@+id/fragment_trip_current_trip_start"
+                                android:id="@+id/activity_trip_info_start_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Ho Chi Minh City"
@@ -115,6 +116,7 @@
                             android:padding="5dp" >
 
                             <ImageView
+                                android:id="@+id/activity_trip_info_end_image"
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
                                 android:layout_margin="5dp"
@@ -124,7 +126,7 @@
                                 android:src="@drawable/nha_trang" />
 
                             <TextView
-                                android:id="@+id/fragment_trip_current_trip_end"
+                                android:id="@+id/activity_trip_info_end_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Nha Trang"
@@ -156,7 +158,7 @@
                             android:orientation="vertical" >
 
                             <TextView
-                                android:id="@+id/activity_group_info_member_num"
+                                android:id="@+id/activity_trip_info_member"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
@@ -226,7 +228,7 @@
                             android:orientation="vertical" >
 
                             <TextView
-                                android:id="@+id/activity_group_info_admin_name"
+                                android:id="@+id/activity_trip_info_admin_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
@@ -267,7 +269,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/activity_group_info_announcement"
+                        android:id="@+id/activity_trip_info_announcement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
@@ -330,8 +332,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="16dp" />
-
-                    
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

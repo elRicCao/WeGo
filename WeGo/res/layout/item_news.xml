@@ -82,7 +82,7 @@
             android:layout_centerVertical="true"
             android:contentDescription="@string/item_friend_image"
             android:scaleType="fitXY"
-            android:src="@drawable/user_default" />
+            android:src="@drawable/default_user" />
 
         <LinearLayout
             android:id="@+id/item_news_like_comment"
@@ -133,9 +133,9 @@
                 android:id="@+id/item_news_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_action"
                 android:layout_marginLeft="12dp"
                 android:layout_marginStart="12dp"
+                android:background="@drawable/background_action"
                 android:text="elRic"
                 android:textColor="@color/green"
                 android:textSize="16sp"
@@ -178,6 +178,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
+        <LinearLayout
+            android:id="@+id/item_news_review_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/item_news_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/item_news_rate"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:numStars="5" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/item_news_content"
             android:layout_width="match_parent"
@@ -189,10 +216,11 @@
             android:id="@+id/item_news_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_sa_pa"
             android:visibility="gone" />
     </LinearLayout>
 

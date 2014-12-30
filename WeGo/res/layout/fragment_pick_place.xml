@@ -13,28 +13,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp" >
+            android:orientation="vertical" >
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Step 1"
-                android:textColor="@color/green"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:padding="12dp" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add departure and destinations"
-                android:textColor="@color/gray"
-                android:textSize="18sp" />
-            
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Step 1"
+                    android:textColor="@color/green"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add departure and destinations"
+                    android:textColor="@color/gray"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_marginTop="12dp"
                 android:alpha="0.5"
                 android:background="@color/gray" />
 
@@ -42,12 +47,20 @@
                 android:id="@+id/departure_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/background_input_normal"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_tag_departure_gray"
+                android:drawableStart="@drawable/ic_tag_departure_gray"
                 android:hint="@string/departure_text_hint"
+                android:imeOptions="actionNext"
+                android:padding="12dp"
                 android:textSize="14sp"
-                android:typeface="sans" >
-            </AutoCompleteTextView>
+                android:typeface="sans" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:alpha="0.5"
+                android:background="@color/gray" />
 
             <LinearLayout
                 android:id="@+id/fragment_minor_destination_list"
@@ -60,13 +73,20 @@
                 android:id="@+id/destination_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/background_input_normal"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_tag_destination_gray"
+                android:drawableStart="@drawable/ic_tag_destination_gray"
                 android:hint="@string/destination_text_hint"
+                android:imeOptions="actionNext"
+                android:padding="12dp"
                 android:textSize="14sp"
-                android:typeface="sans" >
-            </AutoCompleteTextView>
+                android:typeface="sans" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:alpha="0.5"
+                android:background="@color/gray" />
 
             <ImageButton
                 android:id="@+id/button_add_minor_destination"

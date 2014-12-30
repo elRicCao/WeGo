@@ -20,6 +20,7 @@ public class News {
 	private int numOfLikes;
 	private int numOfComments;
 	private int rate;
+	private boolean isLiked;
 	
 	public News() {
 		// TODO Auto-generated constructor stub
@@ -115,6 +116,12 @@ public class News {
 	public void addActor(User user)
 	{
 		actors.add(user);
+	}
+	public boolean isLiked() {
+		return isLiked;
+	}
+	public void setLiked(boolean isLiked) {
+		this.isLiked = isLiked;
 	}
 
 }

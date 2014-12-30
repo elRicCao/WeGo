@@ -2,65 +2,58 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/background_action"
+    android:clickable="true"
     android:padding="12dp" >
-
-    <!-- User image -->
 
     <ImageView
         android:id="@+id/item_search_place_image"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:src="@drawable/default_place" />
+
+    <TextView
+        android:id="@+id/item_search_place_info_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/item_friend_image"
-        android:scaleType="fitXY"/>
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_toEndOf="@id/item_search_place_image"
+        android:layout_toRightOf="@id/item_search_place_image"
+        android:text="Ho Chi Minh City"
+        android:textColor="@color/green"
+        android:textStyle="bold" />
 
     <LinearLayout
-        android:id="@+id/item_search_place_rate_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:orientation="horizontal" >
-
-        <ImageButton
-            android:id="@+id/item_search_place_route"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_action"
-            android:contentDescription="@string/item_search_place_route"
-            android:src="@drawable/ic_action_route" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/item_search_place_image"
-        android:layout_toLeftOf="@id/item_search_place_rate_group"
-        android:layout_toRightOf="@id/item_search_place_image"
-        android:layout_toStartOf="@id/item_search_place_rate_group"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:paddingBottom="6dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:paddingTop="6dp" >
+        android:orientation="horizontal"
+        android:layout_centerVertical="true" >
 
         <TextView
-            android:id="@+id/item_search_place_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_action"
-            android:textColor="@color/green"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <RatingBar
             android:id="@+id/item_search_place_rate"
-            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numStars="5" />
+            android:drawableLeft="@drawable/ic_tag_rate"
+            android:drawableStart="@drawable/ic_tag_rate"
+            android:gravity="center_vertical"
+            android:text="4.5"
+            android:textColor="@color/green"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/item_search_place_wishlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_tag_wishlist"
+            android:drawableStart="@drawable/ic_tag_wishlist"
+            android:gravity="center_vertical"
+            android:text="99"
+            android:textColor="@color/red"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </RelativeLayout>

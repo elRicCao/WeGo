@@ -9,13 +9,13 @@
         style="?android:attr/progressBarStyleInverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" 
-        android:visibility="gone"/>
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/activity_group_info_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
         <LinearLayout
             android:id="@+id/activity_group_info_bottom_bar"
@@ -68,7 +68,7 @@
                         android:layout_height="144dp"
                         android:contentDescription="@string/activity_group_info_image"
                         android:scaleType="fitXY"
-                        android:src="@drawable/user_profile" />
+                        android:src="@drawable/default_group" />
 
                     <TextView
                         android:id="@+id/activity_group_info_name"

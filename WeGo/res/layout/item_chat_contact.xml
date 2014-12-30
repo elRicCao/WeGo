@@ -12,12 +12,12 @@
 
         <ImageView
             android:id="@+id/item_chat_contact_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:contentDescription="@string/item_chat_contact_image"
-            android:src="@drawable/ic_user_default" />
+            android:src="@drawable/default_user" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -41,9 +41,9 @@
                 android:id="@+id/item_chat_contact_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:text="26/11, 12:24am"
-                android:textSize="12sp"
-                android:layout_gravity="end" />
+                android:textSize="12sp" />
         </LinearLayout>
     </RelativeLayout>
 

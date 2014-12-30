@@ -3,16 +3,15 @@ package vn.edu.hcmut.wego.adapter;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
+import com.squareup.picasso.Picasso;
+
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.activity.UserInfoActivity;
 import vn.edu.hcmut.wego.entity.Message;
 import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.utility.Utils;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -28,6 +27,8 @@ public class ChatAdapter extends ArrayAdapter<Message> {
 	private LayoutInflater inflater;
 	private ArrayList<Message> messages;
 	private TreeSet<Integer> currentUserSet = new TreeSet<Integer>();
+	
+	private Context context;
 
 	public ChatAdapter(Context context, ArrayList<Message> messages, int currentUserId) {
 		super(context, 0, messages);
@@ -90,6 +91,15 @@ public class ChatAdapter extends ArrayAdapter<Message> {
 		holder.content.setText(message.getContent());
 		
 		holder.time.setText(Utils.formatDate(message.getTime()));
+		
+		User sender = message.getSender();
+		
+		if (sender.getImage() == null || sender.getImage().isEmpty()) {
+			Picasso.with(context).load(R.drawable.default_user).into(holder.image);
+		}
+		else {
+			Picasso.with(context).load(sender.getImage()).into(holder.image);
+		}
 
 		return convertView;
 	}

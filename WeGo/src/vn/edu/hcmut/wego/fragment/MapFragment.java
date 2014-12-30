@@ -88,23 +88,11 @@ public class MapFragment extends Fragment {
 		if (markerPoints.size() >= 2) {
 			origin = markerPoints.get(0);
 			dest = markerPoints.get(markerPoints.size() - 1);
-			//////////////////////////////////////////////////////
-			BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inSampleSize = 1;
-			Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ho_chi_minh, options);
-			marker = map.addMarker(new MarkerOptions().position(markerPoints.get(0)).title("Ho Chi Minh City").icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 50, 50, true))));
 			
-			options = new BitmapFactory.Options();
-			options.inSampleSize = 1;
-			bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.nha_trang, options);
-			marker = map.addMarker(new MarkerOptions().position(markerPoints.get(2)).title("Nha Trang").icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 50, 50, true))));
+			for (int i = 0; i < markerPoints.size(); i++) {
+				map.addMarker(new MarkerOptions().position(markerPoints.get(i)).title(namePlaces.get(i)));
+			}
 			
-
-			options = new BitmapFactory.Options();
-			options.inSampleSize = 1;
-			bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.da_lat, options);
-			marker = map.addMarker(new MarkerOptions().position(markerPoints.get(1)).title("Da Lat").icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 50, 50, true))));
-			/////////////////////////////////////////////////////////
 			// Getting URL to the Google Directions API
 			String url = getDirectionsUrl(origin, dest);
 

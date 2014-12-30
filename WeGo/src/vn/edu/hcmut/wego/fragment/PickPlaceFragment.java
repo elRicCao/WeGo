@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.json.JSONObject;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.entity.Place;
 import vn.edu.hcmut.wego.server.ServerRequest;
@@ -15,9 +13,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,10 +22,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public class PickPlaceFragment extends Fragment {
 	private ArrayAdapter<String> adapter;
@@ -62,6 +59,7 @@ public class PickPlaceFragment extends Fragment {
 		JSONObject params = new JSONObject();
 		ServerRequest.newServerRequest(RequestType.SELECT, params, new ServerRequestCallback() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onCompleted(Object... results) {
 				// Hide progress bar
@@ -105,7 +103,8 @@ public class PickPlaceFragment extends Fragment {
 				bundle.putParcelableArrayList("markerPoints", markerPoints);
 				bundle.putIntegerArrayList("idPlaces", idPlaces);
 				bundle.putStringArrayList("namePlaces", namePlaces);
-				mapFragment.setArguments(bundle);				
+				mapFragment.setArguments(bundle);		
+				
 				fragmentTransaction.replace(android.R.id.content, mapFragment);
 				fragmentTransaction.commit();
 				
@@ -128,7 +127,7 @@ public class PickPlaceFragment extends Fragment {
 					break;
 				}
 			}
-			markerPoints.add(new LatLng(places.get(i).getLatitude(), places.get(i).getLongtitude()));
+			markerPoints.add(new LatLng(places.get(i).getLatitude(), places.get(i).getLongitude()));
 			
 		}
 		

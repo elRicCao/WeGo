@@ -2,16 +2,9 @@ package vn.edu.hcmut.wego.adapter;
 
 import java.util.ArrayList;
 
-import com.squareup.picasso.Picasso;
-
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.activity.UserInfoActivity;
 import vn.edu.hcmut.wego.dialog.CurrentTripPlaceDialog.PlaceDialogCallback;
-import vn.edu.hcmut.wego.entity.News;
-import vn.edu.hcmut.wego.entity.News.NewsType;
 import vn.edu.hcmut.wego.entity.Place;
-import vn.edu.hcmut.wego.entity.User;
-import vn.edu.hcmut.wego.utility.Utils;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +13,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class CurrentPlaceAdapter extends ArrayAdapter<Place> {
 
 	private Context context;
 	private ArrayList<Place> places;
 	private PlaceDialogCallback callback;
-	private Place place;
 
 	public CurrentPlaceAdapter(Context context, ArrayList<Place> places, PlaceDialogCallback callback) {
 		super(context, 0, places);
@@ -54,15 +47,14 @@ public class CurrentPlaceAdapter extends ArrayAdapter<Place> {
 		}
 
 		// Get news item corresponding by postion
-		place = places.get(position);
+		final Place place = places.get(position);
 
 		// Get view holder from view tag
 		ViewHolder holder = (ViewHolder) convertView.getTag();
 		Picasso.with(context).load(R.drawable.ho_chi_minh).into(holder.imageView);
 		holder.nameView.setText(place.getName());
 		
-		holder.routeButton.setOnClickListener(new OnClickListener() {
-			
+		holder.routeButton.setOnClickListener(new OnClickListener() {	
 			@Override
 			public void onClick(View view) {
 				if (callback != null) {

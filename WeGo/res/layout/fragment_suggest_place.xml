@@ -54,6 +54,7 @@
                     android:textStyle="bold" />
 
                 <Spinner
+                    android:id="@+id/minor_destination_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -96,12 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
-
-                <include layout="@layout/item_pick_place" />
-
-                <include layout="@layout/item_pick_place_fake_1" />
-
-                <include layout="@layout/item_pick_place_fake_2" />
+                
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

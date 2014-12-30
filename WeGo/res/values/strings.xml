@@ -72,7 +72,7 @@
     <string name="item_news_comment">Comment</string>
     <string name="item_news_user_action_write_status"></string>
     <string name="item_news_user_action_post_photo">" post a photo"</string>
-    <string name="item_news_user_action_write_review">" write a review about "</string>
+    <string name="item_news_user_action_write_review">""</string>
 
     <!-- Fragment trip -->
     <string name="title_fragment_trip">Trip</string>

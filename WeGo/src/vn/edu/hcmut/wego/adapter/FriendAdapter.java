@@ -2,6 +2,8 @@ package vn.edu.hcmut.wego.adapter;
 
 import java.util.ArrayList;
 
+import com.squareup.picasso.Picasso;
+
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.activity.UserInfoActivity;
 import vn.edu.hcmut.wego.entity.User;
@@ -65,6 +67,14 @@ public class FriendAdapter extends ArrayAdapter<User> {
 		
 		holder.infoButton.setFocusable(false);
 		holder.infoButton.setOnClickListener(new infoButtonClickListener(friend.getId()));
+		
+		if (friend.getImage() == null || friend.getImage().isEmpty()) {
+			Picasso.with(context).load(R.drawable.default_user).into(holder.imageView);
+		}
+		else {
+			Picasso.with(context).load(friend.getImage()).error(R.drawable.default_user).into(holder.imageView);
+		}
+		
 
 		return convertView;
 	}

@@ -10,8 +10,7 @@
         android:id="@+id/item_place_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-             android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ho_chi_minh_full" />
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
 
 </RelativeLayout>

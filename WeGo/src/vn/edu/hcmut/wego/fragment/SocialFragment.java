@@ -3,6 +3,7 @@ package vn.edu.hcmut.wego.fragment;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +14,6 @@ import vn.edu.hcmut.wego.activity.MainActivity;
 import vn.edu.hcmut.wego.activity.UserInfoActivity;
 import vn.edu.hcmut.wego.constant.Constant;
 import vn.edu.hcmut.wego.dialog.ChatDialog;
-import vn.edu.hcmut.wego.dialog.ChatDialog.ChatDialogType;
 import vn.edu.hcmut.wego.dialog.FriendDialog;
 import vn.edu.hcmut.wego.dialog.GroupDialog;
 import vn.edu.hcmut.wego.entity.Group;
@@ -23,26 +23,33 @@ import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.server.ServerRequest;
 import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
 import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
+import vn.edu.hcmut.wego.utility.Utils;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class SocialFragment extends TabFragment {
 
 	private static final String title = "Social";
 	private static final int iconRes = R.drawable.ic_tab_social;
+	
+	private LinearLayout friendRequestGroup;
+	private LinearLayout groupInviteGroup;
+	private LinearLayout friendMessageGroup;
+	private LinearLayout groupMessageGroup;
 
 	private static enum TypeInviteRequest {
 		FRIEND_REQUEST, GROUP_REQUEST
-
 	};
 
 	private int userId;
@@ -62,6 +69,11 @@ public class SocialFragment extends TabFragment {
 		ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_social, container, false);
 
 		ScrollView socialNews = (ScrollView) rootView.findViewById(R.id.fragment_social_list);
+		
+		friendRequestGroup = (LinearLayout) rootView.findViewById(R.id.fragment_social_section_friend_request);
+		groupInviteGroup = (LinearLayout) rootView.findViewById(R.id.fragment_social_section_group_invite);
+		friendMessageGroup = (LinearLayout) rootView.findViewById(R.id.fragment_social_section_friend_message);
+		groupMessageGroup = (LinearLayout) rootView.findViewById(R.id.fragment_social_section_group_message);
 
 		LinearLayout friendRequest = (LinearLayout) rootView.findViewById(R.id.fragment_social_friend_request_list);
 		LinearLayout groupInvite = (LinearLayout) rootView.findViewById(R.id.fragment_social_group_invite_list);
@@ -92,34 +104,44 @@ public class SocialFragment extends TabFragment {
 		JSONObject params = new JSONObject();
 		try {
 			params.put(Constant.PARAM_USER_ID, userId);
-			// for (int i = 0; i < 1; i++) {
-			// View requestView = inflater.inflate(R.layout.item_friend_request, container, false);
-			// container.addView(requestView);
-			// }
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		ServerRequest.newServerRequest(RequestType.FETCH_FRIEND_REQUEST, params, new ServerRequestCallback() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onCompleted(Object... results) {
 				if (results[0] != null) {
 					inviteRequests = (ArrayList<InviteRequest>) results[0];
 
-					for (int i = 0; i < inviteRequests.size(); i++) {
-						View requestView = inflater.inflate(R.layout.item_friend_request, container, false);
+					if (inviteRequests != null) {
+						friendRequestGroup.setVisibility(View.VISIBLE);
+						for (int i = 0; i < inviteRequests.size(); i++) {
+							View requestView = inflater.inflate(R.layout.item_friend_request, container, false);
 
-						TextView nameRequest = (TextView) requestView.findViewById(R.id.item_friend_request_name);
-						ImageButton btnAccept = (ImageButton) requestView.findViewById(R.id.item_friend_request_accept);
-						ImageButton btnDecline = (ImageButton) requestView.findViewById(R.id.item_friend_request_decline);
-						User sender = new User();
-						sender = (User) inviteRequests.get(i).getSender();
-						nameRequest.setText(sender.getName());
-					//	container.setOnClickListener(new UserInfoActivity.UserInfoListener(context, sender.getId()));
-						container.addView(requestView);
-						requestView.setOnClickListener(new UserInfoActivity.UserInfoListener(context, sender.getId(), userId));
-						btnAccept.setOnClickListener(new RespondListener(sender.getId(), container, requestView, true, TypeInviteRequest.FRIEND_REQUEST));
-						btnDecline.setOnClickListener(new RespondListener(sender.getId(), container, requestView, false, TypeInviteRequest.FRIEND_REQUEST));
+							TextView nameRequest = (TextView) requestView.findViewById(R.id.item_friend_request_name);
+							ImageView imageView = (ImageView) requestView.findViewById(R.id.item_friend_request_image);
+							ImageButton btnAccept = (ImageButton) requestView.findViewById(R.id.item_friend_request_accept);
+							ImageButton btnDecline = (ImageButton) requestView.findViewById(R.id.item_friend_request_decline);
+							User sender = new User();
+							sender = (User) inviteRequests.get(i).getSender();
+							nameRequest.setText(sender.getName());
+							if (sender.getImage() == null || sender.getImage().isEmpty()) {
+								Picasso.with(context).load(R.drawable.default_user).into(imageView);
+							} else {
+								Picasso.with(context).load(sender.getImage()).into(imageView);
+							}
+							container.addView(requestView);
+							requestView.setOnClickListener(new UserInfoActivity.UserInfoListener(context, sender.getId(), userId, sender.getName()));
+							btnAccept.setOnClickListener(new RespondListener(sender.getId(), container, requestView, true, TypeInviteRequest.FRIEND_REQUEST));
+							btnDecline.setOnClickListener(new RespondListener(sender.getId(), container, requestView, false, TypeInviteRequest.FRIEND_REQUEST));
+
+							if (i < inviteRequests.size() - 1) {
+								View dividerView = inflater.inflate(R.layout.item_divider, container, false);
+								container.addView(dividerView);
+							}
+						}
 					}
 				}
 			}
@@ -145,32 +167,39 @@ public class SocialFragment extends TabFragment {
 			// for (int i = 0; i < 1; i++) {
 			// View requestView = inflater.inflate(R.layout.item_friend_request, container, false);
 			// container.addView(requestView);
-			
+
 			// }
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		ServerRequest.newServerRequest(RequestType.FETCH_GROUP_INVITE, params, new ServerRequestCallback() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onCompleted(Object... results) {
-				// TODO Auto-generated method stub
 				inviteRequests = (ArrayList<InviteRequest>) results[0];
-				for (int i = 0; i < inviteRequests.size(); i++) {
-					View inviteView = inflater.inflate(R.layout.item_group_invite, container, false);
+				if (inviteRequests != null) {
+					groupInviteGroup.setVisibility(View.VISIBLE);
+					for (int i = 0; i < inviteRequests.size(); i++) {
+						View inviteView = inflater.inflate(R.layout.item_group_invite, container, false);
 
-					TextView groupName = (TextView) inviteView.findViewById(R.id.item_group_invite_name);
-					TextView groupDesc = (TextView) inviteView.findViewById(R.id.item_group_invite_description);
-					ImageButton btnAccept = (ImageButton) inviteView.findViewById(R.id.item_group_invite_accept);
-					ImageButton btnDecline = (ImageButton) inviteView.findViewById(R.id.item_group_invite_decline);
-					Group groupInvite = new Group();
-					groupInvite = (Group) inviteRequests.get(i).getSender();
-					groupName.setText(groupInvite.getName());
-					groupDesc.setText(groupInvite.getDescription());
-					container.addView(inviteView);
-					inviteView.setOnClickListener(new GroupInfoActivity.GroupInfoListener(context, groupInvite.getId()));
+						TextView groupName = (TextView) inviteView.findViewById(R.id.item_group_invite_name);
+						TextView groupDesc = (TextView) inviteView.findViewById(R.id.item_group_invite_description);
+						ImageButton btnAccept = (ImageButton) inviteView.findViewById(R.id.item_group_invite_accept);
+						ImageButton btnDecline = (ImageButton) inviteView.findViewById(R.id.item_group_invite_decline);
+						Group groupInvite = new Group();
+						groupInvite = (Group) inviteRequests.get(i).getSender();
+						groupName.setText(groupInvite.getName());
+						groupDesc.setText(groupInvite.getDescription());
+						container.addView(inviteView);
+						inviteView.setOnClickListener(new GroupInfoActivity.GroupInfoListener(context, groupInvite.getId()));
+
+						if (i < inviteRequests.size() - 1) {
+							View dividerView = inflater.inflate(R.layout.item_divider, container, false);
+							container.addView(dividerView);
+						}
+					}
 				}
-
 			}
 		}).executeAsync();
 
@@ -196,9 +225,12 @@ public class SocialFragment extends TabFragment {
 		}
 		ServerRequest.newServerRequest(RequestType.FETCH_LAST_MESSAGE, params, new ServerRequestCallback() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onCompleted(Object... results) {
 				ArrayList<Message> message = (ArrayList<Message>) results[0];
+				if (message == null)
+					return;
 				for (int i = 0; i < message.size(); i++) {
 					for (int j = i + 1; j < message.size(); j++) {
 						if (message.get(i).getSender().getId() == message.get(j).getSender().getId()) {
@@ -209,6 +241,7 @@ public class SocialFragment extends TabFragment {
 					}
 				}
 				for (int i = 0; i < message.size(); i++) {
+					friendMessageGroup.setVisibility(View.VISIBLE);
 					View messageView = inflater.inflate(R.layout.item_friend_message, container, false);
 					TextView messageName = (TextView) messageView.findViewById(R.id.item_friend_message_name);
 					TextView messageContent = (TextView) messageView.findViewById(R.id.item_friend_message_content);
@@ -216,12 +249,18 @@ public class SocialFragment extends TabFragment {
 					TextView timeHour = (TextView) messageView.findViewById(R.id.item_friend_message_time_hour);
 					messageName.setText(message.get(i).getSender().getName());
 					messageContent.setText(message.get(i).getContent());
-					DateFormat df = new SimpleDateFormat("MMM dd");				
+					DateFormat df = new SimpleDateFormat("MMM dd", Locale.ENGLISH);
 					timeDate.setText(df.format(message.get(i).getTime()));
-					df = new SimpleDateFormat("h:mm a");				
+					df = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
 					timeHour.setText(df.format(message.get(i).getTime()));
 					container.addView(messageView);
-					container.setOnClickListener(new ChatDialog.ChatDialogListener(context, getFragmentManager(), ChatDialogType.FRIEND_MESSAGE, 0, 1));
+					container.setOnClickListener(new ChatDialog.ChatDialogListener(context, getFragmentManager(), Utils.getUserId(context), message.get(i).getSender()
+							.getId()));
+
+					if (i < message.size() - 1) {
+						View dividerView = inflater.inflate(R.layout.item_divider, container, false);
+						container.addView(dividerView);
+					}
 				}
 			}
 		}).executeAsync();
@@ -233,7 +272,11 @@ public class SocialFragment extends TabFragment {
 			for (int i = 0; i < 1; i++) {
 				View messageView = inflater.inflate(R.layout.item_group_message, container, false);
 				container.addView(messageView);
-				container.setOnClickListener(new ChatDialog.ChatDialogListener(context, getFragmentManager(), ChatDialogType.GROUP_MESSAGE, 0, 1));
+//				container.setOnClickListener(new ChatDialog.ChatDialogListener(context, getFragmentManager(), ChatDialogType.GROUP_MESSAGE, 0, 1));
+				if (i < inviteRequests.size() - 1) {
+					View dividerView = inflater.inflate(R.layout.item_divider, container, false);
+					container.addView(dividerView);
+				}
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();

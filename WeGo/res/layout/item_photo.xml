@@ -111,7 +111,6 @@
         android:layout_below="@id/item_photo_description"
         android:layout_marginTop="12dp"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ho_chi_minh_full" />
+        android:scaleType="centerCrop"/>
 
 </RelativeLayout>

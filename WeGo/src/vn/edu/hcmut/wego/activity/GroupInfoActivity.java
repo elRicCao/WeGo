@@ -90,25 +90,25 @@ public class GroupInfoActivity extends ActionBarActivity {
 	private void loadData() {
 		Intent intent = getIntent();
 		int group_id = intent.getExtras().getInt("group_id");
-		// JSONObject params = new JSONObject();
-		// try {
-		// params.put("group_id", group_id);
-		// } catch (JSONException e) {
-		// e.printStackTrace();
-		// }
-		// ServerRequest.newServerRequest(RequestType.FETCH_GROUP_INFO, params, new ServerRequestCallback() {
-		//
-		// @Override
-		// public void onCompleted(Object... results) {
-		// // respond friend request
-		// Group group = (Group) results[0];
-		// nameView.setText(group.getName());
-		// memberNumView.setText(String.valueOf(group.getCount()));
-		// adminNameView.setText(group.getAdmin().getName());
-		// annoucementView.setText(group.getAnnouncement().getContent());
-		// }
-		//
-		// }).executeAsync();
+		JSONObject params = new JSONObject();
+		try {
+			params.put("group_id", group_id);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		ServerRequest.newServerRequest(RequestType.FETCH_GROUP_INFO, params, new ServerRequestCallback() {
+
+			@Override
+			public void onCompleted(Object... results) {
+				// respond friend request
+				Group group = (Group) results[0];
+				nameView.setText(group.getName());
+				memberNumView.setText(String.valueOf(group.getCount()));
+				adminNameView.setText(group.getAdmin().getName());
+				annoucementView.setText(group.getAnnouncement().getContent());
+			}
+
+		}).executeAsync();
 	}
 
 	private void setLoadingStatus(boolean status) {

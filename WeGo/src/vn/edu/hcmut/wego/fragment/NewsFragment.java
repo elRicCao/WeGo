@@ -1,6 +1,7 @@
 package vn.edu.hcmut.wego.fragment;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +19,7 @@ import vn.edu.hcmut.wego.dialog.CommentDialog;
 import vn.edu.hcmut.wego.dialog.PostPhotoDialog;
 import vn.edu.hcmut.wego.dialog.PostStatusDialog;
 import vn.edu.hcmut.wego.entity.News;
+import vn.edu.hcmut.wego.entity.Place;
 import vn.edu.hcmut.wego.entity.News.NewsType;
 import vn.edu.hcmut.wego.entity.User;
 import vn.edu.hcmut.wego.server.ServerRequest;
@@ -76,8 +78,6 @@ public class NewsFragment extends TabFragment {
 		super.onCreate(savedInstanceState);
 		newsAdapter = new NewsAdapter(context, new ArrayList<News>());
 		newsAdapter.setCommentListener(commentListener);
-		
-//		addFakeData();
 	}
 
 	@Override
@@ -102,10 +102,15 @@ public class NewsFragment extends TabFragment {
 		// Set up action for photo button
 		photoButton.setOnClickListener(photoButtonListener);
 
+		return rootView;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
 		JSONObject params = new JSONObject();
 		try {
-			params.put("user",userId);
-			// params.put("placeId", s.toString());
+			params.put("user", userId);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -115,18 +120,21 @@ public class NewsFragment extends TabFragment {
 			public void onCompleted(Object... results) {
 				@SuppressWarnings("unchecked")
 				ArrayList<News> news = (ArrayList<News>) results[0];
+				Log.i("Debug", String.valueOf(news.size()));
+				newsAdapter.clear();
+				newsAdapter.notifyDataSetChanged();
 				newsAdapter.addAll(news);
+				
+				addFakeData();
 			}
 		}).executeAsync();
-		
-		return rootView;
 	}
 
 	private CommentListener commentListener = new CommentListener() {
 		@Override
 		public void onComment(News newsItem) {
 			FragmentManager fragmentManager = NewsFragment.this.getFragmentManager();
-			CommentDialog commentDialog = new CommentDialog(context);
+			CommentDialog commentDialog = new CommentDialog(context, newsItem);
 			commentDialog.show(fragmentManager, "comment_dialog");
 		}
 	};
@@ -204,7 +212,7 @@ public class NewsFragment extends TabFragment {
 			final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
 
 			PostPhotoDialog.CreatePhotoDialog(context, getFragmentManager(), bitmap);
-			
+
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
@@ -269,62 +277,31 @@ public class NewsFragment extends TabFragment {
 
 	private void addFakeData() {
 		User user1 = new User();
-		user1.setName("elRic");
-
-		User user2 = new User();
-		user2.setName("Mai Huu Nhan");
-
-		User user3 = new User();
-		user3.setName("Phan Tran Viet");
-
-		User user4 = new User();
-		user4.setName("SuperBo");
-
-		// = Sample post
-		News news = new News();
-		news.setOwner(user1);
-		news.setType(NewsType.POST);
-		news.setTime(new Date());
-		news.setContent("Sample Post!");
-		news.setNumOfLikes(0);
-		news.setNumOfComments(0);
-		newsAdapter.add(news);
-
-		// = Sample post with comment
-		news = new News();
-		news.setOwner(user1);
-
-		ArrayList<User> actors = new ArrayList<User>();
-		actors.add(user2);
-		actors.add(user3);
-		actors.add(user4);
-		news.setActors(actors);
-
-		news.setType(NewsType.COMMENT_POST);
-		news.setTime(new Date());
-		news.setContent("Sample Post with Comment!");
-		news.setNumOfLikes(0);
-		news.setNumOfComments(actors.size());
-
-		newsAdapter.add(news);
-
-		// = Sample Post with like
-		news = new News();
-		news.setOwner(user2);
-
-		actors = new ArrayList<User>();
-		actors.add(user1);
-		news.setActors(actors);
-
-		news.setType(NewsType.LIKE_POST);
-		news.setTime(new Date());
-		news.setContent("Sampe Post with like!");
-		news.setNumOfLikes(actors.size());
-		news.setNumOfComments(0);
-
-		newsAdapter.add(news);
-		newsAdapter.add(news);
-		newsAdapter.add(news);
-		newsAdapter.add(news);
+		user1.setName("Như Ý");
+		
+		Place place1 = new Place();
+		place1.setName("Ho Chi Minh City");
+		
+		News news1 = new News();
+		news1.setType(NewsType.REVIEW);
+		news1.setPlace(place1);
+		news1.setRate(4);
+		
+		String date = "2014-12-30 8:17:00";
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		
+		
+		try {
+			news1.setTime(dateFormat.parse(date));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		news1.setContent("Amazing City!");
+		news1.setNumOfLikes(10);
+		
+		news1.setOwner(user1);
+		
+		newsAdapter.add(news1);
 	}
 }

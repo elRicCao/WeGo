@@ -2,77 +2,126 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="12dp" >
+    android:background="@color/white"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:padding="12dp" >
 
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/activity_search_user"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_input_normal" />
+            android:layout_weight="1"
+            android:background="@drawable/background_action_keep"
+            android:contentDescription="@string/dialog_search_restaurant"
+            android:src="@drawable/ic_action_user" />
 
-        <EditText
-            android:id="@+id/autoCompleteTextView1"
+        <ImageButton
+            android:id="@+id/activity_search_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_action_keep"
+            android:contentDescription="@string/dialog_search_hotel"
+            android:src="@drawable/ic_action_group_gray" />
+
+        <ImageButton
+            android:id="@+id/activity_search_place"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_action_keep"
+            android:contentDescription="@string/dialog_search_repair"
+            android:src="@drawable/ic_action_places" />
+
+        <ImageButton
+            android:id="@+id/activity_search_trip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_action_keep"
+            android:contentDescription="@string/dialog_search_gas_station"
+            android:src="@drawable/ic_action_trip" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:alpha="0.5"
+        android:background="@color/gray" />
+
+    <EditText
+        android:id="@+id/activity_search_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_tag_search"
+        android:drawableStart="@drawable/ic_tag_search"
+        android:hint="Type to search..."
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:padding="12dp"
+        android:singleLine="true"
+        android:textSize="14sp"
+        android:typeface="sans" />
+
+    <LinearLayout
+        android:id="@+id/activity_search_trip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <AutoCompleteTextView
+            android:id="@+id/activity_search_departure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:background="@drawable/background_input_normal"
+            android:background="@android:color/transparent"
             android:drawableLeft="@drawable/ic_tag_search"
-            android:hint="Type to search..."
+            android:drawableStart="@drawable/ic_tag_search"
+            android:hint="Departure"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:typeface="sans" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:alpha="0.5"
+            android:background="@color/gray" />
+
+        <AutoCompleteTextView
+            android:id="@+id/activity_search_destination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_tag_search"
+            android:drawableStart="@drawable/ic_tag_search"
+            android:hint="Destination"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true"
             android:textSize="14sp"
             android:typeface="sans" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal" >
-        
-        <TextView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Result"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/gray"
-            android:layout_marginLeft="12dp"
-            android:layout_centerVertical="true"/>
-
-        <ImageButton
-            android:id="@+id/suggest_place_sort"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/background_action"
-            android:src="@drawable/ic_action_sort" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/suggest_place_sort"
-            android:background="@drawable/background_action"
-            android:src="@drawable/ic_action_filter" />
-    </RelativeLayout>
-
     <View
-        android:id="@+id/dialog_status_divider"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:alpha="0.5"
         android:background="@color/gray" />
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/activity_search_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:background="@drawable/background_card">
+        android:layout_height="wrap_content" >
     </ListView>
 
 </LinearLayout>

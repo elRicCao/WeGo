@@ -17,7 +17,7 @@
             <!-- Top place section -->
 
             <LinearLayout
-                android:id="@+id/fragment_social_section_top_place"
+                android:id="@+id/fragment_more_section_top_place"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
@@ -30,9 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_section_title"
-                    android:drawableEnd="@drawable/ic_action_more"
                     android:drawableLeft="@drawable/ic_tag_top"
-                    android:drawableRight="@drawable/ic_action_more"
                     android:drawableStart="@drawable/ic_tag_top"
                     android:gravity="center_vertical"
                     android:text="@string/fragment_more_top_place"
@@ -48,7 +46,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/fragment_more_top_photo"
+                android:id="@+id/fragment_more_section_top_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
@@ -61,9 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_section_title"
-                    android:drawableEnd="@drawable/ic_action_more"
                     android:drawableLeft="@drawable/ic_tag_top"
-                    android:drawableRight="@drawable/ic_action_more"
                     android:drawableStart="@drawable/ic_tag_top"
                     android:gravity="center_vertical"
                     android:text="@string/fragment_more_top_photo"

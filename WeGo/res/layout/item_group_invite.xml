@@ -3,17 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background_action"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:padding="12dp" >
 
     <ImageView
         android:id="@+id/item_group_invite_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_centerVertical="true"
         android:contentDescription="@string/item_group_invite_image"
-        android:padding="@dimen/spacing_normal"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_user_default" />
+        android:src="@drawable/default_group" />
 
     <LinearLayout
         android:id="@+id/item_group_invite_action"
@@ -22,8 +22,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/spacing_normal"
-        android:layout_marginRight="@dimen/spacing_normal"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -48,9 +46,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/spacing_normal"
-        android:layout_marginRight="@dimen/spacing_normal"
-        android:layout_marginTop="@dimen/spacing_large"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_toEndOf="@id/item_group_invite_image"
         android:layout_toLeftOf="@id/item_group_invite_action"
         android:layout_toRightOf="@id/item_group_invite_image"

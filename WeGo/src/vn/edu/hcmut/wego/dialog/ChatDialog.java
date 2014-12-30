@@ -3,15 +3,20 @@ package vn.edu.hcmut.wego.dialog;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import vn.edu.hcmut.wego.R;
 import vn.edu.hcmut.wego.adapter.ChatAdapter;
 import vn.edu.hcmut.wego.entity.Message;
 import vn.edu.hcmut.wego.entity.User;
+import vn.edu.hcmut.wego.server.ServerRequest;
+import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
+import vn.edu.hcmut.wego.server.ServerRequest.ServerRequestCallback;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
@@ -29,10 +34,6 @@ import android.widget.TextView.OnEditorActionListener;
 
 public class ChatDialog extends DialogFragment {
 
-	public enum ChatDialogType {
-		FRIEND_MESSAGE, GROUP_MESSAGE, TRIP_MESSAGE
-	}
-
 	private Context context;
 	private ChatAdapter adapter;
 
@@ -42,24 +43,14 @@ public class ChatDialog extends DialogFragment {
 	private User contact;
 	private User currentUser;
 
-	private Handler handler;
-
-	private Runnable update = new Runnable() {
-		@Override
-		public void run() {
-			// TODO: Create Server Request to pull message from server
-		}
-	};
-
-	public ChatDialog(Context context, ChatDialogType type, int userId, int generalContactId) {
+	public ChatDialog(Context context, int userId, int generalContactId) {
 		this.context = context;
-		
-		// TODO: Debug
+
 		currentUser = new User();
-		currentUser.setId(1);
+		currentUser.setId(userId);
 
 		contact = new User();
-		contact.setId(2);
+		contact.setId(generalContactId);
 	}
 
 	@Override
@@ -68,8 +59,7 @@ public class ChatDialog extends DialogFragment {
 		setStyle(STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
 
 		adapter = new ChatAdapter(context, new ArrayList<Message>(), currentUser.getId());
-		handler = new Handler();
-		addFakeData();
+		// addFakeData();
 	}
 
 	@Override
@@ -78,13 +68,11 @@ public class ChatDialog extends DialogFragment {
 		getDialog().getWindow().setLayout(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
 		getDialog().getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_ADJUST_RESIZE | LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-		update.run();
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		handler.removeCallbacks(update);
 	}
 
 	@Override
@@ -103,6 +91,8 @@ public class ChatDialog extends DialogFragment {
 
 		// Set up click event of send button
 		sendButton.setOnClickListener(sendButtonClickListener);
+
+		loadData();
 
 		return rootView;
 	}
@@ -128,50 +118,69 @@ public class ChatDialog extends DialogFragment {
 	private void onSend() {
 		String message = inputView.getText().toString().trim();
 		if (!message.isEmpty()) {
-			// TODO: Create server request to push message to server
+			JSONObject params = new JSONObject();
+			try {
+				params.put("sender", currentUser.getId());
+				params.put("receiver", contact.getId());
+				params.put("content", inputView.getText().toString());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			ServerRequest.newServerRequest(RequestType.ACTION_SEND_MESSAGE, params, new ServerRequestCallback() {
+
+				@Override
+				public void onCompleted(Object... results) {
+					if (Integer.parseInt(results[0].toString()) == 1) {
+						loadData();
+					}
+
+				}
+			}).executeAsync();
 
 		}
 	}
 	
+	private void loadData() {
+		JSONObject params = new JSONObject();
+		try {
+			params.put("user_id", currentUser.getId());
+			params.put("friend_id", contact.getId());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		ServerRequest.newServerRequest(RequestType.FETCH_FRIEND_MESSAGE, params, new ServerRequestCallback() {
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public void onCompleted(Object... results) {
+				ArrayList<Message> messages = (ArrayList<Message>) results[0];
+				adapter.clear();
+				for (Message message : messages) {
+					adapter.add(message);
+				}
+			}
+		}).executeAsync();
+	}
+
 	public static class ChatDialogListener implements OnClickListener {
 
 		private Context context;
 		private FragmentManager fragmentManager;
-		private ChatDialogType type;
 		private int userId;
 		private int generalContactId;
-		
-		public ChatDialogListener(Context context, FragmentManager fragmentManager, ChatDialogType type, int userId, int generalContactId) {
+
+		public ChatDialogListener(Context context, FragmentManager fragmentManager, int userId, int generalContactId) {
 			this.context = context;
 			this.fragmentManager = fragmentManager;
-			this.type = type;
 			this.userId = userId;
 			this.generalContactId = generalContactId;
 		}
-		
+
 		@Override
 		public void onClick(View view) {
-			ChatDialog chatDialog = new ChatDialog(context, type, userId, generalContactId);
+			ChatDialog chatDialog = new ChatDialog(context, userId, generalContactId);
 			chatDialog.show(fragmentManager, "chat_dialog");
 		}
-		
-	}
 
-	private void addFakeData() {
-		Message message = new Message();
-
-		message.setSender(currentUser);
-		message.setContent("Hey, do you want to join my trip to Vinh Long? It's from 27/11 to 30/11 and we will stay at my friend's house");
-		message.setTime(new Date());
-
-		Message message2 = new Message();
-
-		message2.setSender(contact);
-		message2.setContent("Nice. How about cost and vehicle? I think we should ride our motorbike because it will be cheaper and more convenient");
-		message2.setTime(new Date());
-
-		adapter.add(message);
-		adapter.add(message2);
-		
 	}
 }

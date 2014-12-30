@@ -13,7 +13,10 @@ public class Place {
 	public enum PlaceType {
 		Province, City, Distric, MinorCity, Town, Hotel, Resort, RestHouse, Restaurant
 	}
-
+	public Place() {
+		// TODO Auto-generated constructor stub
+		isChosen = false;
+	}
 	// Id of place in database
 	private int id;
 
@@ -31,6 +34,8 @@ public class Place {
 
 	// Average rate of this place
 	private double averageRate;
+	
+	private String avatar;
 
 	// Cost of place
 	private int cost;
@@ -42,7 +47,7 @@ public class Place {
 	private ArrayList<Review> reviews;
 
 	// GPS location of place
-	private double longtitude;
+	private double longitude;
 	private double latitude;
 
 	// True if this place is a special landmark
@@ -50,10 +55,9 @@ public class Place {
 	
 	private Place district;
 	private Place province;
+	private boolean isChosen;
 
 	private int numOfWishlist;
-	
-	private String avatar;
 	
 	public Place getDistrict() {
 		return district;
@@ -143,13 +147,7 @@ public class Place {
 		this.reviews = reviews;
 	}
 
-	public double getLongtitude() {
-		return longtitude;
-	}
 
-	public void setLongtitude(double longtitude) {
-		this.longtitude = longtitude;
-	}
 
 	public double getLatitude() {
 		return latitude;
@@ -175,6 +173,22 @@ public class Place {
 	public void setNumOfWishList(int numOfWishList)
 	{
 		this.numOfWishlist = numOfWishList;
+	}
+	public boolean isChosen()
+	{
+		return isChosen;
+	}
+	public void setChosen(boolean isChosen)
+	{
+		this.isChosen = isChosen;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 
 	public String getAvatar() {

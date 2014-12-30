@@ -3,14 +3,16 @@ package vn.edu.hcmut.wego.adapter;
 import java.util.ArrayList;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.entity.Group;
 import vn.edu.hcmut.wego.entity.User;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class UserSearchAdapter extends ArrayAdapter<User> {
 
@@ -37,9 +39,10 @@ public class UserSearchAdapter extends ArrayAdapter<User> {
 			convertView = inflater.inflate(R.layout.item_search_user, parent, false);
 
 			ViewHolder holder = new ViewHolder();
-
-			holder.ownerNameView = (TextView) convertView.findViewById(R.id.item_search_user_name);
-	//		holder.ownerDescriptionView = (TextView) convertView.findViewById(R.id.item_search_group_description);
+			
+			holder.imageView = (ImageView) convertView.findViewById(R.id.item_search_user_image);
+			holder.nameView = (TextView) convertView.findViewById(R.id.item_search_user_name);
+			holder.locationView = (TextView) convertView.findViewById(R.id.item_search_user_location);
 			convertView.setTag(holder);
 		}
 
@@ -48,8 +51,10 @@ public class UserSearchAdapter extends ArrayAdapter<User> {
 
 		// Get view holder from view tag
 		ViewHolder holder = (ViewHolder) convertView.getTag();
-		holder.ownerNameView.setText(userItem.getName());
-	//	holder.ownerDescriptionView.setText(groupItem.getDescription());
+		holder.nameView.setText(userItem.getName());
+		holder.locationView.setText(userItem.getLocation().getName());
+		Picasso.with(context).load(userItem.getImage()).into(holder.imageView);
+		
 		return convertView;
 	}
 
@@ -58,9 +63,9 @@ public class UserSearchAdapter extends ArrayAdapter<User> {
 	 */
 	private static class ViewHolder {
 
-		// Owner info
-		TextView ownerNameView;
-	//	TextView ownerDescriptionView;
+		ImageView imageView;
+		TextView nameView;
+		TextView locationView;
 
 	}
 
