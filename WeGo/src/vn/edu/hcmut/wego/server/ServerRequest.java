@@ -497,6 +497,10 @@ public class ServerRequest {
 				if (callback != null)
 					callback.onCompleted(parseResult);
 				
+			case ACTION_CREATE_TRIP:
+				parseResult = ServerResult.parse(requestType, result);
+				if (callback != null)
+					callback.onCompleted(parseResult);
 			default:
 				break;
 			}

@@ -80,7 +80,7 @@ public class ServerResult {
 							news.setType(NewsType.POST);
 							news.setContent(item.getString("content_post"));
 							news.setId(Integer.parseInt(item.getString("post_id")));
-							
+
 							SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 							try {
 								news.setTime(dateFormat.parse(item.getString("time")));
@@ -129,7 +129,7 @@ public class ServerResult {
 							news.setContent(item.getString("content_post"));
 							news.setId(Integer.parseInt(item.getString("post_id")));
 							parseResult.add(news);
-							
+
 							break;
 
 						case 5:
@@ -282,19 +282,39 @@ public class ServerResult {
 				break;
 
 			case FETCH_GROUP_INFO:
-				Log.i("Debug", result.toString());
+				Log.i("Debug group info", result.toString());
 				if (result.getInt(Constant.SUCCESS) == 1) {
 					JSONArray array = result.getJSONArray(Constant.RESULT);
 					JSONObject tmp = array.getJSONObject(0);
 					Group group = new Group();
-					Message message = new Message();
-					message.setContent(tmp.getString("annoucement"));
-					group.setAnnouncement(message);
 					group.setName(tmp.getString("name"));
-					User user = new User();
-					user.setName(tmp.getString("owner"));
-					group.setAdmin(user);
-					group.setCount(Integer.parseInt(tmp.getString("count")));
+					group.setDescription(tmp.getString("description"));
+					User owner = new User();
+					owner.setName(tmp.getString("owner_name"));
+					group.setAdmin(owner);
+					Message annoucement = new Message();
+					annoucement.setContent(tmp.getString("annoucement"));
+					group.setAnnouncement(annoucement);
+
+					group.setCount(Integer.parseInt(tmp.getString("num_of_member")));
+
+					JSONArray arrayRequest = tmp.getJSONArray("requests");
+					ArrayList<InviteRequest> inviteRequests = new ArrayList<InviteRequest>();
+					for (int i = 0; i < arrayRequest.length(); i++) {
+						JSONObject objRequest = arrayRequest.getJSONObject(i);
+						InviteRequest inviteRequest = new InviteRequest();
+						inviteRequest.setType(Type.GROUP_REQUEST);
+						
+						User sender = new User();
+						sender.setId(Integer.parseInt(objRequest.getString("id")));
+						sender.setImage(objRequest.getString("avatar"));
+						sender.setName(objRequest.getString("name"));
+						
+						inviteRequest.setSender(sender);
+
+						inviteRequests.add(inviteRequest);
+					}
+					group.setRequests(inviteRequests);
 
 					parseResult.add(group);
 
@@ -415,19 +435,18 @@ public class ServerResult {
 						place.setName(placeInfo.getString("name"));
 						place.setNumOfWishList(Integer.parseInt(placeInfo.getString("num_of_wishlist")));
 						place.setAvatar(placeInfo.getString("avatar"));
-						
+
 						int numOfReviews = Integer.parseInt(placeInfo.getString("num_of_review"));
 						if (numOfReviews == 0) {
 							place.setAverageRate(0.0);
-						}
-						else {
+						} else {
 							place.setAverageRate((double) Integer.parseInt(placeInfo.getString("total_rate")) / numOfReviews);
 						}
-						
+
 						Place province = new Place();
 						province.setId(Integer.parseInt(placeInfo.getString("province_id")));
 						place.setProvince(province);
-						
+
 						parseResult.add(place);
 					}
 				}
@@ -445,7 +464,7 @@ public class ServerResult {
 						if (Double.parseDouble(placeInfo.getString("num_of_review")) != 0)
 							rate = Double.parseDouble(placeInfo.getString("total_rate")) / Double.parseDouble(placeInfo.getString("num_of_review"));
 						place.setAverageRate(rate);
-						
+
 						place.setNumOfWishList(Integer.parseInt(placeInfo.getString("num_of_wishlist")));
 
 						parseResult.add(place);
@@ -610,6 +629,9 @@ public class ServerResult {
 					Trip trip = new Trip();
 					JSONArray array = result.getJSONArray(Constant.RESULT);
 					JSONObject tmp = array.getJSONObject(0);
+					trip.setAnnouncement(tmp.getString("annoucement"));
+					trip.setCost(Integer.parseInt(tmp.getString("cost")));
+					trip.setDescription(tmp.getString("description"));
 					Place startPlace = new Place();
 					startPlace.setId(Integer.parseInt(tmp.getString("start_id")));
 					startPlace.setName(tmp.getString("start_name"));
@@ -757,7 +779,7 @@ public class ServerResult {
 				break;
 
 			case ACTION_CREATE_TRIP:
-
+				Log.i("Debug create trip", result.toString());
 				parseResult.add(result.getInt(Constant.SUCCESS));
 				break;
 			default:

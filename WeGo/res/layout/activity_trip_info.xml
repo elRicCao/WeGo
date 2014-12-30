@@ -5,336 +5,324 @@
     tools:context="vn.edu.hcmut.wego.activity.TripInfoActivity" >
 
     <ProgressBar
-        android:id="@+id/activity_group_info_loading"
-        style="?android:attr/progressBarStyleInverse"
+        android:id="@+id/activity_trip_info_loading"
+        style="?android:attr/progressBarStyleSmallInverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone" />
 
-    <RelativeLayout
-        android:id="@+id/activity_group_info_content"
+    <ScrollView
+        android:id="@+id/activity_trip_info_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/activity_group_info_bottom_bar"
-            style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" >
-
-            <LinearLayout
-                android:id="@+id/activity_group_info_join"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_action_join"
-                    android:drawableStart="@drawable/ic_action_join"
-                    android:gravity="center"
-                    android:text="@string/activity_group_info_join"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/activity_group_info_bottom_bar" >
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/background_card_square"
                 android:gravity="center_horizontal"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:padding="16dp" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_card_square"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="16dp" >
+                    android:background="@drawable/background_action"
+                    android:orientation="horizontal" >
+
+                    <!-- Start location -->
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:id="@+id/fragment_trip_current_trip_start_info"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/background_action"
-                        android:orientation="horizontal" >
-
-                        <!-- Start location -->
-
-                        <LinearLayout
-                            android:id="@+id/fragment_trip_current_trip_start_info"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:padding="5dp" >
-
-                            <ImageView
-                                android:id="@+id/activity_trip_info_start_image"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:layout_margin="5dp"
-                                android:background="@drawable/background_circle_image"
-                                android:contentDescription="@string/item_trip_label_leader"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/ho_chi_minh" />
-
-                            <TextView
-                                android:id="@+id/activity_trip_info_start_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Ho Chi Minh City"
-                                android:textColor="@color/gray" />
-                        </LinearLayout>
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="5dp" >
 
                         <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/next" />
+                            android:id="@+id/activity_trip_info_start_image"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/background_circle_image"
+                            android:contentDescription="@string/item_trip_label_leader"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ho_chi_minh" />
 
-                        <!-- Current location -->
-
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/activity_trip_info_start_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:padding="5dp" >
+                            android:text="Ho Chi Minh City"
+                            android:textColor="@color/gray" />
+                    </LinearLayout>
 
-                            <ImageView
-                                android:id="@+id/activity_trip_info_end_image"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:layout_margin="5dp"
-                                android:background="@drawable/background_circle_image"
-                                android:contentDescription="@string/item_trip_label_leader"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/nha_trang" />
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/next" />
 
-                            <TextView
-                                android:id="@+id/activity_trip_info_end_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Nha Trang"
-                                android:textColor="@color/gray" />
-                        </LinearLayout>
+                    <!-- Current location -->
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="5dp" >
+
+                        <ImageView
+                            android:id="@+id/activity_trip_info_end_image"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/background_circle_image"
+                            android:contentDescription="@string/item_trip_label_leader"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/nha_trang" />
+
+                        <TextView
+                            android:id="@+id/activity_trip_info_end_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nha Trang"
+                            android:textColor="@color/gray" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:alpha="0.5"
+                    android:background="@color/gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:id="@+id/activity_group_info_member"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_action"
+                        android:clickable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/activity_trip_info_member"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/default_group_member"
+                            android:textColor="@color/gray"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/activity_group_info_member"
+                            android:textColor="@color/gray" />
                     </LinearLayout>
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_width="1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="12dp"
                         android:alpha="0.5"
                         android:background="@color/gray" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:id="@+id/activity_trip_info_time"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal" >
+                        android:layout_weight="1"
+                        android:background="@drawable/background_action"
+                        android:clickable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
 
-                        <LinearLayout
-                            android:id="@+id/activity_group_info_member"
-                            android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/activity_trip_info_Time"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/background_action"
-                            android:clickable="true"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical" >
+                            android:gravity="center"
+                            android:text="1/1 - 4/1"
+                            android:textColor="@color/gray"
+                            android:textSize="18sp" />
+                    </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/activity_trip_info_member"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/default_group_member"
-                                android:textColor="@color/gray"
-                                android:textSize="22sp" />
+                    <View
+                        android:layout_width="1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="12dp"
+                        android:alpha="0.5"
+                        android:background="@color/gray" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/activity_group_info_member"
-                                android:textColor="@color/gray" />
-                        </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/activity_group_info_admin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_action"
+                        android:clickable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
 
-                        <View
-                            android:layout_width="1px"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="12dp"
-                            android:layout_marginTop="12dp"
-                            android:alpha="0.5"
-                            android:background="@color/gray" />
-
-                        <LinearLayout
-                            android:id="@+id/activity_trip_info_time"
-                            android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/activity_trip_info_admin_name"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/background_action"
-                            android:clickable="true"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical" >
+                            android:gravity="center"
+                            android:text="@string/default_user_name"
+                            android:textColor="@color/green"
+                            android:textSize="22sp" />
 
-                            <TextView
-                                android:id="@+id/activity_trip_info_Time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="1/1 - 4/1"
-                                android:textColor="@color/gray"
-                                android:textSize="20sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Time"
-                                android:textColor="@color/gray" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="1px"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="12dp"
-                            android:layout_marginTop="12dp"
-                            android:alpha="0.5"
-                            android:background="@color/gray" />
-
-                        <LinearLayout
-                            android:id="@+id/activity_group_info_admin"
-                            android:layout_width="0dp"
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/background_action"
-                            android:clickable="true"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical" >
-
-                            <TextView
-                                android:id="@+id/activity_trip_info_admin_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/default_user_name"
-                                android:textColor="@color/green"
-                                android:textSize="22sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/activity_group_info_admin"
-                                android:textColor="@color/gray" />
-                        </LinearLayout>
+                            android:gravity="center"
+                            android:text="@string/activity_group_info_admin"
+                            android:textColor="@color/gray" />
                     </LinearLayout>
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/background_card"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_section_title"
-                        android:drawableLeft="@drawable/ic_tag_announcement"
-                        android:drawableStart="@drawable/ic_tag_announcement"
-                        android:gravity="center_vertical"
-                        android:text="@string/activity_group_info_announcement"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/activity_trip_info_announcement"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="16dp"
-                        android:text="@string/default_group_announcement"
-                        android:textColor="@color/gray"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/background_card"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_section_title"
-                        android:drawableLeft="@drawable/ic_tag_group_request"
-                        android:drawableStart="@drawable/ic_tag_group_request"
-                        android:gravity="center_vertical"
-                        android:text="Trip Request"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:id="@+id/activity_group_info_request"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/background_card"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_section_title"
-                        android:drawableLeft="@drawable/ic_tag_info"
-                        android:drawableStart="@drawable/ic_tag_info"
-                        android:gravity="center_vertical"
-                        android:text="Trip Info"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:id="@+id/activity_group_info_message"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp" />
-                </LinearLayout>
             </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/background_card"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_section_title"
+                    android:drawableLeft="@drawable/ic_tag_announcement"
+                    android:drawableStart="@drawable/ic_tag_announcement"
+                    android:gravity="center_vertical"
+                    android:text="@string/activity_group_info_announcement"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/activity_trip_info_announcement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:text="@string/default_group_announcement"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/background_card"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_section_title"
+                    android:drawableLeft="@drawable/ic_tag_group_request"
+                    android:drawableStart="@drawable/ic_tag_group_request"
+                    android:gravity="center_vertical"
+                    android:text="Trip Request"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/activity_trip_info_request"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:background="@drawable/background_card"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_section_title"
+                    android:drawableLeft="@drawable/ic_tag_info"
+                    android:drawableStart="@drawable/ic_tag_info"
+                    android:gravity="center_vertical"
+                    android:text="Trip Info"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/activity_group_info_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/activity_trip_info_bottom_bar"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <LinearLayout
+            android:id="@+id/activity_group_info_join"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_action_join"
+                android:drawableStart="@drawable/ic_action_join"
+                android:gravity="center"
+                android:text="@string/activity_group_info_join"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

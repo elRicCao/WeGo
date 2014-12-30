@@ -104,6 +104,7 @@ public class ReviewTripFragment extends Fragment {
 
 					@Override
 					public void onCompleted(Object... results) {
+						Log.i("Debug create trip", "complete");
 						getActivity().finish();
 					}
 				}).executeAsync();

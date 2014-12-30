@@ -110,7 +110,7 @@ public class TripFragment extends TabFragment {
 						Utils.setUpRatingBar(context, ratingBar);
 
 						nextTrip.addView(tripView);
-						tripView.setOnClickListener(new TripInfoActivity.TripInfoListener(context, i));
+						tripView.setOnClickListener(new TripInfoActivity.TripInfoListener(context, tripList.get(i).getId()));
 
 						if (i < tripList.size() - 1) {
 							View dividerView = inflater.inflate(R.layout.item_divider, container, false);

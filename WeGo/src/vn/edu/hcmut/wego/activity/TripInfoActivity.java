@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.edu.hcmut.wego.R;
-import vn.edu.hcmut.wego.entity.Place;
 import vn.edu.hcmut.wego.entity.Trip;
 import vn.edu.hcmut.wego.server.ServerRequest;
 import vn.edu.hcmut.wego.server.ServerRequest.RequestType;
@@ -23,6 +22,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class TripInfoActivity extends ActionBarActivity {
@@ -37,15 +39,31 @@ public class TripInfoActivity extends ActionBarActivity {
 	private TextView announceView;
 	private TextView adminName;
 
+	private ProgressBar progressBar;
+	private ScrollView contentView;
+	private LinearLayout buttonBar;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trip_info);
 		actionBar = getActionBar();
+
+		progressBar = (ProgressBar) findViewById(R.id.activity_trip_info_loading);
+		contentView = (ScrollView) findViewById(R.id.activity_trip_info_content);
+		buttonBar = (LinearLayout) findViewById(R.id.activity_trip_info_bottom_bar);
+
+		progressBar.setVisibility(View.VISIBLE);
+		contentView.setVisibility(View.GONE);
+		contentView.setOnTouchListener(new MainActivity.BottomBarListener(this, buttonBar));
+
 		startName = (TextView) findViewById(R.id.activity_trip_info_start_name);
 		endName = (TextView) findViewById(R.id.activity_trip_info_end_name);
+
 		numOfMember = (TextView) findViewById(R.id.activity_trip_info_member);
+
 		timeView = (TextView) findViewById(R.id.activity_trip_info_Time);
+
 		adminName = (TextView) findViewById(R.id.activity_trip_info_admin_name);
 		announceView = (TextView) findViewById(R.id.activity_trip_info_announcement);
 
@@ -54,16 +72,12 @@ public class TripInfoActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.trip_info, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -80,13 +94,24 @@ public class TripInfoActivity extends ActionBarActivity {
 				@Override
 				public void onCompleted(Object... results) {
 					Trip trip = (Trip) results[0];
+					
 					startName.setText(trip.getStartPlace().getName());
 					endName.setText(trip.getMinorDestination().get(trip.getMinorDestination().size() - 1).getName());
+					
 					numOfMember.setText(String.valueOf(trip.getMembers().size()));
 					adminName.setText(trip.getLeader().getName());
-					announceView.setText(trip.getAnnouncement());
+					
 					DateFormat df = new SimpleDateFormat("d/M", Locale.ENGLISH);
 					timeView.setText(df.format(trip.getStartDate()) + " - " + df.format(trip.getEndDate()));
+					
+					announceView.setText(trip.getAnnouncement());
+					
+					
+					
+					
+
+					progressBar.setVisibility(View.GONE);
+					contentView.setVisibility(View.VISIBLE);
 				}
 			}).executeAsync();
 		} catch (JSONException e) {

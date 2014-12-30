@@ -192,7 +192,7 @@ public class SocialFragment extends TabFragment {
 						groupName.setText(groupInvite.getName());
 						groupDesc.setText(groupInvite.getDescription());
 						container.addView(inviteView);
-						inviteView.setOnClickListener(new GroupInfoActivity.GroupInfoListener(context, groupInvite.getId()));
+						inviteView.setOnClickListener(new GroupInfoActivity.GroupInfoListener(context, groupInvite.getId(), ""));
 
 						if (i < inviteRequests.size() - 1) {
 							View dividerView = inflater.inflate(R.layout.item_divider, container, false);
